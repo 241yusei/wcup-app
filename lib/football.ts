@@ -19,6 +19,7 @@ function toCode(enName: string): string {
 function mapStage(stage: string): string {
   const m: Record<string, string> = {
     GROUP_STAGE: "グループステージ",
+    LAST_32: "ラウンド32",
     LAST_16: "ラウンド16",
     QUARTER_FINALS: "準々決勝",
     SEMI_FINALS: "準決勝",

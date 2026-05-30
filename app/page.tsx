@@ -20,6 +20,12 @@ const features = [
     desc: "戦術・注目選手・小ネタまで。推し国・推し選手がきっと見つかる。",
   },
   {
+    href: "/deep",
+    icon: "🔭",
+    title: "サッカー深掘り",
+    desc: "戦術・観戦術・数字の読み方・用語辞典。にわかから“通”へ解像度を上げる。",
+  },
+  {
     href: "/news",
     icon: "📰",
     title: "ニュース",
@@ -142,7 +148,7 @@ export default async function Home() {
             </span>
           </div>
         </div>
-        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
           {features.map((f) => (
             <Link
               key={f.href}

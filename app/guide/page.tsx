@@ -226,6 +226,25 @@ export default function GuidePage() {
           </Link>
         </div>
       </section>
+
+      {/* 次のステップ：深掘り */}
+      <section className="mb-6">
+        <Link
+          href="/deep"
+          className="group block rounded-2xl border border-jpnavy/20 bg-jpnavy text-white p-6 hover:opacity-95 transition-opacity"
+        >
+          <div className="text-2xl mb-2">🔭</div>
+          <div className="font-bold text-lg mb-1">
+            ルールを覚えたら、次は“通”への深掘り
+          </div>
+          <p className="text-sm text-white/80 leading-relaxed">
+            戦術キーワード・ボールから目を離す観戦術・xGなど数字の読み方・用語辞典まで。観戦の解像度を一段あげる読みものを用意しました。
+          </p>
+          <span className="inline-block text-sm font-medium mt-3 group-hover:underline">
+            サッカー深掘りを読む →
+          </span>
+        </Link>
+      </section>
     </div>
   );
 }
