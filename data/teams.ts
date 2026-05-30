@@ -10,7 +10,7 @@ export const teams: Team[] = [
     enName: "Japan",
     flag: "🇯🇵",
     group: "F",
-    fifaRank: 15,
+    fifaRank: 18,
     themeColor: "#14224f",
     nickname: "サムライブルー",
     tactics:
@@ -55,7 +55,7 @@ export const teams: Team[] = [
     enName: "Argentina",
     flag: "🇦🇷",
     group: "J",
-    fifaRank: 1,
+    fifaRank: 3,
     themeColor: "#75aadb",
     nickname: "アルビセレステ",
     tactics:
@@ -77,7 +77,7 @@ export const teams: Team[] = [
     enName: "France",
     flag: "🇫🇷",
     group: "I",
-    fifaRank: 2,
+    fifaRank: 1,
     themeColor: "#1a2a6c",
     nickname: "レ・ブルー",
     tactics:
@@ -99,7 +99,7 @@ export const teams: Team[] = [
     enName: "Spain",
     flag: "🇪🇸",
     group: "H",
-    fifaRank: 8,
+    fifaRank: 2,
     themeColor: "#c60b1e",
     nickname: "ラ・ロハ",
     tactics:
@@ -165,7 +165,7 @@ export const teams: Team[] = [
     enName: "Portugal",
     flag: "🇵🇹",
     group: "K",
-    fifaRank: 6,
+    fifaRank: 5,
     themeColor: "#006600",
     nickname: "セレソン・ダス・キナス",
     tactics:
@@ -303,7 +303,7 @@ export const teams: Team[] = [
     recent:
       "本大会はグループFで日本と同組。2022年には王者フランスを撃破した実績もあり、油断できない相手。",
     players: [
-      { name: "ハンニバル・メイブリ", position: "MF", club: "マンチェスター・ユナイテッド", why: "闘志あふれる中盤の万能型。球際の強さでチームに勢いを呼ぶ。" },
+      { name: "ハンニバル・メイブリ", position: "MF", club: "バーンリー（イングランド）", why: "闘志あふれる中盤の万能型。球際の強さでチームに勢いを呼ぶ。" },
     ],
     trivia: [
       "2022年大会でフランスを1-0で破る金星を挙げた。",
@@ -337,7 +337,7 @@ export const teams: Team[] = [
     enName: "Croatia",
     flag: "🇭🇷",
     group: "L",
-    fifaRank: 9,
+    fifaRank: 10,
     themeColor: "#ff0000",
     nickname: "ヴァトレニ（炎の男たち）",
     tactics:
@@ -345,7 +345,7 @@ export const teams: Team[] = [
     recent:
       "本大会はグループLでイングランドと同組。2018年準決勝でイングランドを破った再戦が見もの。人口400万人の小国ながら2018年準優勝・2022年3位の常連。",
     players: [
-      { name: "ルカ・モドリッチ", position: "MF", club: "レアル・マドリード", why: "40歳近くでも世界トップの司令塔。年齢を超越した技術に驚く。" },
+      { name: "ルカ・モドリッチ", position: "MF", club: "ACミラン", why: "40歳でも世界トップの司令塔。年齢を超越した技術に驚く。" },
     ],
     trivia: [
       "赤白チェックのユニフォームは国旗のデザインそのもの。一目で分かる。",
@@ -411,7 +411,7 @@ export const teams: Team[] = [
       "南米予選を得失点差でウルグアイ・ブラジルの上に立つ好成績で突破し、FIFAランクは13位前後の有力国。グループKでポルトガル・コンゴ民主共和国・ウズベキスタンと同居し、ポルトガルとの上位争いがグループ首位の鍵になる。",
     players: [
       { name: "ルイス・ディアス", position: "ウインガー", club: "バイエルン・ミュンヘン", why: "バイエルンの左を切り裂く爆発力。ドリブルとスピードで一瞬にして試合を動かすエース。" },
-      { name: "ハメス・ロドリゲス", position: "ミッドフィルダー", club: "クラブ・レオン（メキシコ）", why: "2014年W杯得点王の左足の魔術師。今も代表の主将としてゲームを操る司令塔。" },
+      { name: "ハメス・ロドリゲス", position: "ミッドフィルダー", club: "ミネソタ・ユナイテッド（MLS）", why: "2014年W杯得点王の左足の魔術師。今も代表の主将としてゲームを操る司令塔。" },
     ],
     trivia: [
       "世界有数のコーヒー産地で、香り高いアラビカ種の名産地として知られる。",
@@ -468,7 +468,7 @@ export const teams: Team[] = [
     enName: "Senegal",
     flag: "🇸🇳",
     group: "I",
-    fifaRank: 18,
+    fifaRank: 14,
     themeColor: "#00853F",
     nickname: "テランガのライオン",
     tactics:
@@ -630,7 +630,7 @@ export const teams: Team[] = [
     recent:
       "クリスチャンセン監督の下、予選を危なげなく勝ち抜き2度目の本大会へ。グループLではイングランドが本命で、クロアチア・ガーナとの2位争いに割って入れるかが勝負どころだ。",
     players: [
-      { name: "アニバル・ゴドイ", position: "MF", club: "プーマスUNAM", why: "代表約160キャップの司令塔キャプテン、CONCACAF屈指のゲームメーカー。" },
+      { name: "アニバル・ゴドイ", position: "MF", club: "サンディエゴFC（MLS）", why: "代表約160キャップの司令塔キャプテン、CONCACAF屈指のゲームメーカー。" },
       { name: "アダルベルト・カラスキージャ", position: "MF", club: "プーマスUNAM", why: "中盤の底でバランスを取る潰し屋、攻守の切り替えで存在感を放つ。" },
     ],
     trivia: [
@@ -675,7 +675,7 @@ export const teams: Team[] = [
       "OFC予選を圧倒し、地区から直接出場枠を得て初のプレーオフ回避で本大会へ。グループGではベルギーが本命だが、エジプト・イラン相手なら互角の勝負に持ち込めると見ている。",
     players: [
       { name: "クリス・ウッド", position: "FW", club: "ノッティンガム・フォレスト", why: "プレミアで活躍する大黒柱、予選9得点を量産したキャプテン兼点取り屋。" },
-      { name: "マルコ・スタメニッチ", position: "ミッドフィルダー", club: "オリンピアコス（ギリシャ）", why: "オリンピアコスでプレーする若き中盤の主力。豊富な運動量と展開力でチームの心臓を担う。" },
+      { name: "マルコ・スタメニッチ", position: "ミッドフィルダー", club: "スウォンジー・シティ（イングランド）", why: "英2部スウォンジーでプレーする若き中盤の主力。豊富な運動量と展開力でチームの心臓を担う。" },
     ],
     trivia: [
       "サッカーよりラグビーが国民的スポーツで、代表「オールブラックス」と試合前の踊り「ハカ」が世界的に有名。",
@@ -710,7 +710,7 @@ export const teams: Team[] = [
     enName: "Belgium",
     flag: "🇧🇪",
     group: "G",
-    fifaRank: 8,
+    fifaRank: 9,
     themeColor: "#E30613",
     nickname: "赤い悪魔（Red Devils）",
     tactics:
@@ -754,7 +754,7 @@ export const teams: Team[] = [
     enName: "Norway",
     flag: "🇳🇴",
     group: "I",
-    fifaRank: 25,
+    fifaRank: 31,
     themeColor: "#BA0C2F",
     nickname: "ローベネ（Løvene／ライオンズ）",
     tactics:
@@ -807,7 +807,7 @@ export const teams: Team[] = [
       "プレーオフでウェールズ、イタリアを連続PK戦で破る大金星で本大会出場を決めた。グループBでは開催国カナダ、スイス、カタールと対戦し、初の決勝T進出を目指す。",
     players: [
       { name: "エディン・ジェコ", position: "FW", club: "シャルケ04（ドイツ）", why: "40歳でもまだ点を取る生ける伝説。元マンCの大エースに注目だよ。" },
-      { name: "セアド・コラシナツ", position: "DF", club: "フェネルバフチェ（トルコ）", why: "屈強な左サイドの守備職人。2014年組の生き残りで、守りの精神的支柱。" },
+      { name: "セアド・コラシナツ", position: "DF", club: "アタランタ（イタリア）", why: "屈強な左サイドの守備職人。2014年組の生き残りで、守りの精神的支柱。" },
     ],
     trivia: [
       "国民食ćevapi（チェヴァピ）など、トルコ文化の影響を受けた料理が名物。",
@@ -917,7 +917,7 @@ export const teams: Team[] = [
       "アジア最終予選で日本に次ぐ2位を確保し、6大会連続のW杯出場を決めた。グループDでは開催国アメリカ、パラグアイ、トルコと対戦し、組2位以内を狙える位置にいる。",
     players: [
       { name: "マーティン・ボイル", position: "FW", club: "ハイバーニアン（スコットランド）", why: "スピードと突破力でサイドを切り裂く、攻撃の推進役。" },
-      { name: "ミッチェル・デューク", position: "FW", club: "町田ゼルビア（日本）", why: "Jリーグでもおなじみ、空中戦に強い経験豊富な9番候補。" },
+      { name: "ミッチェル・デューク", position: "FW", club: "マカーサーFC（豪州）", why: "Jリーグでもおなじみ、空中戦に強い経験豊富な9番候補。" },
     ],
     trivia: [
       "もともとはオセアニア所属で、強くなりすぎて2006年からアジア連盟へ移籍した珍しい経歴を持つ。",
@@ -961,7 +961,7 @@ export const teams: Team[] = [
       "ロペテギ監督のもとUAEを破り、史上初めて予選を勝ち抜いての出場を決めた。グループBはスイス、カナダ、ボスニア・ヘルツェゴビナと拮抗し、初の決勝トーナメント進出が現実味を帯びる。",
     players: [
       { name: "アクラム・アフィフ", position: "FW（左ウイング）", club: "アル・サッド", why: "アジア最優秀選手2度の絶対的エース。予選で大会最多11アシストを記録した司令塔で、彼のラストパスから多くが生まれる。" },
-      { name: "アルモエズ・アリ", position: "FW（センターフォワード）", club: "アル・サッド系国内クラブ", why: "アジア予選得点王（12点）の点取り屋。アフィフとのホットラインでゴールを量産する決定力が見どころ。" },
+      { name: "アルモエズ・アリ", position: "FW（センターフォワード）", club: "アル・ドゥハイル（カタール）", why: "アジア予選得点王（12点）の点取り屋。アフィフとのホットラインでゴールを量産する決定力が見どころ。" },
     ],
     trivia: [
       "国土は秋田県ほどの広さながら世界有数の天然ガス埋蔵量を誇り、一人あたりGDPは世界トップクラスの富裕国。",
@@ -983,7 +983,7 @@ export const teams: Team[] = [
       "アジア予選を危なげなく突破し、ガレノイ監督が30人を発表。一方でアズムンが招集外となり波紋を呼んだ。グループGではベルギーが本命だが、エジプト、ニュージーランドを相手に十分に勝ち上がりを狙える。",
     players: [
       { name: "メフディ・タレミ", position: "FW（センターフォワード）", club: "オリンピアコス（ギリシャ）", why: "代表通算100キャップ超の大黒柱で3度目のW杯。欧州で揉まれた決定力とポストプレーがチームの生命線。" },
-      { name: "アリレザ・ジャハンバフシュ", position: "FW（ウイング）", club: "クラブ・ブルッヘ系", why: "元ブライトンの実力派ウインガー。経験豊富なドリブルとセットプレーで攻撃に変化をつける。" },
+      { name: "アリレザ・ジャハンバフシュ", position: "FW（ウイング）", club: "FCVデンダー（ベルギー）", why: "元ブライトンの実力派ウインガー。経験豊富なドリブルとセットプレーで攻撃に変化をつける。" },
     ],
     trivia: [
       "正式名称はイラン・イスラム共和国で、公用語は英語やアラビア語ではなくペルシャ語。詩と絨毯（ペルシャ絨毯）の文化が世界的に名高い。",
