@@ -184,6 +184,20 @@ export default function GuidePage() {
           <span className="colors-stripe-thin w-6 rounded-full inline-block" />
           🧭 タイプ別・推し国の見つけ方
         </h2>
+        <div className="flex items-center gap-3 mb-3 rounded-2xl border border-line bg-surface p-4">
+          <Image
+            src="/char-fan.png"
+            alt=""
+            width={120}
+            height={285}
+            className="h-20 w-auto shrink-0 drop-shadow-md"
+          />
+          <p className="text-sm text-muted leading-relaxed">
+            「全部は追えないけど、ひとつだけ推しがほしい」
+            <br className="hidden sm:block" />
+            そんなあなたへ。タイプから選べば、きっと運命の一国が見つかる。
+          </p>
+        </div>
         <div className="grid sm:grid-cols-2 gap-3">
           {personas.map((p) => (
             <Link

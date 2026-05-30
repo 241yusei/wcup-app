@@ -127,6 +127,21 @@ export default async function Home() {
 
       {/* 機能カード */}
       <section className="max-w-6xl mx-auto px-4 pb-16">
+        <div className="flex items-center gap-3 mb-5">
+          <Image
+            src="/char-ball.png"
+            alt=""
+            width={120}
+            height={193}
+            className="h-16 w-auto shrink-0 drop-shadow-md"
+          />
+          <div>
+            <h2 className="text-2xl font-bold">⚽ もっと深掘りする</h2>
+            <span className="text-sm text-muted">
+              日程・図鑑・ニュース・ガイド。気になるところからどうぞ。
+            </span>
+          </div>
+        </div>
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
           {features.map((f) => (
             <Link

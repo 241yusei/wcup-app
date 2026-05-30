@@ -23,6 +23,20 @@ export default function NewsPage() {
         />
       </header>
       <NewsTabs items={sorted} />
+      <div className="mt-10 flex items-center justify-center gap-3 text-center">
+        <Image
+          src="/char-ball.png"
+          alt=""
+          width={120}
+          height={193}
+          className="h-16 w-auto shrink-0 drop-shadow-md"
+        />
+        <p className="text-sm text-muted">
+          面白ネタは随時追加中。
+          <br />
+          人に話したくなる小ネタを仕入れていこう。
+        </p>
+      </div>
     </div>
   );
 }
