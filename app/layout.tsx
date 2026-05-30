@@ -8,10 +8,29 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
+const siteTitle = "100倍Wカップ｜ワールドカップを100倍楽しむ";
+const siteDesc =
+  "日本時間の試合日程・各国の戦術と注目選手・面白ニュースをまとめてチェック。サッカーをよく知らなくても100倍楽しめるW杯アプリ。";
+
 export const metadata: Metadata = {
-  title: "100倍Wカップ｜ワールドカップを100倍楽しむ",
-  description:
-    "日本時間の試合日程・各国の戦術と注目選手・面白ニュースをまとめてチェック。サッカーをよく知らなくても100倍楽しめるW杯アプリ。",
+  metadataBase: new URL("https://wcup-app.vercel.app"),
+  title: siteTitle,
+  description: siteDesc,
+  openGraph: {
+    title: siteTitle,
+    description: siteDesc,
+    url: "https://wcup-app.vercel.app",
+    siteName: "100倍Wカップ",
+    locale: "ja_JP",
+    type: "website",
+    images: [{ url: "/mascot-v2.png", width: 256, height: 620, alt: "ワールドカップ人間くん" }],
+  },
+  twitter: {
+    card: "summary",
+    title: siteTitle,
+    description: siteDesc,
+    images: ["/mascot-v2.png"],
+  },
 };
 
 export default function RootLayout({
