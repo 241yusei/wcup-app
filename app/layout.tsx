@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/layout/Nav";
+import PeekCat from "@/components/PeekCat";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +45,7 @@ export default function RootLayout({
         <div className="colors-stripe-thin w-full" />
         <Nav />
         <main className="flex-1">{children}</main>
+        <PeekCat />
         <footer className="mt-16 border-t border-line bg-surface">
           <div className="colors-stripe-thin w-full" />
           <div className="max-w-6xl mx-auto px-4 py-6 text-sm text-muted flex items-center justify-between">
