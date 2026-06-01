@@ -104,20 +104,20 @@ export default function PredictPage() {
                     key={p.name + p.source}
                     className="rounded-2xl border border-line bg-surface p-4 sm:p-5"
                   >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="min-w-0">
-                        <div className="font-bold leading-tight">
-                          {p.flag} {p.name}
-                        </div>
-                        <div className="text-xs text-muted mt-0.5">{p.role}</div>
-                      </div>
-                      <div className="shrink-0 text-right">
-                        <div className="text-[10px] text-muted">本命</div>
-                        <div className="inline-block rounded-full bg-jpnavy text-white text-sm font-bold px-3 py-1 mt-0.5">
-                          {p.pickFlag} {p.pick}
-                        </div>
-                      </div>
+                    {/* 本命国：カード上部に大きく明示（スマホでも一目で分かる） */}
+                    <div className="flex items-center gap-2 mb-2.5">
+                      <span className="text-[11px] font-bold text-muted shrink-0">
+                        本命
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-jpnavy text-white text-base font-bold px-3.5 py-1">
+                        <span className="text-lg leading-none">{p.pickFlag}</span>
+                        {p.pick}
+                      </span>
                     </div>
+                    <div className="font-bold leading-snug">
+                      {p.flag} {p.name}
+                    </div>
+                    <div className="text-xs text-muted mt-0.5">{p.role}</div>
                     <p className="text-sm text-muted leading-relaxed mt-3">
                       {p.detail}
                     </p>
