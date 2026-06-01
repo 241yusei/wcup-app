@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Match } from "@/lib/types";
 import { getTeam } from "@/data/teams";
 import { jstTimeLabel, jstWatchHint } from "@/lib/datetime";
-import { scoreMatch } from "@/lib/matchScore";
 import ReminderButton from "./ReminderButton";
 
 function TeamSide({ code, align }: { code: string; align: "l" | "r" }) {
@@ -21,16 +20,16 @@ function TeamSide({ code, align }: { code: string; align: "l" | "r" }) {
 }
 
 export default function MatchCard({ match }: { match: Match }) {
-  const s = scoreMatch(match);
   const hint = jstWatchHint(match.utcDate);
   const finished = match.status === "FINISHED";
+  const jpInvolved = match.homeCode === "JPN" || match.awayCode === "JPN";
   const home = getTeam(match.homeCode);
   const away = getTeam(match.awayCode);
 
   return (
     <div
       className={`bg-surface rounded-2xl border p-4 ${
-        s.jpInvolved ? "border-jpred ring-1 ring-jpred/30" : "border-line"
+        jpInvolved ? "border-jpred ring-1 ring-jpred/30" : "border-line"
       }`}
     >
       <div className="flex items-center justify-between mb-3 text-xs text-muted">
@@ -74,32 +73,21 @@ export default function MatchCard({ match }: { match: Match }) {
       )}
 
       <div className="mt-3 pt-3 border-t border-line flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2">
-          <span
-            className="text-xs font-bold px-2 py-0.5 rounded-full text-white"
-            style={{
-              backgroundColor:
-                s.total >= 80
-                  ? "#d7282f"
-                  : s.total >= 60
-                    ? "#e8820c"
-                    : "#7f8c8d",
-            }}
-          >
-            見るべき度 {s.total}
-          </span>
-          <span className="text-xs text-muted hidden sm:inline">{s.reason}</span>
-        </div>
+        <Link
+          href={`/matches/${match.id}`}
+          className="text-xs font-bold text-jpnavy hover:underline"
+        >
+          📋 試合の見どころ →
+        </Link>
         {!finished && (
           <ReminderButton
             uid={match.id}
             title={`⚽ ${home?.name ?? match.homeCode} vs ${away?.name ?? match.awayCode}`}
             utcStart={match.utcDate}
-            location={match.venue}
+            location={match.stadium ?? match.city ?? match.venue}
           />
         )}
       </div>
-      <p className="text-xs text-muted mt-2 sm:hidden">{s.reason}</p>
     </div>
   );
 }

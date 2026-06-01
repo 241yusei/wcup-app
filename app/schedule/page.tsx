@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { getMatches } from "@/lib/football";
 import { jstDateKey, jstDateLabel } from "@/lib/datetime";
-import { scoreMatch } from "@/lib/matchScore";
 import MatchCard from "@/components/schedule/MatchCard";
 import { Match } from "@/lib/types";
 
@@ -49,16 +48,11 @@ export default async function SchedulePage() {
 
       <div className="space-y-8">
         {[...byDate.entries()].map(([key, ms]) => {
-          const top = [...ms].sort(
-            (a, b) => scoreMatch(b).total - scoreMatch(a).total
-          )[0];
           return (
             <section key={key}>
               <div className="flex items-center gap-2 mb-3 sticky top-16 bg-background/95 py-2 z-10">
                 <h2 className="text-lg font-bold">{jstDateLabel(ms[0].utcDate)}</h2>
-                <span className="text-xs text-muted">
-                  注目：{top ? scoreMatch(top).reason : ""}
-                </span>
+                <span className="text-xs text-muted">{ms.length}試合</span>
               </div>
               <div className="space-y-3">
                 {ms.map((m) => (

@@ -70,7 +70,10 @@ export async function getMatches(): Promise<{ matches: Match[]; live: boolean }>
           id: String(mm.id),
           utcDate: mm.utcDate as string,
           stage: mapStage(mm.stage as string),
-          group: (mm.group as string) ?? undefined,
+          group:
+            typeof mm.group === "string"
+              ? mm.group.replace(/^GROUP[_ ]?/i, "")
+              : undefined,
           homeCode,
           awayCode,
           venue: v?.venue ?? (mm.venue as string) ?? "",
