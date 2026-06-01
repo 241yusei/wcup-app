@@ -177,7 +177,13 @@ export default async function Home() {
                       </span>
                     </div>
                   )}
-                  <div className="mt-3 pt-3 border-t border-line">
+                  <div className="mt-3 pt-3 border-t border-line flex flex-col gap-2">
+                    <Link
+                      href={`/matches/${m.id}`}
+                      className="text-xs font-bold text-jpnavy hover:underline"
+                    >
+                      📋 この試合の見どころ →
+                    </Link>
                     <ReminderButton
                       uid={m.id}
                       title={`⚽ 日本 vs ${opp?.name ?? oppCode}`}
@@ -190,7 +196,13 @@ export default async function Home() {
             })}
           </div>
         )}
-        <div className="mt-4">
+        <div className="mt-4 flex flex-wrap gap-4">
+          <Link
+            href="/japan"
+            className="text-sm font-bold text-jpnavy hover:underline"
+          >
+            🇯🇵 日本特集（攻略・突破条件）を見る →
+          </Link>
           <Link
             href="/schedule"
             className="text-sm font-medium text-jpnavy hover:underline"

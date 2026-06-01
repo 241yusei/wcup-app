@@ -201,6 +201,54 @@ export default async function MatchDetail({
         </div>
       </header>
 
+      {/* 観戦のキーポイント（全試合を観た上での見方）— 最重要セクションとして最初に強調 */}
+      {preview?.watchPoints?.length ? (
+        <section id="points" className="mb-10 scroll-mt-20">
+          <div className="rounded-2xl border-2 border-jpnavy bg-jpnavy/[0.04] overflow-hidden shadow-sm">
+            <div className="bg-jpnavy text-white px-4 sm:px-5 py-3 flex items-center gap-2">
+              <span className="text-xl" aria-hidden>
+                🔍
+              </span>
+              <h2 className="text-lg font-bold">観戦のキーポイント</h2>
+              <span className="ml-auto text-[10px] font-medium bg-white/15 rounded-full px-2 py-0.5">
+                全試合チェック済み
+              </span>
+            </div>
+            <div className="p-4 sm:p-5 space-y-2.5">
+              {preview.watchPoints.map((w, i) => (
+                <div
+                  key={i}
+                  className="flex gap-3 rounded-xl bg-surface border border-line p-3"
+                >
+                  <span className="shrink-0 w-6 h-6 rounded-full bg-jpnavy text-white text-xs font-bold flex items-center justify-center">
+                    {i + 1}
+                  </span>
+                  <span className="text-sm leading-relaxed font-medium">{w}</span>
+                </div>
+              ))}
+              {preview.prediction && (
+                <div className="rounded-xl bg-jpred/5 border border-jpred/30 p-3.5 flex gap-2.5">
+                  <span className="text-xl" aria-hidden>
+                    🔮
+                  </span>
+                  <div>
+                    <div className="text-xs font-bold text-jpred mb-0.5">
+                      スコア予想・展望
+                    </div>
+                    <p className="text-sm leading-relaxed font-medium">
+                      {preview.prediction}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+          <p className="text-[11px] text-muted mt-2">
+            ※ 対戦相手の試合を観た上での観戦ポイント・予想です（戦術的な一つの見方）。
+          </p>
+        </section>
+      ) : null}
+
       {/* 見どころ */}
       <section className="mb-10">
         <SectionTitle>🔥 この試合の見どころ</SectionTitle>
@@ -239,33 +287,6 @@ export default async function MatchDetail({
           </div>
         )}
       </section>
-
-      {/* 観戦のキーポイント（全試合を観た上での見方） */}
-      {preview?.watchPoints?.length ? (
-        <section className="mb-10">
-          <SectionTitle>🔍 観戦のキーポイント</SectionTitle>
-          <div className="rounded-2xl border border-line bg-surface p-4 sm:p-5 space-y-3">
-            {preview.watchPoints.map((w, i) => (
-              <div key={i} className="flex gap-2.5 text-sm leading-relaxed">
-                <span className="text-jpnavy shrink-0">✓</span>
-                <span>{w}</span>
-              </div>
-            ))}
-            {preview.prediction && (
-              <div className="mt-2 rounded-xl bg-jpnavy/5 border border-jpnavy/10 p-3 flex gap-2">
-                <span aria-hidden>🔮</span>
-                <div>
-                  <div className="text-xs font-bold text-jpnavy mb-0.5">予想</div>
-                  <p className="text-sm leading-relaxed">{preview.prediction}</p>
-                </div>
-              </div>
-            )}
-          </div>
-          <p className="text-[11px] text-muted mt-2">
-            ※ 対戦相手の試合を観た上での観戦ポイント・予想です（戦術的な一つの見方）。
-          </p>
-        </section>
-      ) : null}
 
       {/* 通算対戦成績 */}
       {preview?.h2h && (

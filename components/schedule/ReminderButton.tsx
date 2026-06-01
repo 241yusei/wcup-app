@@ -19,7 +19,7 @@ export default function ReminderButton({
     title,
     utcStart,
     location,
-    details: "100倍Wカップでチェック https://wcup-2026-jp.vercel.app",
+    details: "100倍Wカップでチェック",
   });
 
   const downloadIcs = () => {
