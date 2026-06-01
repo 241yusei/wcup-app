@@ -39,6 +39,28 @@ export function jstWatchHint(utcIso: string): string | null {
   return null;
 }
 
+// Googleカレンダーの予定作成URLを生成（試合開始〜+2時間）。
+export function googleCalUrl(opts: {
+  title: string;
+  utcStart: string;
+  details?: string;
+  location?: string;
+}): string {
+  const fmt = (iso: string) =>
+    new Date(iso).toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+  const end = new Date(
+    new Date(opts.utcStart).getTime() + 2 * 60 * 60 * 1000
+  ).toISOString();
+  const p = new URLSearchParams({
+    action: "TEMPLATE",
+    text: opts.title,
+    dates: `${fmt(opts.utcStart)}/${fmt(end)}`,
+    details: opts.details ?? "",
+    location: opts.location ?? "",
+  });
+  return `https://calendar.google.com/calendar/render?${p.toString()}`;
+}
+
 // .ics（カレンダー登録用）を生成。試合開始2時間を所要として登録。
 export function buildIcs(opts: {
   uid: string;

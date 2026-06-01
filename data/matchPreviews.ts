@@ -34,10 +34,10 @@ export const matchPreviews: MatchPreview[] = [
     highlights: [
       "過去3戦未勝利の格上オランダに、6連勝中の日本が勢いをぶつけられるかが初戦の最大の焦点。",
       "予選27得点の超攻撃型オランダ。日本の堅守ブロックがデ・ヨング起点の崩しを止められるかが勝敗を分ける。",
-      "三笘ら左サイドの仕掛けが先手を取れば、番狂わせの物語が一気に現実味を帯びる。",
+      "日本の左サイドの仕掛けが先手を取れば、番狂わせの物語が一気に現実味を帯びる。",
     ],
     keyMatchup:
-      "日本の三笘薫 × オランダ守備の要ファン・ダイク。スピードと駆け引きの一対一が試合のテンポを決める（招集は報道ベース・未確認）。",
+      "日本の攻撃の鍵・久保建英 × オランダ守備の要ファン・ダイク。崩しと対人の駆け引きが試合のテンポを決める（招集は報道ベース・未確認）。",
     sources: [
       "https://en.fifaranking.net/nations/jpn/results/head-to-head/index.php?team=nld",
       "https://www.goal.com/en/team/netherlands/fixtures-results/657oha8nkne1ybba2bouzkbo7",

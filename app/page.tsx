@@ -74,16 +74,16 @@ export default async function Home() {
             </p>
             <div className="flex gap-3 flex-wrap">
               <Link
-                href="/schedule"
+                href="/japan"
                 className="px-5 py-2.5 rounded-full bg-jpnavy text-white font-medium hover:opacity-90 transition-opacity"
               >
-                試合日程を見る
+                🇯🇵 日本代表を100倍楽しむ
               </Link>
               <Link
-                href="/teams"
+                href="/schedule"
                 className="px-5 py-2.5 rounded-full border border-jpnavy text-jpnavy font-medium hover:bg-jpnavy hover:text-white transition-colors"
               >
-                各国図鑑を見る
+                試合日程を見る
               </Link>
             </div>
           </div>
