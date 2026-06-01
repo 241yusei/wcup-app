@@ -13,6 +13,8 @@ export interface MatchPreview {
   asOf?: string; // 直近情報の基準時点
   highlights: string[]; // 見どころ（2〜3点）
   keyMatchup?: string; // 注目の個人対決など
+  watchPoints?: string[]; // 全試合を観た上での観戦のキーポイント（戦術的な見方）
+  prediction?: string; // スコア予想・展望（あくまで一つの見方）
   sources?: string[];
 }
 
@@ -38,6 +40,15 @@ export const matchPreviews: MatchPreview[] = [
     ],
     keyMatchup:
       "日本の攻撃の鍵・久保建英 × オランダ守備の要ファン・ダイク。崩しと対人の駆け引きが試合のテンポを決める（招集は報道ベース・未確認）。",
+    watchPoints: [
+      "三笘薫は負傷で今大会は欠場の見込み。本来の左ウイングバックが不在で、初戦は守備に強い鈴木淳之介がそこに入る可能性。",
+      "オランダは『初戦をとても重視する』チームで、必ず勝ちに来る＝ボールを持って攻めてくる公算。日本は無理に保持せず、奪ってからのカウンターを狙いたい。",
+      "最大の警戒は右サイド。左のハクポが大外に張り、右ウイングが内に絞ると空く右の大外を、右サイドバックのダンフリースが上がってクロス→ファーで仕留めるのが『やられる典型パターン』。",
+      "オランダはCKなどセットプレーが脅威。ファン・ダイクら長身が一斉に上がってくる。冨安・鈴木彩艶・伊藤洋輝の高さで凌げるかが鍵。",
+      "日本主将・遠藤航とオランダ主将ファン・ダイクはともにリバプール。コイントスでの“同僚対決”も小さな見どころ。",
+    ],
+    prediction:
+      "相性は良くないが、オランダの崩しの形は意外と単調。勝機は十分にある一戦（あくまで一つの見方）。",
     sources: [
       "https://en.fifaranking.net/nations/jpn/results/head-to-head/index.php?team=nld",
       "https://www.goal.com/en/team/netherlands/fixtures-results/657oha8nkne1ybba2bouzkbo7",
@@ -58,6 +69,14 @@ export const matchPreviews: MatchPreview[] = [
     ],
     keyMatchup:
       "日本の攻撃的MF久保建英ら × 引いて固めるチュニジア守備ブロック。崩しの質が見せ場（招集は報道ベース・未確認）。",
+    watchPoints: [
+      "チュニジアは5バックで堅守。日本は5バック崩しを苦手としており、引かれて守られると苦戦しやすい（アジアカップ等の前例）。",
+      "鍵は『先制点』。先に取れば相手は前に出ざるを得ず、日本が得意な展開に。逆に先に取られて引かれると、前回のコスタリカ戦のような難しい試合になる。",
+      "警戒はプレミアでプレーする創造的MFハンニバル・メイブリと、Jリーグで好調のFWジェバリ。それ以外は日本が戦力で上回る。",
+      "同時刻のスウェーデン×チュニジアでスウェーデンが勝てば、チュニジアは日本相手に勝ちが必要になり前がかりに＝日本がやりやすくなる。スウェーデンを応援したい裏事情も。",
+    ],
+    prediction:
+      "戦力では日本が圧倒。先制して相手を前に出させ、3-0前後で勝ち切りたい一戦（あくまで一つの見方）。",
     sources: [
       "https://en.fifaranking.net/nations/jpn/results/head-to-head/index.php?team=tun",
       "https://www.goal.com/en-us/team/tunisia/fixtures-results/ctp7ovvf34m7fzshua9ogbr6i",
@@ -78,6 +97,14 @@ export const matchPreviews: MatchPreview[] = [
     ],
     keyMatchup:
       "日本の守備陣 × スウェーデンの大型FW（イサク／ヨケレスら長身ストライカー）。空中戦と裏抜けへの対応が決勝T進出を左右する（招集は報道ベース・未確認）。",
+    watchPoints: [
+      "3試合で最も難しい相手との見方。プレーオフ経由で監督交代を機に5バックへ変更し、一気に強化された。",
+      "前線3枚（ヨケレス、イサク、エランガ）は世界トップ級。特に大型で得点力抜群のヨケレスは最警戒。",
+      "武器はセットプレー（CK・FK）とヘディングの『大型サッカー』。倒してのPK献上に要注意。",
+      "一方で最終ラインは強力だが重く足が遅い。日本が前線にボールを預けて5バックを下げさせ、空く中盤のスペースで久保・鎌田・堂安が崩す＋ミドルシュート（田中碧ら）が有効。",
+    ],
+    prediction:
+      "最も苦戦が予想される一戦。セットプレーからの失点→追う展開でカウンター被弾の流れに注意（あくまで一つの見方）。",
     sources: [
       "https://en.fifaranking.net/nations/jpn/results/head-to-head/index.php?team=swe",
       "https://www.si.com/soccer/sweden-2026-world-cup-preview",

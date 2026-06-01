@@ -141,6 +141,16 @@ export default async function JapanPage() {
             </div>
             <p className="text-sm leading-relaxed">{japanInfo.scenario}</p>
           </div>
+          {japanInfo.knockoutOutlook && (
+            <div className="rounded-xl border border-line p-3">
+              <div className="text-xs font-bold text-jpnavy mb-1">
+                🏆 突破後のトーナメント展望
+              </div>
+              <p className="text-sm leading-relaxed text-muted">
+                {japanInfo.knockoutOutlook}
+              </p>
+            </div>
+          )}
         </div>
       </section>
 

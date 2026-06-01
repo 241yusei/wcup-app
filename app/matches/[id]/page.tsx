@@ -240,6 +240,33 @@ export default async function MatchDetail({
         )}
       </section>
 
+      {/* 観戦のキーポイント（全試合を観た上での見方） */}
+      {preview?.watchPoints?.length ? (
+        <section className="mb-10">
+          <SectionTitle>🔍 観戦のキーポイント</SectionTitle>
+          <div className="rounded-2xl border border-line bg-surface p-4 sm:p-5 space-y-3">
+            {preview.watchPoints.map((w, i) => (
+              <div key={i} className="flex gap-2.5 text-sm leading-relaxed">
+                <span className="text-jpnavy shrink-0">✓</span>
+                <span>{w}</span>
+              </div>
+            ))}
+            {preview.prediction && (
+              <div className="mt-2 rounded-xl bg-jpnavy/5 border border-jpnavy/10 p-3 flex gap-2">
+                <span aria-hidden>🔮</span>
+                <div>
+                  <div className="text-xs font-bold text-jpnavy mb-0.5">予想</div>
+                  <p className="text-sm leading-relaxed">{preview.prediction}</p>
+                </div>
+              </div>
+            )}
+          </div>
+          <p className="text-[11px] text-muted mt-2">
+            ※ 対戦相手の試合を観た上での観戦ポイント・予想です（戦術的な一つの見方）。
+          </p>
+        </section>
+      ) : null}
+
       {/* 通算対戦成績 */}
       {preview?.h2h && (
         <section className="mb-10">
