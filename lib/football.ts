@@ -16,6 +16,23 @@ function toCode(enName: string): string {
   return hit?.code ?? enName?.slice(0, 3).toUpperCase() ?? "TBD";
 }
 
+// 自前データ（会場込み）を「対戦カード（順不同）」をキーに引けるようにする。
+// ライブAPIは時刻は正確だが会場を持たないため、ここから city/stadium を補完する。
+function pairKey(a: string, b: string): string {
+  return [a, b].sort().join("-");
+}
+const venueLookup = new Map<
+  string,
+  { venue: string; city?: string; stadium?: string }
+>(
+  fallbackMatches
+    .filter((m) => m.city || m.stadium)
+    .map((m) => [
+      pairKey(m.homeCode, m.awayCode),
+      { venue: m.venue, city: m.city, stadium: m.stadium },
+    ])
+);
+
 function mapStage(stage: string): string {
   const m: Record<string, string> = {
     GROUP_STAGE: "グループステージ",
@@ -46,14 +63,19 @@ export async function getMatches(): Promise<{ matches: Match[]; live: boolean }>
         const away = mm.awayTeam as { name?: string } | undefined;
         const score = (mm.score as { fullTime?: { home?: number; away?: number } })
           ?.fullTime;
+        const homeCode = toCode(home?.name ?? "");
+        const awayCode = toCode(away?.name ?? "");
+        const v = venueLookup.get(pairKey(homeCode, awayCode));
         return {
           id: String(mm.id),
           utcDate: mm.utcDate as string,
           stage: mapStage(mm.stage as string),
           group: (mm.group as string) ?? undefined,
-          homeCode: toCode(home?.name ?? ""),
-          awayCode: toCode(away?.name ?? ""),
-          venue: (mm.venue as string) ?? "",
+          homeCode,
+          awayCode,
+          venue: v?.venue ?? (mm.venue as string) ?? "",
+          city: v?.city,
+          stadium: v?.stadium,
           status:
             mm.status === "FINISHED"
               ? "FINISHED"

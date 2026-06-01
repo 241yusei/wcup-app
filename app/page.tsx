@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getMatches } from "@/lib/football";
-import { scoreMatch } from "@/lib/matchScore";
-import MatchCard from "@/components/schedule/MatchCard";
+import { getTeam } from "@/data/teams";
+import { jstDateLabel, jstTimeLabel, jstWatchHint } from "@/lib/datetime";
+import ReminderButton from "@/components/schedule/ReminderButton";
 
 export const revalidate = 60;
 
@@ -47,12 +48,9 @@ const features = [
 
 export default async function Home() {
   const { matches } = await getMatches();
-  const upcoming = matches
-    .filter((m) => m.status !== "FINISHED")
+  const japanMatches = matches
+    .filter((m) => m.homeCode === "JPN" || m.awayCode === "JPN")
     .sort((a, b) => +new Date(a.utcDate) - +new Date(b.utcDate));
-  const featured = [...upcoming]
-    .sort((a, b) => scoreMatch(b).total - scoreMatch(a).total)
-    .slice(0, 3);
 
   return (
     <div>
@@ -105,7 +103,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 今夜見るべき試合 */}
+      {/* 日本代表の試合 */}
       <section className="max-w-6xl mx-auto px-4 py-12">
         <div className="flex items-center gap-3 mb-5">
           <Image
@@ -116,23 +114,88 @@ export default async function Home() {
             className="shrink-0 drop-shadow-md"
           />
           <div>
-            <h2 className="text-2xl font-bold">🔥 見るべき試合ナビ</h2>
+            <h2 className="text-2xl font-bold">🇯🇵 日本代表の試合</h2>
             <span className="text-sm text-muted">
-              番狂わせ度・ドラマ度から自動ピックアップ
+              グループF・全試合を日本時間で。🔔でカレンダー登録。
             </span>
           </div>
         </div>
-        <div className="grid md:grid-cols-3 gap-4">
-          {featured.map((m) => (
-            <MatchCard key={m.id} match={m} />
-          ))}
-        </div>
+        {japanMatches.length === 0 ? (
+          <p className="text-sm text-muted">日程は確定後に表示されます。</p>
+        ) : (
+          <div className="grid sm:grid-cols-3 gap-4">
+            {japanMatches.map((m) => {
+              const oppCode = m.homeCode === "JPN" ? m.awayCode : m.homeCode;
+              const opp = getTeam(oppCode);
+              const hint = jstWatchHint(m.utcDate);
+              return (
+                <div
+                  key={m.id}
+                  className="bg-surface rounded-2xl border border-jpred/40 ring-1 ring-jpred/10 p-4 flex flex-col"
+                >
+                  <div className="text-xs font-medium text-muted">{m.stage}</div>
+                  <div className="flex items-center gap-2 mt-2 flex-wrap">
+                    <span className="text-2xl" aria-hidden>
+                      🇯🇵
+                    </span>
+                    <span className="font-bold">日本</span>
+                    <span className="text-xs text-muted">vs</span>
+                    <Link
+                      href={opp ? `/teams/${oppCode}` : "#"}
+                      className="flex items-center gap-1.5 hover:underline"
+                    >
+                      <span className="text-2xl" aria-hidden>
+                        {opp?.flag ?? "🏳️"}
+                      </span>
+                      <span className="font-bold">{opp?.name ?? oppCode}</span>
+                    </Link>
+                  </div>
+                  <div className="mt-3 flex items-baseline gap-2">
+                    <span className="font-bold text-lg">
+                      {jstDateLabel(m.utcDate)}
+                    </span>
+                    <span className="font-mono font-bold text-lg">
+                      {jstTimeLabel(m.utcDate)}
+                    </span>
+                    <span className="text-xs text-muted">JST</span>
+                  </div>
+                  {hint && (
+                    <div className="text-xs text-jpred font-medium mt-1">
+                      {hint}
+                    </div>
+                  )}
+                  {(m.city || m.stadium) && (
+                    <div className="mt-2 flex items-start gap-1.5 text-xs text-muted">
+                      <span aria-hidden>📍</span>
+                      <span>
+                        {m.city}
+                        {m.stadium && (
+                          <span className="text-foreground/70">
+                            ・{m.stadium}
+                          </span>
+                        )}
+                      </span>
+                    </div>
+                  )}
+                  <div className="mt-3 pt-3 border-t border-line">
+                    <ReminderButton
+                      uid={m.id}
+                      title={`⚽ 日本 vs ${opp?.name ?? oppCode}`}
+                      utcStart={m.utcDate}
+                      location={m.stadium ?? m.city ?? m.venue}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
         <div className="mt-4">
           <Link
             href="/schedule"
             className="text-sm font-medium text-jpnavy hover:underline"
           >
-            すべての日程を見る →
+            全試合の日程を見る →
           </Link>
         </div>
       </section>

@@ -39,7 +39,9 @@ export interface Match {
   group?: string;
   homeCode: TeamCode;
   awayCode: TeamCode;
-  venue: string;
+  venue: string; // 後方互換用の表示文字列（都市など）
+  city?: string; // 開催都市・地域（例：シアトル）
+  stadium?: string; // スタジアム正式名称（例：ルーメン・フィールド）
   status: "SCHEDULED" | "LIVE" | "FINISHED";
   homeScore?: number;
   awayScore?: number;

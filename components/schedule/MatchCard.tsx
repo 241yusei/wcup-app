@@ -60,6 +60,19 @@ export default function MatchCard({ match }: { match: Match }) {
         <TeamSide code={match.awayCode} align="r" />
       </div>
 
+      {/* 会場（地域・スタジアム） */}
+      {(match.city || match.stadium || match.venue) && (
+        <div className="mt-3 flex items-start gap-1.5 text-xs text-muted">
+          <span aria-hidden>📍</span>
+          <span>
+            {match.city ?? match.venue}
+            {match.stadium && (
+              <span className="text-foreground/70">・{match.stadium}</span>
+            )}
+          </span>
+        </div>
+      )}
+
       <div className="mt-3 pt-3 border-t border-line flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <span
