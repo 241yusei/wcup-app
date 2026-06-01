@@ -1,7 +1,15 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getMatches } from "@/lib/football";
+import { fallbackMatches } from "@/data/matches";
 import { getTeam } from "@/data/teams";
+import type { Match } from "@/lib/types";
+
+// ライブAPI（数値ID）とフォールバック（m-open等）のどちらのIDでも解決できるようにする。
+async function findMatch(id: string): Promise<Match | undefined> {
+  const { matches } = await getMatches();
+  return matches.find((x) => x.id === id) ?? fallbackMatches.find((x) => x.id === id);
+}
 import { getPreview, countryTrivia } from "@/data/matchPreviews";
 import { jstDateLabel, jstTimeLabel, jstWatchHint } from "@/lib/datetime";
 import ReminderButton from "@/components/schedule/ReminderButton";
@@ -15,8 +23,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const { matches } = await getMatches();
-  const m = matches.find((x) => x.id === id);
+  const m = await findMatch(id);
   if (!m) return { title: "試合解説｜100倍Wカップ" };
   const h = getTeam(m.homeCode)?.name ?? m.homeCode;
   const a = getTeam(m.awayCode)?.name ?? m.awayCode;
@@ -99,8 +106,7 @@ export default async function MatchDetail({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const { matches } = await getMatches();
-  const match = matches.find((x) => x.id === id);
+  const match = await findMatch(id);
   if (!match) notFound();
 
   const home = getTeam(match.homeCode);
