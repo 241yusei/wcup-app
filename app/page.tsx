@@ -1,24 +1,59 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getMatches } from "@/lib/football";
-import { getTeam } from "@/data/teams";
+import { getTeam, teams } from "@/data/teams";
 import { jstDateLabel, jstTimeLabel, jstWatchHint } from "@/lib/datetime";
 import ReminderButton from "@/components/schedule/ReminderButton";
+import MyFavorites from "@/components/MyFavorites";
+
+const teamMap: Record<string, { name: string; flag: string }> = Object.fromEntries(
+  teams.map((t) => [t.code, { name: t.name, flag: t.flag }])
+);
 
 export const revalidate = 60;
 
 const features = [
   {
+    href: "/japan",
+    icon: "🇯🇵",
+    title: "日本特集",
+    desc: "グループF突破条件・対戦国の攻略・観戦ポイント・次戦カウントダウン。",
+  },
+  {
+    href: "/squad",
+    icon: "📋",
+    title: "代表メンバー",
+    desc: "サムライブルー全26名＋スタッフ。経歴・プレースタイルを網羅した名簿。",
+  },
+  {
     href: "/schedule",
     icon: "🕐",
     title: "試合日程",
-    desc: "全試合を日本時間で。深夜・早朝の試合も見逃さない。リマインド登録もワンタップ。",
+    desc: "全試合を日本時間で。深夜・早朝も見逃さない。カレンダー登録もワンタップ。",
+  },
+  {
+    href: "/groups",
+    icon: "📊",
+    title: "グループ順位表",
+    desc: "全12組の組み合わせと勝点。結果をリアルタイム反映。突破圏も一目で。",
+  },
+  {
+    href: "/predictions",
+    icon: "🔮",
+    title: "勝敗予想",
+    desc: "試合の勝敗を予想して的中率を競う。にわかでも自分ごとに楽しめる。",
+  },
+  {
+    href: "/watch",
+    icon: "📺",
+    title: "どこで見る？",
+    desc: "日本の放送・配信ガイド。地上波・DAZNの違い、日本戦を無料で見る方法。",
   },
   {
     href: "/teams",
     icon: "🏴",
     title: "各国図鑑",
-    desc: "戦術・注目選手・小ネタまで。推し国・推し選手がきっと見つかる。",
+    desc: "48カ国の戦術・注目選手・小ネタまで。推し国・推し選手がきっと見つかる。",
   },
   {
     href: "/deep",
@@ -28,8 +63,8 @@ const features = [
   },
   {
     href: "/predict",
-    icon: "🔮",
-    title: "みんなの優勝予想",
+    icon: "🏆",
+    title: "識者の優勝予想",
     desc: "世界中の解説者・元代表・統計モデルは誰を本命に？出典付きで総まとめ。",
   },
   {
@@ -102,6 +137,9 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* マイ推し（推し登録があれば表示） */}
+      <MyFavorites teamMap={teamMap} />
 
       {/* 日本代表の試合 */}
       <section className="max-w-6xl mx-auto px-4 py-12">

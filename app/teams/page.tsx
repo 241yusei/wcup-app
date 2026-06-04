@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { teams } from "@/data/teams";
+import FavoriteStar from "@/components/FavoriteStar";
 
 export default function TeamsPage() {
   return (
@@ -33,6 +34,9 @@ export default function TeamsPage() {
               className="absolute top-0 left-0 right-0 h-1"
               style={{ backgroundColor: t.themeColor }}
             />
+            <div className="absolute top-2 right-2">
+              <FavoriteStar code={t.code} />
+            </div>
             <div className="text-4xl mb-2">{t.flag}</div>
             <div className="font-bold leading-tight">{t.name}</div>
             <div className="text-xs text-muted">{t.nickname}</div>

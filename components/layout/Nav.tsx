@@ -3,18 +3,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
+// ナビは主要導線に絞る。その他の機能はホームのハブから辿れる。
 const links = [
   { href: "/", label: "ホーム" },
   { href: "/japan", label: "日本特集" },
-  { href: "/squad", label: "代表メンバー" },
   { href: "/schedule", label: "試合日程" },
   { href: "/groups", label: "順位表" },
   { href: "/predictions", label: "勝敗予想" },
   { href: "/teams", label: "各国図鑑" },
-  { href: "/deep", label: "深掘り" },
-  { href: "/predict", label: "優勝予想" },
-  { href: "/news", label: "ニュース" },
-  { href: "/guide", label: "100倍ガイド" },
+  { href: "/watch", label: "どこで見る" },
 ];
 
 export default function Nav() {

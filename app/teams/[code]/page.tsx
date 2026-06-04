@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { teams, getTeam } from "@/data/teams";
+import FavoriteStar from "@/components/FavoriteStar";
 
 export function generateStaticParams() {
   return teams.map((t) => ({ code: t.code }));
@@ -25,12 +26,15 @@ export default async function TeamDetail({
         <div className="h-2" style={{ backgroundColor: team.themeColor }} />
         <div className="bg-surface p-6 flex items-center gap-4">
           <span className="text-6xl">{team.flag}</span>
-          <div>
+          <div className="flex-1 min-w-0">
             <h1 className="text-3xl font-bold">{team.name}</h1>
             <p className="text-muted">
               {team.nickname}
               {team.fifaRank ? `・FIFAランク ${team.fifaRank}位` : ""}
             </p>
+          </div>
+          <div className="shrink-0">
+            <FavoriteStar code={team.code} withLabel />
           </div>
         </div>
         {team.whyWatch && (
