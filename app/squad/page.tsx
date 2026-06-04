@@ -1,13 +1,5 @@
 import Link from "next/link";
 import { squad, manager, staff, posMeta, posOrder, type SquadPlayer } from "@/data/squad";
-import PlayerAvatar from "@/components/PlayerAvatar";
-
-// スタッフ用の安定したシード（名前から算出）
-function nameSeed(name: string): number {
-  let h = 0;
-  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) % 997;
-  return h;
-}
 
 export const metadata = {
   title: "日本代表メンバー名簿｜サムライブルー26人図鑑｜100倍Wカップ",
@@ -32,43 +24,34 @@ function PlayerCard({ p }: { p: SquadPlayer }) {
       className="rounded-2xl border border-line bg-surface overflow-hidden shadow-sm flex flex-col"
       style={{ borderTopColor: m.color, borderTopWidth: 3 }}
     >
-      {/* ヘッダー：キャラアバター＋背番号＋ポジション（キャラカード風グラデーション） */}
+      {/* ヘッダー：背番号＋ポジション（キャラカード風グラデーション） */}
       <div
-        className="relative px-3 pt-3 pb-2 text-white"
+        className="relative px-4 pt-3 pb-2 text-white"
         style={{
           background: `linear-gradient(135deg, ${m.color} 0%, ${m.color}cc 60%, ${m.color}99 100%)`,
         }}
       >
-        <div className="flex items-start gap-2.5">
-          <div className="bg-white/90 rounded-full p-0.5 shrink-0 shadow-sm">
-            <PlayerAvatar
-              number={p.number}
-              position={p.position}
-              size={52}
-              isCaptain={p.role?.includes("主将")}
-            />
+        <div className="flex items-start justify-between">
+          <div className="flex items-center gap-1.5">
+            <span className="text-lg" aria-hidden>
+              {m.icon}
+            </span>
+            <span className="text-xs font-bold tracking-wide">{m.label}</span>
           </div>
-          <div className="min-w-0 flex-1">
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold tracking-wide">
-                {m.icon} {m.label}
-              </span>
-              <span
-                className="text-3xl font-black leading-none tabular-nums"
-                style={{ textShadow: "0 1px 2px rgba(0,0,0,.25)" }}
-              >
-                {p.number}
-              </span>
+          <span
+            className="text-4xl font-black leading-none tabular-nums"
+            style={{ textShadow: "0 1px 2px rgba(0,0,0,.25)" }}
+          >
+            {p.number}
+          </span>
+        </div>
+        <div className="mt-1">
+          <div className="text-lg font-bold leading-tight">{p.name}</div>
+          {p.enName && (
+            <div className="text-[10px] uppercase tracking-wider text-white/75">
+              {p.enName}
             </div>
-            <div className="mt-1">
-              <div className="text-base font-bold leading-tight">{p.name}</div>
-              {p.enName && (
-                <div className="text-[9px] uppercase tracking-wider text-white/75 truncate">
-                  {p.enName}
-                </div>
-              )}
-            </div>
-          </div>
+          )}
         </div>
       </div>
 
@@ -183,16 +166,16 @@ export default function SquadPage() {
                 s.role === "監督" ? "border-jpred ring-1 ring-jpred/20" : "border-line"
               }`}
             >
-              <div className="bg-white rounded-full p-0.5 shrink-0 border border-line">
-                <PlayerAvatar variant="coach" seed={nameSeed(s.name)} size={44} />
-              </div>
+              <span className="text-2xl shrink-0" aria-hidden>
+                {s.icon}
+              </span>
               <div className="min-w-0">
                 <div
                   className={`text-[11px] font-bold ${
                     s.role === "監督" ? "text-jpred" : "text-muted"
                   }`}
                 >
-                  {s.icon} {s.role}
+                  {s.role}
                 </div>
                 <div className="font-bold leading-tight">{s.name}</div>
               </div>
