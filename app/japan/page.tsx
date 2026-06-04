@@ -6,6 +6,7 @@ import { getTeam } from "@/data/teams";
 import { japanInfo, opponentGuides } from "@/data/japanHub";
 import { jstDateLabel, jstTimeLabel, jstWatchHint } from "@/lib/datetime";
 import ReminderButton from "@/components/schedule/ReminderButton";
+import NextMatchCountdown from "@/components/NextMatchCountdown";
 
 export const revalidate = 60;
 
@@ -34,22 +35,40 @@ export default async function JapanPage() {
     .sort((a, b) => +new Date(a.utcDate) - +new Date(b.utcDate));
   const jpn = getTeam("JPN");
 
+  const nowMs = Date.now();
+  const nextMatch =
+    japanMatches.find((m) => new Date(m.utcDate).getTime() > nowMs) ??
+    japanMatches[0];
+  const nextOpp = nextMatch
+    ? getTeam(nextMatch.homeCode === "JPN" ? nextMatch.awayCode : nextMatch.homeCode)
+    : null;
+
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
       {/* ヒーロー */}
       <header className="mb-8 rounded-2xl overflow-hidden border border-line">
         <div className="colors-stripe-thin w-full" />
-        <div className="bg-jpnavy text-white p-6 flex items-center gap-4">
-          <span className="text-6xl" aria-hidden>
-            🇯🇵
-          </span>
-          <div>
-            <h1 className="text-3xl font-bold mb-1">日本代表を100倍楽しむ</h1>
-            <p className="text-white/80 text-sm leading-relaxed">
-              サムライブルーの2026年。グループFの突破条件・対戦国の攻略法・
-              注目選手まで、日本戦の楽しみ方をぜんぶここで。
-            </p>
+        <div className="bg-jpnavy text-white p-6">
+          <div className="flex items-center gap-4">
+            <span className="text-6xl" aria-hidden>
+              🇯🇵
+            </span>
+            <div>
+              <h1 className="text-3xl font-bold mb-1">日本代表を100倍楽しむ</h1>
+              <p className="text-white/80 text-sm leading-relaxed">
+                サムライブルーの2026年。グループFの突破条件・対戦国の攻略法・
+                注目選手まで、日本戦の楽しみ方をぜんぶここで。
+              </p>
+            </div>
           </div>
+          {nextMatch && nextOpp && (
+            <div className="mt-4">
+              <NextMatchCountdown
+                targetUtc={nextMatch.utcDate}
+                label={`⏱ 次の日本戦：日本 vs ${nextOpp.name} まで`}
+              />
+            </div>
+          )}
         </div>
       </header>
 
