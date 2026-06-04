@@ -312,6 +312,9 @@ export default async function JapanPage() {
 
       {/* 導線 */}
       <div className="flex flex-wrap gap-4">
+        <Link href="/squad" className="text-sm font-bold text-jpnavy hover:underline">
+          📋 代表メンバー全26名の名簿 →
+        </Link>
         <Link href="/schedule" className="text-sm font-medium text-jpnavy hover:underline">
           🗓 W杯全試合の日程 →
         </Link>

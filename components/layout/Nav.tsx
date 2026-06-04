@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 const links = [
   { href: "/", label: "ホーム" },
   { href: "/japan", label: "日本特集" },
+  { href: "/squad", label: "代表メンバー" },
   { href: "/schedule", label: "試合日程" },
   { href: "/teams", label: "各国図鑑" },
   { href: "/deep", label: "深掘り" },
