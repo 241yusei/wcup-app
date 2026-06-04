@@ -15,7 +15,19 @@ export interface MatchPreview {
   keyMatchup?: string; // 注目の個人対決など
   watchPoints?: string[]; // 全試合を観た上での観戦のキーポイント（戦術的な見方）
   prediction?: string; // スコア予想・展望（あくまで一つの見方）
+  mustKnow?: MustKnow; // 試合を開いた時のポップアップ用「これだけは押さえる」
   sources?: string[];
+}
+
+// 「これだけは押さえておくべき」3本立て。normal=通常、simple=サッカー未経験者向けの超やさしい言い換え。
+export interface MustKnowItem {
+  normal: string;
+  simple: string;
+}
+export interface MustKnow {
+  point: MustKnowItem; // ここがポイント！
+  player: MustKnowItem; // この選手見とけ！
+  tactic: MustKnowItem; // 戦術！
 }
 
 export function pairKey(a: string, b: string): string {
@@ -49,6 +61,26 @@ export const matchPreviews: MatchPreview[] = [
     ],
     prediction:
       "相性は良くないが、オランダの崩しの形は意外と単調。勝機は十分にある一戦（あくまで一つの見方）。",
+    mustKnow: {
+      point: {
+        normal:
+          "過去3戦未勝利の格上オランダが初戦の相手。6連勝中の日本がどこまでやれるかが最大の見どころ。",
+        simple:
+          "日本にとって一番強そうな相手。でも今の日本もすごく調子がいい。弱いと思われた方が勝つ“番狂わせ”が起きたら大事件！",
+      },
+      player: {
+        normal:
+          "攻撃の鍵は久保建英（背番号8）。オランダ守備の柱ファン・ダイクとの駆け引きに注目。",
+        simple:
+          "日本のスター・久保くん（背番号8）を見ていればOK。ボールを持つと『おっ』となるドリブルが武器。",
+      },
+      tactic: {
+        normal:
+          "オランダがボールを持って攻めてくる所を、日本が奪ってカウンター。相手右サイドのダンフリースの攻め上がりが最大の警戒点。",
+        simple:
+          "日本は『ボールを取ったら一気に攻める』のが得意。相手の右側から来る攻撃にだけ気をつければOK。",
+      },
+    },
     sources: [
       "https://en.fifaranking.net/nations/jpn/results/head-to-head/index.php?team=nld",
       "https://www.goal.com/en/team/netherlands/fixtures-results/657oha8nkne1ybba2bouzkbo7",
@@ -77,6 +109,25 @@ export const matchPreviews: MatchPreview[] = [
     ],
     prediction:
       "戦力では日本が圧倒。先制して相手を前に出させ、3-0前後で勝ち切りたい一戦（あくまで一つの見方）。",
+    mustKnow: {
+      point: {
+        normal:
+          "日本が過去4戦全勝・無失点の相性。3戦で最も勝ち点を計算したい大事な一戦。",
+        simple: "日本がめちゃくちゃ得意な相手。普通にいけば勝てるはず、の試合。",
+      },
+      player: {
+        normal:
+          "ガチガチに守る相手をどう崩すか。久保建英ら攻撃陣の崩しの質が見せ場。相手の創造的MFハンニバルにも注意。",
+        simple:
+          "相手はずっと守ってくる。それを日本の攻撃陣（久保くんなど）がどうこじ開けるか、を見てみよう。",
+      },
+      tactic: {
+        normal:
+          "相手は5バックで超守備的。日本がボールを保持して、いかに先制点を取れるかがすべて。",
+        simple:
+          "相手は『とにかく守る』作戦。日本が先に1点取れれば一気にラクになる。先制点が超大事。",
+      },
+    },
     sources: [
       "https://en.fifaranking.net/nations/jpn/results/head-to-head/index.php?team=tun",
       "https://www.goal.com/en-us/team/tunisia/fixtures-results/ctp7ovvf34m7fzshua9ogbr6i",
@@ -105,6 +156,26 @@ export const matchPreviews: MatchPreview[] = [
     ],
     prediction:
       "最も苦戦が予想される一戦。セットプレーからの失点→追う展開でカウンター被弾の流れに注意（あくまで一つの見方）。",
+    mustKnow: {
+      point: {
+        normal:
+          "3戦で最難関。プレーオフから勢いに乗る強敵で、グループ最終戦は順位次第で状況が変わる。",
+        simple:
+          "日本にとって一番手ごわい相手。この試合の結果で、次に進めるかが決まるかもしれない大一番。",
+      },
+      player: {
+        normal:
+          "要警戒はアーセナルの点取り屋ヨケレスら大型FW。日本の守備陣がどう抑えるか。",
+        simple:
+          "相手の“デカくて点を取るのがうまい”選手（ヨケレス）が怖い。日本の守りが止められるかに注目。",
+      },
+      tactic: {
+        normal:
+          "相手はセットプレー（CK・FK）とヘディングが武器。守備ラインが重い隙を、久保・鎌田のアイデアとミドルシュートで突きたい。",
+        simple:
+          "相手は背が高くてコーナーキックが強い。日本は遠くからのシュートでゴールを狙うのが良さそう。",
+      },
+    },
     sources: [
       "https://en.fifaranking.net/nations/jpn/results/head-to-head/index.php?team=swe",
       "https://www.si.com/soccer/sweden-2026-world-cup-preview",
@@ -125,6 +196,24 @@ export const matchPreviews: MatchPreview[] = [
     ],
     keyMatchup:
       "ブラジルの攻撃エース、ヴィニシウス・ジュニオール 対 モロッコ守備陣。サイドを切り裂くヴィニシウスを抑えられるかが焦点。",
+    mustKnow: {
+      point: {
+        normal:
+          "2023年にモロッコがブラジルに史上初勝利。番狂わせの再現があるかが見どころ。",
+        simple:
+          "サッカー王国ブラジルに、伏兵モロッコが挑む。前にモロッコが勝ったことがあるから油断できない。",
+      },
+      player: {
+        normal: "ブラジルの攻撃エース、ヴィニシウス・ジュニオールのドリブルに注目。",
+        simple:
+          "ブラジルのスター、ヴィニシウスのドリブルがとにかくすごい。そこを見ていればOK。",
+      },
+      tactic: {
+        normal:
+          "個の力のブラジル対、堅守速攻のモロッコ。ブラジルの背後をモロッコのカウンターが突けるか。",
+        simple: "強いブラジルを、モロッコが『守って素早く反撃』で倒せるか、という構図。",
+      },
+    },
     sources: [
       "https://www.thesoccerworldcups.com/head_to_head/morocco_vs_brazil.php",
       "https://www.skysports.com/football/news/12010/12842808/morocco-2-1-brazil-world-cup-semi-finalists-earn-famous-win-over-fifas-top-ranked-side-in-tangier",
@@ -146,6 +235,25 @@ export const matchPreviews: MatchPreview[] = [
     ],
     keyMatchup:
       "イングランドの司令塔ジュード・ベリンガム 対 クロアチア中盤。中盤の主導権争いが試合のリズムを決める。",
+    mustKnow: {
+      point: {
+        normal:
+          "2018年W杯準決勝の再戦。あの敗戦からイングランドが借りを返せるかが見どころ。",
+        simple:
+          "8年前にイングランドが負けた相手とのリベンジ対決。物語のある一戦。",
+      },
+      player: {
+        normal: "イングランドの司令塔ベリンガムが中盤で主導権を握れるかが鍵。",
+        simple:
+          "イングランドの中心選手ベリンガムが、試合を動かせるかに注目すればOK。",
+      },
+      tactic: {
+        normal:
+          "ベテラン揃いのクロアチアの経験と、若いイングランドの勢いの対比。中盤を支配した方が有利。",
+        simple:
+          "ベテランのクロアチア対、若いイングランド。真ん中でボールを多く持てた方が勝ちやすい。",
+      },
+    },
     sources: [
       "https://www.espn.com/soccer/match/_/gameId/498141/england-croatia",
       "https://www.aiscore.com/head-to-head/soccer-croatia-vs-england",
@@ -167,6 +275,24 @@ export const matchPreviews: MatchPreview[] = [
     ],
     keyMatchup:
       "メキシコの攻撃陣 対 南アフリカ守備陣とGK。直近PKを外すなど南アの決定力が問われる。",
+    mustKnow: {
+      point: {
+        normal:
+          "2026大会の開幕戦。共催国メキシコが大観衆を味方に最高のスタートを切れるか。",
+        simple:
+          "大会の一番最初の試合（開幕戦）。お祭りの始まり！地元メキシコが主役。",
+      },
+      player: {
+        normal: "好調メキシコの攻撃陣が、南アフリカ守備をしっかり崩せるかに注目。",
+        simple: "今いい感じのメキシコが、ちゃんと点を取れるかを見てみよう。",
+      },
+      tactic: {
+        normal:
+          "2010年開幕戦の再戦という物語性。無敗のメキシコが得点力不足の南アフリカを崩せるか。",
+        simple:
+          "メキシコが攻めて、南アフリカが守る展開になりそう。開幕戦の雰囲気を楽しもう。",
+      },
+    },
     sources: [
       "https://www.espn.com/soccer/match/_/gameId/264031/mexico-south-africa",
       "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/mexico-south-africa-opening-game-2010",

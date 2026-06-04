@@ -14,6 +14,7 @@ import { getPreview, countryTrivia } from "@/data/matchPreviews";
 import { jstDateLabel, jstTimeLabel, jstWatchHint } from "@/lib/datetime";
 import ReminderButton from "@/components/schedule/ReminderButton";
 import ShareButton from "@/components/ShareButton";
+import MatchIntroPopup from "@/components/MatchIntroPopup";
 import { Team } from "@/lib/types";
 
 export const revalidate = 60;
@@ -191,6 +192,17 @@ export default async function MatchDetail({
             )}
           </div>
           <div className="mt-4 flex justify-center flex-wrap gap-2">
+            <MatchIntroPopup
+              id={match.id}
+              title={`${home?.name ?? match.homeCode} vs ${away?.name ?? match.awayCode}`}
+              mustKnow={preview?.mustKnow ?? null}
+              fallbackPoint={
+                preview?.highlights?.[0] ??
+                home?.whyWatch ??
+                away?.whyWatch ??
+                "両国の見どころと注目選手をチェックして、どっちが勝つか予想してみよう。"
+              }
+            />
             {!finished && (
               <ReminderButton
                 uid={match.id}
