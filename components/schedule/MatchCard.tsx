@@ -90,7 +90,7 @@ export default function MatchCard({ match }: { match: Match }) {
       <div className="mt-3 pt-3 border-t border-line flex items-center justify-between gap-2">
         <Link
           href={`/matches/${match.id}`}
-          className="text-xs font-bold text-jpnavy hover:underline"
+          className="inline-flex items-center gap-1 text-xs font-bold px-2.5 py-1.5 rounded-full bg-jpnavy/10 text-jpnavy hover:bg-jpnavy hover:text-white transition-colors"
         >
           📋 試合の見どころ →
         </Link>

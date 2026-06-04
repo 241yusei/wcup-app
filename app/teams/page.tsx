@@ -28,7 +28,7 @@ export default function TeamsPage() {
           <Link
             key={t.code}
             href={`/teams/${t.code}`}
-            className="group bg-surface rounded-2xl border border-line p-4 hover:-translate-y-1 transition-transform overflow-hidden relative"
+            className="group bg-surface rounded-2xl border border-line p-4 cursor-pointer transition-all hover:-translate-y-1 hover:border-jpnavy/50 hover:shadow-md active:scale-[0.98] overflow-hidden relative"
           >
             <div
               className="absolute top-0 left-0 right-0 h-1"
@@ -50,6 +50,12 @@ export default function TeamsPage() {
                 👀 {t.whyWatch}
               </div>
             )}
+            <div className="mt-2 text-[11px] font-bold text-jpnavy flex items-center justify-end gap-0.5">
+              図鑑を見る
+              <span className="group-hover:translate-x-0.5 transition-transform" aria-hidden>
+                ›
+              </span>
+            </div>
           </Link>
         ))}
       </div>

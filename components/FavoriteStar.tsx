@@ -72,8 +72,10 @@ export default function FavoriteStar({
       aria-pressed={active}
       aria-label={active ? "推し解除" : "推しに登録"}
       title={active ? "推し解除" : "推しに登録"}
-      className={`text-xl leading-none transition-transform hover:scale-110 ${
-        active ? "text-[#e8c30c]" : "text-muted/40 hover:text-[#e8c30c]"
+      className={`inline-flex items-center justify-center w-9 h-9 rounded-full text-xl leading-none shadow-sm transition-transform hover:scale-110 active:scale-95 ${
+        active
+          ? "bg-[#e8c30c] text-jpnavy"
+          : "bg-background/80 text-muted/70 hover:text-[#e8c30c]"
       }`}
     >
       {active ? "★" : "☆"}

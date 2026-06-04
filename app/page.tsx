@@ -85,6 +85,12 @@ const features = [
     title: "100倍ガイド",
     desc: "ルールも観戦のコツも、にわかさん目線で。これを読めば予習はバッチリ。",
   },
+  {
+    href: "/gen",
+    icon: "🐱",
+    title: "ゲンの玄人解説",
+    desc: "隠れキャラ・ボールネコのゲンが忖度なしで語る本音。そこまで言う⁉の強者目線。",
+  },
 ];
 
 export default async function Home() {
@@ -278,11 +284,22 @@ export default async function Home() {
             <Link
               key={f.href}
               href={f.href}
-              className="bg-surface border border-line rounded-2xl p-6 hover:-translate-y-1 transition-transform"
+              className="group bg-surface border border-line rounded-2xl p-6 cursor-pointer transition-all hover:-translate-y-1 hover:border-jpnavy/50 hover:shadow-md active:scale-[0.98]"
             >
-              <div className="text-3xl mb-3">{f.icon}</div>
+              <div className="flex items-start justify-between">
+                <div className="text-3xl mb-3">{f.icon}</div>
+                <span
+                  className="text-jpnavy/40 text-xl group-hover:text-jpnavy group-hover:translate-x-0.5 transition-all"
+                  aria-hidden
+                >
+                  ›
+                </span>
+              </div>
               <h3 className="text-lg font-bold mb-2">{f.title}</h3>
               <p className="text-sm text-muted leading-relaxed">{f.desc}</p>
+              <span className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-jpnavy">
+                ひらく <span aria-hidden>→</span>
+              </span>
             </Link>
           ))}
         </div>

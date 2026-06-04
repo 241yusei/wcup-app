@@ -41,7 +41,7 @@ export default function Nav() {
               <Link
                 key={l.href}
                 href={l.href}
-                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap shrink-0 ${
+                className={`px-3 py-2.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap shrink-0 ${
                   active
                     ? "bg-jpnavy text-white"
                     : "text-muted hover:text-jpnavy hover:bg-line/60"

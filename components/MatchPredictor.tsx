@@ -75,7 +75,7 @@ export default function MatchPredictor({
     } else {
       cls += selected
         ? "bg-jpnavy text-white border-jpnavy "
-        : "bg-surface text-foreground border-line hover:border-jpnavy ";
+        : "bg-surface text-foreground border-jpnavy/30 cursor-pointer hover:border-jpnavy hover:bg-jpnavy/5 active:bg-jpnavy/10 ";
     }
     return (
       <button
@@ -96,6 +96,9 @@ export default function MatchPredictor({
         <div className="text-[11px] font-bold text-muted mb-1.5 flex items-center gap-1">
           <span aria-hidden>🔮</span>
           あなたの勝敗予想
+          {!finished && (
+            <span className="font-normal text-muted/80">（タップで選ぶ）</span>
+          )}
           {finished && pick && (
             <span
               className={`ml-auto font-bold ${
