@@ -22,6 +22,23 @@ export interface SquadPlayer {
 
 export const manager = "森保一";
 
+// コーチングスタッフ（JFA公式・worldcup_2026登録）。
+export interface StaffMember {
+  role: string;
+  name: string;
+  icon: string;
+}
+export const staff: StaffMember[] = [
+  { role: "監督", name: "森保一", icon: "👔" },
+  { role: "コーチ", name: "名波浩", icon: "📋" },
+  { role: "コーチ", name: "齊藤俊秀", icon: "📋" },
+  { role: "コーチ", name: "中村俊輔", icon: "📋" },
+  { role: "コーチ", name: "前田遼一", icon: "📋" },
+  { role: "コーチ", name: "長谷部誠", icon: "📋" },
+  { role: "フィジカルコーチ", name: "松本良一", icon: "💪" },
+  { role: "GKコーチ", name: "下田崇", icon: "🧤" },
+];
+
 // JFA公式の26名（researchで age/height/caps/role/style を補完）。
 export const squad: SquadPlayer[] = [
   // GK

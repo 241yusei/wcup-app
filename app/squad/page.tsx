@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { squad, manager, posMeta, posOrder, type SquadPlayer } from "@/data/squad";
+import { squad, manager, staff, posMeta, posOrder, type SquadPlayer } from "@/data/squad";
 
 export const metadata = {
   title: "日本代表メンバー名簿｜サムライブルー26人図鑑｜100倍Wカップ",
@@ -146,10 +146,48 @@ export default function SquadPage() {
         );
       })}
 
+      {/* コーチングスタッフ */}
+      <section className="mb-10">
+        <h2 className="text-lg font-bold mb-3 flex items-center gap-2">
+          <span
+            className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-jpnavy text-white text-sm"
+            aria-hidden
+          >
+            👔
+          </span>
+          コーチングスタッフ
+          <span className="text-sm text-muted font-normal">{staff.length}名</span>
+        </h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+          {staff.map((s) => (
+            <div
+              key={s.role + s.name}
+              className={`rounded-2xl border bg-surface p-4 flex items-center gap-3 ${
+                s.role === "監督" ? "border-jpred ring-1 ring-jpred/20" : "border-line"
+              }`}
+            >
+              <span className="text-2xl shrink-0" aria-hidden>
+                {s.icon}
+              </span>
+              <div className="min-w-0">
+                <div
+                  className={`text-[11px] font-bold ${
+                    s.role === "監督" ? "text-jpred" : "text-muted"
+                  }`}
+                >
+                  {s.role}
+                </div>
+                <div className="font-bold leading-tight">{s.name}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <p className="text-[11px] text-muted mb-6">
-        ※ メンバー・背番号・所属はJFA公式（2026年大会登録）に基づきます。年齢・身長・
-        代表歴は各種公開情報を参照・要約。カードのデザインはイメージで、選手本人の
-        写真・似顔ではありません。
+        ※ メンバー・背番号・所属・スタッフはJFA公式（2026年大会登録）に基づきます。
+        年齢・身長・代表歴は各種公開情報を参照・要約。カードのデザインはイメージで、
+        選手本人の写真・似顔ではありません。
       </p>
 
       <div className="flex flex-wrap gap-4">
