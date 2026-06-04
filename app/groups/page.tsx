@@ -135,7 +135,10 @@ export default async function GroupsPage() {
       </div>
 
       <div className="mt-6 flex flex-wrap gap-4">
-        <Link href="/japan" className="text-sm font-bold text-jpnavy hover:underline">
+        <Link href="/bracket" className="text-sm font-bold text-jpnavy hover:underline">
+          🏆 決勝トーナメント早見 →
+        </Link>
+        <Link href="/japan" className="text-sm font-medium text-jpnavy hover:underline">
           🇯🇵 日本特集（突破条件）→
         </Link>
         <Link href="/schedule" className="text-sm font-medium text-jpnavy hover:underline">

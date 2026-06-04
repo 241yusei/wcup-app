@@ -13,6 +13,7 @@ async function findMatch(id: string): Promise<Match | undefined> {
 import { getPreview, countryTrivia } from "@/data/matchPreviews";
 import { jstDateLabel, jstTimeLabel, jstWatchHint } from "@/lib/datetime";
 import ReminderButton from "@/components/schedule/ReminderButton";
+import ShareButton from "@/components/ShareButton";
 import { Team } from "@/lib/types";
 
 export const revalidate = 60;
@@ -113,6 +114,7 @@ export default async function MatchDetail({
   const away = getTeam(match.awayCode);
   const preview = getPreview(match.homeCode, match.awayCode);
   const finished = match.status === "FINISHED";
+  const jpInvolved = match.homeCode === "JPN" || match.awayCode === "JPN";
   const hint = jstWatchHint(match.utcDate);
 
   // preview の formA/formB は teamA/teamB 基準。表示用に home/away へ対応づける。
@@ -188,16 +190,28 @@ export default async function MatchDetail({
               </span>
             )}
           </div>
-          {!finished && (
-            <div className="mt-4 flex justify-center">
+          <div className="mt-4 flex justify-center flex-wrap gap-2">
+            {!finished && (
               <ReminderButton
                 uid={match.id}
                 title={`⚽ ${home?.name ?? match.homeCode} vs ${away?.name ?? match.awayCode}`}
                 utcStart={match.utcDate}
                 location={match.stadium ?? match.city ?? match.venue}
               />
-            </div>
-          )}
+            )}
+            <ShareButton
+              label="この試合をシェア"
+              text={`⚽ ${home?.name ?? match.homeCode} vs ${away?.name ?? match.awayCode}（${jstDateLabel(match.utcDate)} ${jstTimeLabel(match.utcDate)} JST）｜100倍Wカップで見どころチェック ${jpInvolved ? "#日本代表 " : ""}#FIFAワールドカップ`}
+              className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full border border-white/40 text-white hover:bg-white hover:text-jpnavy transition-colors"
+            />
+          </div>
+          {/* SNS実況用ハッシュタグ */}
+          <div className="mt-3 text-center text-[11px] text-white/70">
+            🗣 SNS実況のおすすめタグ：
+            <span className="font-bold text-white">
+              {jpInvolved ? "#日本代表 #FIFAワールドカップ" : "#FIFAワールドカップ"}
+            </span>
+          </div>
         </div>
       </header>
 

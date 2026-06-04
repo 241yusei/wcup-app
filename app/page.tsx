@@ -38,6 +38,12 @@ const features = [
     desc: "全12組の組み合わせと勝点。結果をリアルタイム反映。突破圏も一目で。",
   },
   {
+    href: "/bracket",
+    icon: "🏆",
+    title: "決勝トーナメント",
+    desc: "ラウンド32〜決勝の流れと日程。日本代表の勝ち上がりマップも。",
+  },
+  {
     href: "/predictions",
     icon: "🔮",
     title: "勝敗予想",

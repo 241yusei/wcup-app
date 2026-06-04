@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import ShareButton from "@/components/ShareButton";
 
 type Pick = "H" | "D" | "A";
 
@@ -91,6 +92,18 @@ export default function PredictionsSummary({ matches }: { matches: PredMatch[] }
           </div>
           <div className="text-xs text-muted mt-0.5">的中率</div>
         </div>
+      </div>
+
+      {/* シェア */}
+      <div className="mb-6 flex justify-center">
+        <ShareButton
+          label="予想成績をシェア"
+          text={
+            rate == null
+              ? `🔮 W杯の勝敗予想に挑戦中！${predicted.length}試合を予想したよ。あなたも予想しよう #100倍Wカップ #FIFAワールドカップ`
+              : `🔮 W杯勝敗予想の的中率は${rate}%（${settled.length}試合中${hits.length}的中）！あなたも予想で勝負しよう #100倍Wカップ #FIFAワールドカップ`
+          }
+        />
       </div>
 
       {/* 一覧 */}
