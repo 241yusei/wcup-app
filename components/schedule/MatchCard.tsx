@@ -3,6 +3,7 @@ import { Match } from "@/lib/types";
 import { getTeam } from "@/data/teams";
 import { jstTimeLabel, jstWatchHint } from "@/lib/datetime";
 import ReminderButton from "./ReminderButton";
+import MatchPredictor from "@/components/MatchPredictor";
 
 function TeamSide({ code, align }: { code: string; align: "l" | "r" }) {
   const t = getTeam(code);
@@ -71,6 +72,20 @@ export default function MatchCard({ match }: { match: Match }) {
           </span>
         </div>
       )}
+
+      {/* 勝敗予想 */}
+      <div className="mt-3 pt-3 border-t border-line">
+        <MatchPredictor
+          matchId={match.id}
+          homeFlag={home?.flag ?? "🏳️"}
+          awayFlag={away?.flag ?? "🏳️"}
+          homeName={home?.name ?? match.homeCode}
+          awayName={away?.name ?? match.awayCode}
+          status={match.status}
+          homeScore={match.homeScore}
+          awayScore={match.awayScore}
+        />
+      </div>
 
       <div className="mt-3 pt-3 border-t border-line flex items-center justify-between gap-2">
         <Link
