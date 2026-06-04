@@ -15,6 +15,7 @@ import { jstDateLabel, jstTimeLabel, jstWatchHint } from "@/lib/datetime";
 import ReminderButton from "@/components/schedule/ReminderButton";
 import ShareButton from "@/components/ShareButton";
 import MatchIntroPopup from "@/components/MatchIntroPopup";
+import StoryShare from "@/components/StoryShare";
 import { Team } from "@/lib/types";
 
 export const revalidate = 60;
@@ -215,6 +216,19 @@ export default async function MatchDetail({
               label="この試合をシェア"
               text={`⚽ ${home?.name ?? match.homeCode} vs ${away?.name ?? match.awayCode}（${jstDateLabel(match.utcDate)} ${jstTimeLabel(match.utcDate)} JST）｜100倍Wカップで見どころチェック ${jpInvolved ? "#日本代表 " : ""}#FIFAワールドカップ`}
               className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full border border-white/40 text-white hover:bg-white hover:text-jpnavy transition-colors"
+            />
+            <StoryShare
+              data={{
+                id: match.id,
+                stage: match.stage + (match.group ? `・組${match.group}` : ""),
+                homeName: home?.name ?? match.homeCode,
+                awayName: away?.name ?? match.awayCode,
+                homeFlag: home?.flag ?? "🏳️",
+                awayFlag: away?.flag ?? "🏳️",
+                date: jstDateLabel(match.utcDate),
+                time: jstTimeLabel(match.utcDate),
+                jp: jpInvolved,
+              }}
             />
           </div>
           {/* SNS実況用ハッシュタグ */}
