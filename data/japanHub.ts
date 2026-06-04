@@ -24,6 +24,28 @@ export interface JapanInfo {
   sources?: string[];
 }
 
+// 日本代表のチームスタッツ（独立2エージェントの二重ファクトチェックで一致した値のみ採用）。
+export interface JapanStat {
+  label: string;
+  value: string;
+  sub?: string; // 補足（達成年・選手名など）
+}
+export const japanStats: JapanStat[] = [
+  { label: "W杯出場", value: "通算8回目", sub: "1998年から8大会連続" },
+  { label: "W杯最高成績", value: "ベスト16", sub: "2002・10・18・22年（突破歴なし）" },
+  { label: "W杯通算成績", value: "7勝6分12敗", sub: "得点25・失点33（本大会全25試合）" },
+  { label: "FIFAランク", value: "18位", sub: "2026年4月時点・アジア最上位" },
+  { label: "2026予選成績", value: "7勝2分1敗", sub: "最終予選30得点3失点・グループ1位" },
+  { label: "歴代最多出場", value: "152試合", sub: "遠藤保仁" },
+  { label: "歴代最多得点", value: "75点", sub: "釜本邦茂（FIFA公認記録）" },
+  { label: "直近の躍進", value: "ブラジルに3-2", sub: "2025年10月・史上初勝利（0-2から逆転）" },
+];
+// 二重チェックで補足が必要な項目（正直に明示）。
+export const japanStatsCaveats: string[] = [
+  "W杯通算成績は実際に開催された過去7大会分（2026は8大会連続出場）。",
+  "FIFAランクは2026年6月の更新で変動の可能性があります。",
+];
+
 // 対戦3カ国の攻略ガイド（リサーチ反映・所属クラブも個別裏取り済み）。
 export const opponentGuides: OpponentGuide[] = [
   {

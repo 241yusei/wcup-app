@@ -3,7 +3,12 @@ import Image from "next/image";
 import { getMatches } from "@/lib/football";
 import { fallbackMatches } from "@/data/matches";
 import { getTeam } from "@/data/teams";
-import { japanInfo, opponentGuides } from "@/data/japanHub";
+import {
+  japanInfo,
+  opponentGuides,
+  japanStats,
+  japanStatsCaveats,
+} from "@/data/japanHub";
 import { jstDateLabel, jstTimeLabel, jstWatchHint } from "@/lib/datetime";
 import ReminderButton from "@/components/schedule/ReminderButton";
 import NextMatchCountdown from "@/components/NextMatchCountdown";
@@ -246,6 +251,38 @@ export default async function JapanPage() {
           </div>
         )}
       </section>
+
+      {/* 日本代表スタッツ（二重ファクトチェック済み） */}
+      {japanStats.length > 0 && (
+        <section className="mb-12">
+          <SectionTitle>📈 日本代表データ（スタッツ）</SectionTitle>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            {japanStats.map((s) => (
+              <div
+                key={s.label}
+                className="rounded-2xl border border-line bg-surface p-4"
+              >
+                <div className="text-[11px] text-muted leading-tight">
+                  {s.label}
+                </div>
+                <div className="text-lg font-extrabold text-jpnavy leading-tight mt-1">
+                  {s.value}
+                </div>
+                {s.sub && (
+                  <div className="text-[11px] text-muted mt-1 leading-snug">
+                    {s.sub}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <p className="text-[11px] text-muted mt-2 leading-relaxed">
+            ※ 数値は独立した2回のファクトチェックで一致した値のみ掲載（FIFA・各種公式記録を参照）。
+            {japanStatsCaveats.length > 0 &&
+              " " + japanStatsCaveats.join(" ／ ")}
+          </p>
+        </section>
+      )}
 
       {/* 対戦国 攻略ガイド */}
       <section className="mb-10">
