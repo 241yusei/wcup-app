@@ -30,13 +30,13 @@ export const metadata: Metadata = {
     siteName: "100倍Wカップ",
     locale: "ja_JP",
     type: "website",
-    images: [{ url: `${bp}/mascot-v2.png`, width: 256, height: 620, alt: "ワールドカップ人間くん" }],
+    images: [{ url: `${bp}/og.png`, width: 1200, height: 630, alt: "100倍Wカップ" }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: siteTitle,
     description: siteDesc,
-    images: [`${bp}/mascot-v2.png`],
+    images: [`${bp}/og.png`],
   },
   appleWebApp: {
     capable: true,
