@@ -13,7 +13,6 @@ import { jstDateLabel, jstTimeLabel, jstWatchHint } from "@/lib/datetime";
 import ReminderButton from "@/components/schedule/ReminderButton";
 import NextMatchCountdown from "@/components/NextMatchCountdown";
 
-export const revalidate = 60;
 
 export const metadata = {
   title: "日本代表を100倍楽しむ｜グループF 完全ガイド｜100倍Wカップ",

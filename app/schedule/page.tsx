@@ -4,7 +4,6 @@ import { jstDateKey, jstDateLabel } from "@/lib/datetime";
 import MatchCard from "@/components/schedule/MatchCard";
 import { Match } from "@/lib/types";
 
-export const revalidate = 60;
 
 export default async function SchedulePage() {
   const { matches, live } = await getMatches();

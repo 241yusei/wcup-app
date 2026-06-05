@@ -18,7 +18,10 @@ import MatchIntroPopup from "@/components/MatchIntroPopup";
 import StoryShare from "@/components/StoryShare";
 import { Team } from "@/lib/types";
 
-export const revalidate = 60;
+// 静的書き出し（GitHub Pages）：全試合IDを事前生成する。
+export function generateStaticParams() {
+  return fallbackMatches.map((m) => ({ id: m.id }));
+}
 
 export async function generateMetadata({
   params,

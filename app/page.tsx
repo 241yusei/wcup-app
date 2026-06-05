@@ -10,7 +10,6 @@ const teamMap: Record<string, { name: string; flag: string }> = Object.fromEntri
   teams.map((t) => [t.code, { name: t.name, flag: t.flag }])
 );
 
-export const revalidate = 60;
 
 const features = [
   {

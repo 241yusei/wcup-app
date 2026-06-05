@@ -4,7 +4,6 @@ import PredictionsSummary, {
   type PredMatch,
 } from "@/components/PredictionsSummary";
 
-export const revalidate = 60;
 
 export const metadata = {
   title: "わたしの勝敗予想｜的中率をチェック｜100倍Wカップ",

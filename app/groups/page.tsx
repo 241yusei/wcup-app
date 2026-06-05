@@ -3,7 +3,6 @@ import { getMatches } from "@/lib/football";
 import { computeStandings, hasResults, type Row } from "@/lib/standings";
 import { getTeam } from "@/data/teams";
 
-export const revalidate = 60;
 
 export const metadata = {
   title: "グループ順位表｜全12組の組み合わせと勝点｜100倍Wカップ",
