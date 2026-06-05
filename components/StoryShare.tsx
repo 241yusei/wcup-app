@@ -6,8 +6,10 @@ type Pick = "H" | "D" | "A";
 export interface StoryData {
   id: string;
   stage: string;
-  homeName: string;
+  homeName: string; // 日本語表記
   awayName: string;
+  homeEn: string; // 英語表記（JAPAN等）
+  awayEn: string;
   homeCode: string; // NED 等
   awayCode: string; // JPN 等
   homeFlag: string;
@@ -20,52 +22,63 @@ export interface StoryData {
 const W = 1080;
 const H = 1920;
 
-// パレット（Stadium Night）
-const C = {
-  white: "#F7FAFF",
-  cyan: "#25E6C8",
-  blue: "#2B7CFF",
-  red: "#D7282F",
-  mute: "rgba(247,250,255,.55)",
-  mute2: "rgba(247,250,255,.6)",
-};
-
-// Anton（極太コンデンス）をCanvasに読み込む。失敗時はシステムフォントにフォールバック。
-let antonPromise: Promise<void> | null = null;
-function ensureAnton(): Promise<void> {
+/* ───────────────────── フォント読み込み（Google Fonts → FontFace） ───────────────────── */
+// 任意のGoogle FontsファミリをCanvasで使えるよう読み込む。失敗時はシステムフォントへフォールバック。
+const fontCache = new Map<string, Promise<void>>();
+function ensureFont(family: string, axis?: string): Promise<void> {
   if (typeof document === "undefined") return Promise.resolve();
-  if (antonPromise) return antonPromise;
-  antonPromise = (async () => {
+  const key = family + (axis ?? "");
+  const cached = fontCache.get(key);
+  if (cached) return cached;
+  const p = (async () => {
     try {
-      const f = document.fonts;
-      if (f && f.check && f.check("64px Anton")) return;
-      const css = await fetch(
-        "https://fonts.googleapis.com/css2?family=Anton&display=swap"
-      ).then((r) => r.text());
+      if (document.fonts?.check?.(`32px "${family}"`)) return;
+      const fam = family.replace(/ /g, "+");
+      const url = `https://fonts.googleapis.com/css2?family=${fam}${
+        axis ? `:${axis}` : ""
+      }&display=swap`;
+      const css = await fetch(url).then((r) => r.text());
       const m = css.match(/url\((https:[^)]+\.woff2)\)/);
       if (!m) return;
-      const ff = new FontFace("Anton", `url(${m[1]})`);
+      const ff = new FontFace(family, `url(${m[1]})`);
       await ff.load();
       document.fonts.add(ff);
     } catch {
       /* システムフォントで代替 */
     }
   })();
-  return antonPromise;
+  fontCache.set(key, p);
+  return p;
 }
 
-const A = (size: number) => `${size}px Anton, "Arial Narrow", Arial, sans-serif`;
-const J = (w: number, size: number) =>
-  `${w} ${size}px "Hiragino Sans","Noto Sans JP",sans-serif`;
+// 各スタイルが必要とするフォント
+const STYLE_FONTS: Record<string, [string, string?][]> = {
+  construct: [["Anton"]],
+  holo: [["Anton"], ["Orbitron", "wght@800"]],
+  swiss: [["Archivo Black"]],
+  memphis: [["Unbounded", "wght@800"]],
+  deco: [["Cinzel", "wght@700"]],
+};
+function ensureStyleFonts(key: string): Promise<unknown> {
+  const list = STYLE_FONTS[key] ?? [];
+  return Promise.all(list.map(([f, a]) => ensureFont(f, a)));
+}
 
-function roundRect(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  w: number,
-  h: number,
-  r: number
-) {
+/* ───────────────────── Canvasフォント文字列 ───────────────────── */
+const F = {
+  anton: (s: number) => `${s}px "Anton","Arial Narrow",sans-serif`,
+  archivo: (s: number) => `${s}px "Archivo Black","Arial Black",sans-serif`,
+  unbounded: (s: number) => `${s}px "Unbounded","Arial Black",sans-serif`,
+  cinzel: (s: number) => `${s}px "Cinzel",Georgia,serif`,
+  orbitron: (s: number) => `${s}px "Orbitron",Arial,sans-serif`,
+  jp: (w: number, s: number) =>
+    `${w} ${s}px "Hiragino Sans","Noto Sans JP",sans-serif`,
+};
+
+/* ───────────────────── 汎用ヘルパー ───────────────────── */
+type Ctx2D = CanvasRenderingContext2D;
+
+function roundRect(ctx: Ctx2D, x: number, y: number, w: number, h: number, r: number) {
   ctx.beginPath();
   ctx.moveTo(x + r, y);
   ctx.arcTo(x + w, y, x + w, y + h, r);
@@ -75,8 +88,16 @@ function roundRect(
   ctx.closePath();
 }
 
+function setLS(ctx: Ctx2D, v: string) {
+  try {
+    (ctx as Ctx2D & { letterSpacing: string }).letterSpacing = v;
+  } catch {
+    /* 非対応ブラウザは無視 */
+  }
+}
+
 function fit(
-  ctx: CanvasRenderingContext2D,
+  ctx: Ctx2D,
   text: string,
   maxW: number,
   fontFn: (s: number) => string,
@@ -92,11 +113,822 @@ function fit(
   return s;
 }
 
+function polyPath(ctx: Ctx2D, cx: number, cy: number, r: number, n: number, rot = 0) {
+  ctx.beginPath();
+  for (let i = 0; i < n; i++) {
+    const a = rot + (i / n) * Math.PI * 2;
+    const x = cx + Math.cos(a) * r;
+    const y = cy + Math.sin(a) * r;
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+}
+
+function starPath(
+  ctx: Ctx2D,
+  cx: number,
+  cy: number,
+  R: number,
+  r: number,
+  n: number,
+  rot = -Math.PI / 2
+) {
+  ctx.beginPath();
+  for (let i = 0; i < n * 2; i++) {
+    const rad = i % 2 === 0 ? R : r;
+    const a = rot + (i / (n * 2)) * Math.PI * 2;
+    const x = cx + Math.cos(a) * rad;
+    const y = cy + Math.sin(a) * rad;
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+}
+
+function grain(
+  ctx: Ctx2D,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  count: number,
+  color: string,
+  alpha: number,
+  maxR: number
+) {
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.fillStyle = color;
+  for (let i = 0; i < count; i++) {
+    const rx = x + Math.random() * w;
+    const ry = y + Math.random() * h;
+    ctx.beginPath();
+    ctx.arc(rx, ry, Math.random() * maxR + 0.4, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.restore();
+}
+
+/* ───────────────────── 描画コンテキスト ───────────────────── */
+interface DrawCtx {
+  ctx: Ctx2D;
+  homeCode: string;
+  awayCode: string;
+  homeEn: string;
+  awayEn: string;
+  homeName: string;
+  awayName: string;
+  homeFlag: string;
+  awayFlag: string;
+  stage: string;
+  date: string;
+  time: string;
+  jp: boolean;
+  pick: Pick | null;
+  scoreOn: boolean;
+  score: { h: number; a: number };
+  winner: "home" | "away" | "draw" | null;
+}
+
+const HEAD = "Win / Loss Prediction";
+const MYLABEL = "MY 予想";
+
+function captionOf(c: DrawCtx): string {
+  if (c.winner === "home") return `${c.homeEn} WIN`;
+  if (c.winner === "away") return `${c.awayEn} WIN`;
+  if (c.winner === "draw") return "DRAW";
+  return "MAKE YOUR PICK";
+}
+const scoreStr = (c: DrawCtx) => `${c.score.h} – ${c.score.a}`;
+function hashtags(c: DrawCtx) {
+  return `#FIFAWORLDCUP26${c.jp ? "   #SAMURAIBLUE" : ""}`;
+}
+
+/* ═══════════════════════ ① CONSTRUCT（構成主義 / 赤黒・対角） ═══════════════════════ */
+function drawConstruct(c: DrawCtx) {
+  const { ctx } = c;
+  const INK = "#161616";
+  const RED = "#E63223";
+  const CREAM = "#F2F0E6";
+  const dim = "rgba(242,240,230,0.4)";
+
+  ctx.fillStyle = INK;
+  ctx.fillRect(0, 0, W, H);
+
+  // コーナーから放射する構成線
+  ctx.save();
+  ctx.strokeStyle = "rgba(242,240,230,0.09)";
+  ctx.lineWidth = 2;
+  for (let i = 0; i <= 13; i++) {
+    const a = (i / 13) * (Math.PI / 2);
+    ctx.beginPath();
+    ctx.moveTo(40, 120);
+    ctx.lineTo(40 + Math.cos(a) * 1600, 120 + Math.sin(a) * 1600);
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  // 巨大な赤い円（右下）
+  ctx.fillStyle = RED;
+  ctx.beginPath();
+  ctx.arc(900, 1120, 430, 0, Math.PI * 2);
+  ctx.fill();
+
+  // オーバーライン
+  ctx.textAlign = "left";
+  ctx.textBaseline = "alphabetic";
+  setLS(ctx, "10px");
+  ctx.fillStyle = CREAM;
+  ctx.font = F.anton(40);
+  ctx.fillText("FIFA WORLD CUP 2026", 96, 300);
+  setLS(ctx, "0px");
+
+  // 見出し
+  ctx.fillStyle = CREAM;
+  ctx.font = F.anton(58);
+  ctx.fillText(HEAD.toUpperCase(), 96, 372);
+
+  // MY 予想 タグ
+  ctx.fillStyle = RED;
+  ctx.fillRect(96, 400, 230, 58);
+  ctx.fillStyle = CREAM;
+  ctx.font = F.jp(800, 32);
+  ctx.fillText(MYLABEL, 116, 441);
+
+  // 対戦コード（対角配置・勝者を強調）
+  const hs = fit(ctx, c.homeCode, 760, F.anton, 200, 90);
+  ctx.font = F.anton(hs);
+  ctx.textAlign = "left";
+  ctx.fillStyle = c.winner === "away" ? dim : CREAM;
+  ctx.fillText(c.homeCode, 90, 680);
+  ctx.fillStyle = "rgba(242,240,230,0.7)";
+  ctx.font = F.jp(700, 30);
+  ctx.fillText(`${c.homeFlag} ${c.homeName}`, 96, 732);
+
+  const as = fit(ctx, c.awayCode, 760, F.anton, 200, 90);
+  ctx.font = F.anton(as);
+  ctx.textAlign = "right";
+  ctx.fillStyle = c.winner === "home" ? dim : CREAM;
+  ctx.fillText(c.awayCode, 988, 1010);
+  ctx.fillStyle = "rgba(242,240,230,0.85)";
+  ctx.font = F.jp(700, 30);
+  ctx.fillText(`${c.awayName} ${c.awayFlag}`, 988, 1062);
+
+  // VS（斜め）
+  ctx.save();
+  ctx.translate(545, 820);
+  ctx.rotate(-0.12);
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = RED;
+  ctx.font = F.anton(118);
+  ctx.fillText("VS", 0, 0);
+  ctx.restore();
+
+  // ヒーロー帯（クリーム・平行四辺形）
+  ctx.fillStyle = CREAM;
+  ctx.beginPath();
+  ctx.moveTo(40, 1180);
+  ctx.lineTo(1040, 1150);
+  ctx.lineTo(1040, 1380);
+  ctx.lineTo(40, 1410);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  if (c.scoreOn) {
+    ctx.fillStyle = INK;
+    ctx.font = F.anton(150);
+    ctx.fillText(scoreStr(c), 540, 1288);
+    const cap = captionOf(c);
+    const cs = fit(ctx, cap, 900, F.anton, 84, 44);
+    ctx.fillStyle = CREAM; // 赤い円の上でも読めるようクリーム
+    ctx.font = F.anton(cs);
+    ctx.fillText(cap, 540, 1500);
+  } else {
+    const cap = captionOf(c);
+    const cs = fit(ctx, cap, 920, F.anton, 124, 60);
+    ctx.fillStyle = INK;
+    ctx.font = F.anton(cs);
+    ctx.fillText(cap, 540, 1288);
+  }
+  ctx.textBaseline = "alphabetic";
+
+  // フッター
+  ctx.textAlign = "center";
+  ctx.fillStyle = dim;
+  ctx.font = F.jp(600, 30);
+  const info = `${c.stage}  ${c.date} ${c.time} JST`;
+  const isz = fit(ctx, info, 940, (s) => F.jp(600, s), 30, 20);
+  ctx.font = F.jp(600, isz);
+  ctx.fillText(info, 540, 1576);
+  setLS(ctx, "6px");
+  ctx.fillStyle = CREAM;
+  ctx.font = F.anton(34);
+  ctx.fillText(hashtags(c), 540, 1632);
+  setLS(ctx, "0px");
+}
+
+/* ═══════════════════════ ② HOLO（プリズム箔 / トレカ） ═══════════════════════ */
+function drawHolo(c: DrawCtx) {
+  const { ctx } = c;
+  const BG = "#0B0D17";
+  const PURPLE = "#7B5CFF";
+  const CYAN = "#21E6C1";
+  const WHITE = "#EAEEFB";
+
+  ctx.fillStyle = BG;
+  ctx.fillRect(0, 0, W, H);
+
+  // 屈折箔（虹色の斜めストライプ・加算合成）
+  ctx.save();
+  ctx.globalCompositeOperation = "lighter";
+  for (let i = -12; i < 34; i++) {
+    const hue = (i * 17 + 200) % 360;
+    ctx.fillStyle = `hsla(${hue},90%,60%,0.075)`;
+    ctx.save();
+    ctx.translate(540, 960);
+    ctx.rotate(-0.62);
+    ctx.fillRect(-1500 + i * 92, -1600, 46, 3200);
+    ctx.restore();
+  }
+  ctx.restore();
+
+  // 上部シーン光
+  const rg = ctx.createRadialGradient(540, 430, 30, 540, 430, 720);
+  rg.addColorStop(0, "rgba(123,92,255,0.30)");
+  rg.addColorStop(1, "rgba(123,92,255,0)");
+  ctx.fillStyle = rg;
+  ctx.fillRect(0, 80, W, 960);
+
+  // カード枠（二重・グラデ罫）
+  const fg = ctx.createLinearGradient(70, 250, 1010, 1670);
+  fg.addColorStop(0, PURPLE);
+  fg.addColorStop(0.5, CYAN);
+  fg.addColorStop(1, PURPLE);
+  ctx.strokeStyle = fg;
+  ctx.lineWidth = 5;
+  roundRect(ctx, 70, 250, W - 140, 1420, 44);
+  ctx.stroke();
+  ctx.strokeStyle = "rgba(234,238,251,0.25)";
+  ctx.lineWidth = 2;
+  roundRect(ctx, 92, 272, W - 184, 1376, 34);
+  ctx.stroke();
+
+  // レアリティ★（左上）
+  ctx.fillStyle = CYAN;
+  for (let i = 0; i < 3; i++) {
+    starPath(ctx, 150 + i * 46, 332, 17, 7.5, 5);
+    ctx.fill();
+  }
+
+  // オーバーライン
+  ctx.textAlign = "right";
+  ctx.textBaseline = "alphabetic";
+  setLS(ctx, "6px");
+  ctx.fillStyle = "rgba(234,238,251,0.75)";
+  ctx.font = F.orbitron(26);
+  ctx.fillText("FIFA WORLD CUP · 2026", 940, 342);
+  setLS(ctx, "0px");
+
+  // 見出し＋MYラベル
+  ctx.textAlign = "center";
+  setLS(ctx, "3px");
+  ctx.fillStyle = WHITE;
+  ctx.font = F.orbitron(34);
+  ctx.fillText(HEAD.toUpperCase(), 540, 470);
+  setLS(ctx, "0px");
+  ctx.fillStyle = CYAN;
+  ctx.font = F.jp(800, 30);
+  ctx.fillText(MYLABEL, 540, 522);
+
+  // エンブレム（六角＋星）
+  ctx.save();
+  const eg = ctx.createLinearGradient(440, 560, 640, 720);
+  eg.addColorStop(0, PURPLE);
+  eg.addColorStop(1, CYAN);
+  ctx.fillStyle = eg;
+  polyPath(ctx, 540, 645, 92, 6, Math.PI / 6);
+  ctx.fill();
+  ctx.fillStyle = BG;
+  starPath(ctx, 540, 645, 50, 21, 5);
+  ctx.fill();
+  ctx.restore();
+
+  // 対戦コード行
+  const codeY = 900;
+  ctx.textAlign = "center";
+  ctx.font = "78px sans-serif";
+  ctx.fillText(c.homeFlag, 270, codeY - 96);
+  ctx.fillText(c.awayFlag, 810, codeY - 96);
+
+  const drawCode = (code: string, x: number, win: boolean) => {
+    const sz = fit(ctx, code, 360, F.anton, 132, 64);
+    ctx.save();
+    if (win) {
+      ctx.shadowColor = CYAN;
+      ctx.shadowBlur = 28;
+      ctx.fillStyle = WHITE;
+    } else {
+      ctx.fillStyle = "rgba(234,238,251,0.6)";
+    }
+    ctx.font = F.anton(sz);
+    ctx.fillText(code, x, codeY);
+    ctx.restore();
+  };
+  drawCode(c.homeCode, 270, c.winner === "home");
+  drawCode(c.awayCode, 810, c.winner === "away");
+  ctx.fillStyle = CYAN;
+  ctx.font = F.orbitron(40);
+  ctx.fillText("VS", 540, codeY - 26);
+
+  // ヒーロー（スコア or 勝敗）
+  ctx.textAlign = "center";
+  if (c.scoreOn) {
+    const hg = ctx.createLinearGradient(300, 1080, 780, 1280);
+    hg.addColorStop(0, PURPLE);
+    hg.addColorStop(0.5, WHITE);
+    hg.addColorStop(1, CYAN);
+    ctx.fillStyle = hg;
+    ctx.font = F.anton(260);
+    ctx.fillText(scoreStr(c), 540, 1260);
+    const cap = captionOf(c);
+    const cs = fit(ctx, cap, 880, F.anton, 78, 44);
+    ctx.fillStyle = CYAN;
+    ctx.font = F.anton(cs);
+    ctx.fillText(cap, 540, 1360);
+  } else {
+    const cap = captionOf(c);
+    const hg = ctx.createLinearGradient(180, 1120, 900, 1260);
+    hg.addColorStop(0, PURPLE);
+    hg.addColorStop(0.5, WHITE);
+    hg.addColorStop(1, CYAN);
+    const cs = fit(ctx, cap, 860, F.anton, 130, 56);
+    ctx.fillStyle = hg;
+    ctx.font = F.anton(cs);
+    ctx.fillText(cap, 540, 1240);
+  }
+
+  // 試合情報
+  ctx.fillStyle = "rgba(234,238,251,0.6)";
+  ctx.font = F.jp(600, 30);
+  const info = `${c.stage}  ${c.date} ${c.time} JST`;
+  const isz = fit(ctx, info, 820, (s) => F.jp(600, s), 30, 20);
+  ctx.font = F.jp(600, isz);
+  ctx.fillText(info, 540, 1470);
+
+  // シリアルプレート（右下）
+  ctx.textAlign = "right";
+  setLS(ctx, "3px");
+  ctx.fillStyle = CYAN;
+  ctx.font = F.orbitron(30);
+  ctx.fillText("№ 01 / 32", 956, 1606);
+  setLS(ctx, "0px");
+  // ハッシュタグ（左下）
+  ctx.textAlign = "left";
+  ctx.fillStyle = "rgba(234,238,251,0.7)";
+  ctx.font = F.orbitron(24);
+  ctx.fillText(hashtags(c), 124, 1606);
+
+  // 微粒ノイズ（金属質感）
+  grain(ctx, 92, 272, W - 184, 1376, 520, WHITE, 0.05, 1.4);
+}
+
+/* ═══════════════════════ ③ SWISS（ブルーノート / スイス・タイポ） ═══════════════════════ */
+function drawSwiss(c: DrawCtx) {
+  const { ctx } = c;
+  const PAPER = "#E8E2D0";
+  const INK = "#16110D";
+  const VERM = "#C8341B";
+  const NAVY = "#1F3A93";
+  const M = 100;
+
+  ctx.fillStyle = PAPER;
+  ctx.fillRect(0, 0, W, H);
+
+  // 大きな藍色の円（右下・はみ出し）
+  ctx.fillStyle = NAVY;
+  ctx.beginPath();
+  ctx.arc(1080, 1700, 360, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.textAlign = "left";
+  ctx.textBaseline = "alphabetic";
+
+  // オーバーライン
+  setLS(ctx, "8px");
+  ctx.fillStyle = INK;
+  ctx.font = F.archivo(28);
+  ctx.fillText("FIFA WORLD CUP 2026", M, 300);
+  setLS(ctx, "0px");
+
+  // 見出し
+  ctx.font = F.archivo(56);
+  ctx.fillText(HEAD.toUpperCase(), M, 372);
+
+  // 細い罫
+  ctx.strokeStyle = INK;
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.moveTo(M, 408);
+  ctx.lineTo(W - M, 408);
+  ctx.stroke();
+
+  // 巨大なチーム名（縦に積む・勝者を朱に）
+  const n1 = fit(ctx, c.homeEn, W - M * 2, F.archivo, 120, 54);
+  ctx.fillStyle = c.winner === "home" ? VERM : INK;
+  ctx.font = F.archivo(n1);
+  ctx.fillText(c.homeEn, M, 560);
+  ctx.fillStyle = "rgba(22,17,13,0.55)";
+  ctx.font = F.jp(700, 30);
+  ctx.fillText(`${c.homeFlag} ${c.homeName}`, M, 606);
+
+  ctx.fillStyle = INK;
+  ctx.font = F.archivo(40);
+  ctx.fillText("VS", M, 706);
+
+  const n2 = fit(ctx, c.awayEn, W - M * 2, F.archivo, 120, 54);
+  ctx.fillStyle = c.winner === "away" ? VERM : INK;
+  ctx.font = F.archivo(n2);
+  ctx.fillText(c.awayEn, M, 838);
+  ctx.fillStyle = "rgba(22,17,13,0.55)";
+  ctx.font = F.jp(700, 30);
+  ctx.fillText(`${c.awayFlag} ${c.awayName}`, M, 884);
+
+  // MY 予想 ラベル
+  ctx.fillStyle = NAVY;
+  ctx.fillRect(M, 960, 18, 56);
+  ctx.fillStyle = INK;
+  ctx.font = F.jp(800, 34);
+  ctx.fillText(MYLABEL, M + 36, 1002);
+
+  // 朱のバンド（ヒーロー）
+  const bandY = 1050;
+  ctx.fillStyle = VERM;
+  ctx.fillRect(M, bandY, W - M * 2, 320);
+  ctx.fillStyle = "#FBF4E4";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  if (c.scoreOn) {
+    ctx.font = F.archivo(170);
+    ctx.fillText(scoreStr(c), W / 2, bandY + 150);
+    ctx.font = F.archivo(40);
+    const cap = captionOf(c);
+    const cs = fit(ctx, cap, W - M * 2 - 60, F.archivo, 40, 26);
+    ctx.font = F.archivo(cs);
+    ctx.fillText(cap, W / 2, bandY + 270);
+  } else {
+    const cap = captionOf(c);
+    const cs = fit(ctx, cap, W - M * 2 - 60, F.archivo, 96, 44);
+    ctx.font = F.archivo(cs);
+    ctx.fillText(cap, W / 2, bandY + 160);
+  }
+  ctx.textBaseline = "alphabetic";
+
+  // 情報＋ハッシュタグ
+  ctx.textAlign = "left";
+  ctx.fillStyle = INK;
+  ctx.font = F.jp(600, 30);
+  ctx.fillText(`${c.stage}  ${c.date} ${c.time} JST`, M, 1470);
+  ctx.fillStyle = NAVY;
+  setLS(ctx, "2px");
+  ctx.font = F.archivo(30);
+  ctx.fillText(hashtags(c), M, 1528);
+  setLS(ctx, "0px");
+}
+
+/* ═══════════════════════ ④ MEMPHIS（80sメンフィス・ポップ） ═══════════════════════ */
+function drawMemphis(c: DrawCtx) {
+  const { ctx } = c;
+  const BG = "#F7E8D5";
+  const PINK = "#FF4FA3";
+  const CYAN = "#22C1C3";
+  const YEL = "#FFD23F";
+  const INK = "#1A1A1A";
+
+  ctx.fillStyle = BG;
+  ctx.fillRect(0, 0, W, H);
+
+  // 背景の幾何（散らし）
+  ctx.save();
+  // ストライプ帯（右上コーナー・見出しに被らない位置）
+  ctx.translate(600, 150);
+  ctx.rotate(-0.3);
+  ctx.fillStyle = INK;
+  for (let i = 0; i < 13; i++) {
+    ctx.fillRect(i * 52, 0, 24, 108);
+  }
+  ctx.restore();
+  // ジグザグ
+  ctx.strokeStyle = CYAN;
+  ctx.lineWidth = 10;
+  ctx.beginPath();
+  let zx = 120;
+  ctx.moveTo(zx, 1620);
+  for (let i = 0; i < 8; i++) {
+    zx += 50;
+    ctx.lineTo(zx, 1600 + (i % 2 ? 40 : 0));
+  }
+  ctx.stroke();
+  // 円・三角・点（散らし）
+  ctx.fillStyle = YEL;
+  ctx.beginPath();
+  ctx.arc(940, 330, 70, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = PINK;
+  polyPath(ctx, 150, 1180, 80, 3, -Math.PI / 2);
+  ctx.fill();
+  ctx.fillStyle = CYAN;
+  ctx.beginPath();
+  ctx.arc(980, 1150, 46, 0, Math.PI * 2);
+  ctx.fill();
+  // ドミノ風の点（見出しを避けて左下に配置）
+  ctx.save();
+  ctx.fillStyle = INK;
+  for (let i = 0; i < 4; i++) {
+    ctx.beginPath();
+    ctx.arc(150 + i * 34, 1330, 7, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.restore();
+
+  // オーバーライン＋見出し
+  ctx.textAlign = "left";
+  ctx.textBaseline = "alphabetic";
+  ctx.fillStyle = INK;
+  ctx.font = F.unbounded(26);
+  ctx.fillText("FIFA WORLD CUP 2026", 90, 300);
+  ctx.font = F.unbounded(50);
+  ctx.fillText("WIN / LOSS", 90, 372);
+  ctx.fillStyle = PINK;
+  ctx.fillText("PREDICTION", 90, 432);
+
+  // MY 予想（黄ブロック）
+  ctx.fillStyle = YEL;
+  roundRect(ctx, 90, 470, 240, 64, 14);
+  ctx.fill();
+  ctx.fillStyle = INK;
+  ctx.font = F.jp(800, 34);
+  ctx.fillText(MYLABEL, 116, 514);
+
+  // 対戦コード（傾いた色ブロック）
+  const block = (
+    code: string,
+    flag: string,
+    cx: number,
+    cy: number,
+    rot: number,
+    fill: string,
+    win: boolean
+  ) => {
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(rot);
+    ctx.fillStyle = fill;
+    roundRect(ctx, -190, -90, 380, 180, 22);
+    ctx.fill();
+    if (win) {
+      ctx.lineWidth = 8;
+      ctx.strokeStyle = INK;
+      ctx.stroke();
+    }
+    ctx.fillStyle = INK;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    const sz = fit(ctx, code, 320, F.unbounded, 96, 44);
+    ctx.font = F.unbounded(sz);
+    ctx.fillText(code, 0, -6);
+    ctx.font = "44px sans-serif";
+    ctx.fillText(flag, 0, 56);
+    ctx.restore();
+  };
+  block(c.homeCode, c.homeFlag, 300, 720, -0.06, PINK, c.winner === "home");
+  block(c.awayCode, c.awayFlag, 780, 800, 0.06, CYAN, c.winner === "away");
+  // VS バッジ
+  ctx.fillStyle = INK;
+  ctx.beginPath();
+  ctx.arc(540, 770, 58, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = BG;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.font = F.unbounded(40);
+  ctx.fillText("VS", 540, 772);
+  ctx.textBaseline = "alphabetic";
+
+  // ヒーロー
+  ctx.textAlign = "center";
+  if (c.scoreOn) {
+    const s = scoreStr(c);
+    ctx.fillStyle = YEL;
+    ctx.font = F.unbounded(170);
+    ctx.fillText(s, 540 + 8, 1190 + 8); // 影
+    ctx.fillStyle = INK;
+    ctx.fillText(s, 540, 1190);
+    const cap = captionOf(c);
+    const cs = fit(ctx, cap, 900, F.unbounded, 66, 34);
+    ctx.fillStyle = PINK;
+    ctx.font = F.unbounded(cs);
+    ctx.fillText(cap, 540, 1310);
+  } else {
+    const cap = captionOf(c);
+    ctx.save();
+    ctx.translate(540, 1180);
+    ctx.rotate(-0.03);
+    ctx.fillStyle = INK;
+    roundRect(ctx, -470, -90, 940, 180, 90);
+    ctx.fill();
+    ctx.fillStyle = YEL;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    const cs = fit(ctx, cap, 840, F.unbounded, 92, 40);
+    ctx.font = F.unbounded(cs);
+    ctx.fillText(cap, 0, 4);
+    ctx.restore();
+    ctx.textBaseline = "alphabetic";
+  }
+
+  // 情報＋ハッシュタグ
+  ctx.textAlign = "center";
+  ctx.fillStyle = INK;
+  ctx.font = F.jp(700, 30);
+  ctx.fillText(`${c.stage}  ${c.date} ${c.time} JST`, 540, 1450);
+  ctx.fillStyle = PINK;
+  ctx.font = F.unbounded(28);
+  ctx.fillText(hashtags(c), 540, 1512);
+}
+
+/* ═══════════════════════ ⑤ DECO（アール・デコ・ゴールド） ═══════════════════════ */
+function drawDeco(c: DrawCtx) {
+  const { ctx } = c;
+  const GOLD = "#C9A14A";
+  const LIGHT = "#E8D8A8";
+  const cx = W / 2;
+
+  const bg = ctx.createLinearGradient(0, 0, 0, H);
+  bg.addColorStop(0, "#0E1A24");
+  bg.addColorStop(1, "#0A141C");
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // サンバースト（上部中央から扇状）
+  ctx.save();
+  ctx.strokeStyle = "rgba(201,161,74,0.16)";
+  ctx.lineWidth = 2;
+  for (let i = 0; i <= 36; i++) {
+    const a = -Math.PI / 2 + (i / 36 - 0.5) * Math.PI * 1.7;
+    ctx.beginPath();
+    ctx.moveTo(cx, 360);
+    ctx.lineTo(cx + Math.cos(a) * 1700, 360 + Math.sin(a) * 1700);
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  // ステップ枠
+  ctx.strokeStyle = GOLD;
+  ctx.lineWidth = 3;
+  roundRect(ctx, 70, 250, W - 140, 1420, 8);
+  ctx.stroke();
+  ctx.strokeStyle = "rgba(201,161,74,0.5)";
+  ctx.lineWidth = 1.5;
+  roundRect(ctx, 92, 272, W - 184, 1376, 6);
+  ctx.stroke();
+
+  const chevron = (y: number) => {
+    ctx.strokeStyle = GOLD;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    for (let x = cx - 180; x <= cx + 180; x += 40) {
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + 20, y - 14);
+      ctx.lineTo(x + 40, y);
+    }
+    ctx.stroke();
+  };
+
+  ctx.textAlign = "center";
+  ctx.textBaseline = "alphabetic";
+
+  // オーバーライン
+  setLS(ctx, "10px");
+  ctx.fillStyle = LIGHT;
+  ctx.font = F.cinzel(30);
+  ctx.fillText("FIFA WORLD CUP · MMXXVI", cx, 360);
+  setLS(ctx, "0px");
+  chevron(392);
+
+  // 見出し
+  ctx.fillStyle = GOLD;
+  ctx.font = F.cinzel(46);
+  const hd = fit(ctx, HEAD.toUpperCase(), 860, F.cinzel, 46, 30);
+  ctx.font = F.cinzel(hd);
+  ctx.fillText(HEAD.toUpperCase(), cx, 470);
+
+  // MY 予想
+  ctx.fillStyle = LIGHT;
+  ctx.font = F.jp(700, 30);
+  ctx.fillText(MYLABEL, cx, 524);
+
+  // 対戦コード（中央・◆区切り）
+  ctx.font = "64px sans-serif";
+  ctx.fillText(c.homeFlag, cx - 280, 640);
+  ctx.fillText(c.awayFlag, cx + 280, 640);
+  ctx.fillStyle = GOLD;
+  ctx.font = F.cinzel(40);
+  ctx.fillText("◆", cx, 760);
+
+  const sideCode = (code: string, x: number, win: boolean) => {
+    const sz = fit(ctx, code, 360, F.cinzel, 104, 54);
+    ctx.fillStyle = win ? LIGHT : "rgba(201,161,74,0.7)";
+    ctx.font = F.cinzel(sz);
+    ctx.fillText(code, x, 770);
+  };
+  sideCode(c.homeCode, cx - 280, c.winner === "home");
+  sideCode(c.awayCode, cx + 280, c.winner === "away");
+
+  ctx.fillStyle = "rgba(232,216,168,0.7)";
+  ctx.font = F.jp(600, 26);
+  ctx.fillText(c.homeName, cx - 280, 818);
+  ctx.fillText(c.awayName, cx + 280, 818);
+
+  // ヒーロー枠
+  const fx = cx - 360;
+  const fy = 920;
+  ctx.strokeStyle = GOLD;
+  ctx.lineWidth = 2.5;
+  roundRect(ctx, fx, fy, 720, 360, 6);
+  ctx.stroke();
+  // 角飾り
+  ctx.fillStyle = GOLD;
+  [
+    [fx, fy],
+    [fx + 720, fy],
+    [fx, fy + 360],
+    [fx + 720, fy + 360],
+  ].forEach(([px, py]) => {
+    ctx.beginPath();
+    ctx.arc(px, py, 8, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  ctx.textBaseline = "middle";
+  if (c.scoreOn) {
+    ctx.fillStyle = LIGHT;
+    ctx.font = F.cinzel(170);
+    ctx.fillText(scoreStr(c), cx, fy + 150);
+    const cap = captionOf(c);
+    const cs = fit(ctx, cap, 640, F.cinzel, 50, 28);
+    ctx.fillStyle = GOLD;
+    ctx.font = F.cinzel(cs);
+    ctx.fillText(cap, cx, fy + 290);
+  } else {
+    const cap = captionOf(c);
+    const cs = fit(ctx, cap, 640, F.cinzel, 88, 36);
+    ctx.fillStyle = LIGHT;
+    ctx.font = F.cinzel(cs);
+    ctx.fillText(cap, cx, fy + 180);
+  }
+  ctx.textBaseline = "alphabetic";
+
+  chevron(1360);
+
+  // 情報＋ハッシュタグ
+  ctx.fillStyle = "rgba(232,216,168,0.8)";
+  ctx.font = F.jp(600, 28);
+  ctx.fillText(`${c.stage}  ${c.date} ${c.time} JST`, cx, 1456);
+  setLS(ctx, "4px");
+  ctx.fillStyle = GOLD;
+  ctx.font = F.cinzel(28);
+  ctx.fillText(hashtags(c), cx, 1512);
+  setLS(ctx, "0px");
+}
+
+const DRAWERS: Record<string, (c: DrawCtx) => void> = {
+  construct: drawConstruct,
+  holo: drawHolo,
+  swiss: drawSwiss,
+  memphis: drawMemphis,
+  deco: drawDeco,
+};
+
+// スタイル一覧（ピッカー用）
+const STYLES: { key: string; name: string; sub: string; sw: [string, string, string] }[] = [
+  { key: "construct", name: "構成主義", sub: "RED AGITPROP", sw: ["#161616", "#E63223", "#F2F0E6"] },
+  { key: "holo", name: "ホロ箔", sub: "PRIZM RARE", sw: ["#0B0D17", "#7B5CFF", "#21E6C1"] },
+  { key: "swiss", name: "スイス", sub: "BLUE NOTE", sw: ["#E8E2D0", "#C8341B", "#1F3A93"] },
+  { key: "memphis", name: "メンフィス", sub: "80s POP", sw: ["#F7E8D5", "#FF4FA3", "#22C1C3"] },
+  { key: "deco", name: "アールデコ", sub: "GOLD FINAL", sw: ["#0E1A24", "#C9A14A", "#E8D8A8"] },
+];
+
+/* ═══════════════════════ コンポーネント本体 ═══════════════════════ */
 export default function StoryShare({ data }: { data: StoryData }) {
   const [open, setOpen] = useState(false);
   const [pick, setPick] = useState<Pick | null>(null);
   const [scoreOn, setScoreOn] = useState(false);
   const [score, setScore] = useState<{ h: number; a: number }>({ h: 1, a: 0 });
+  const [styleKey, setStyleKey] = useState<string>("construct");
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -109,6 +941,8 @@ export default function StoryShare({ data }: { data: StoryData }) {
       }
       const v = localStorage.getItem(`pred:${data.id}`);
       if (v === "H" || v === "D" || v === "A") setPick(v);
+      const st = localStorage.getItem("storyStyle");
+      if (st && DRAWERS[st]) setStyleKey(st);
     } catch {
       /* noop */
     }
@@ -164,211 +998,73 @@ export default function StoryShare({ data }: { data: StoryData }) {
     sync();
   };
 
+  const selectStyle = (key: string) => {
+    setStyleKey(key);
+    try {
+      localStorage.setItem("storyStyle", key);
+    } catch {
+      /* noop */
+    }
+  };
+
   const draw = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const winner =
-      (scoreOn
-        ? score.h > score.a
-          ? "home"
-          : score.h < score.a
-            ? "away"
-            : "draw"
-        : pick === "H"
-          ? "home"
-          : pick === "A"
-            ? "away"
-            : pick === "D"
-              ? "draw"
-              : null) || null;
+    const winner: DrawCtx["winner"] = scoreOn
+      ? score.h > score.a
+        ? "home"
+        : score.h < score.a
+          ? "away"
+          : "draw"
+      : pick === "H"
+        ? "home"
+        : pick === "A"
+          ? "away"
+          : pick === "D"
+            ? "draw"
+            : null;
 
-    // 背景
-    const g = ctx.createLinearGradient(0, 0, 0, H);
-    g.addColorStop(0, "#0b1f44");
-    g.addColorStop(0.55, "#07162E");
-    g.addColorStop(1, "#050f22");
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, W, H);
+    const c: DrawCtx = {
+      ctx,
+      homeCode: data.homeCode.toUpperCase(),
+      awayCode: data.awayCode.toUpperCase(),
+      homeEn: (data.homeEn || data.homeCode).toUpperCase(),
+      awayEn: (data.awayEn || data.awayCode).toUpperCase(),
+      homeName: data.homeName,
+      awayName: data.awayName,
+      homeFlag: data.homeFlag,
+      awayFlag: data.awayFlag,
+      stage: data.stage,
+      date: data.date,
+      time: data.time,
+      jp: data.jp,
+      pick,
+      scoreOn,
+      score,
+      winner,
+    };
 
-    // 上部グロー
-    const rg = ctx.createRadialGradient(W / 2, 240, 30, W / 2, 240, 760);
-    rg.addColorStop(0, "rgba(43,124,255,.22)");
-    rg.addColorStop(1, "rgba(43,124,255,0)");
-    ctx.fillStyle = rg;
-    ctx.fillRect(0, 0, W, 980);
-
-    // 対角の光ライン（Kick of Light）
     ctx.save();
-    ctx.strokeStyle = "rgba(37,230,200,.5)";
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.moveTo(-60, 840);
-    ctx.lineTo(1140, 560);
-    ctx.stroke();
-    ctx.strokeStyle = "rgba(247,250,255,.18)";
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(-60, 890);
-    ctx.lineTo(1140, 610);
-    ctx.stroke();
+    ctx.clearRect(0, 0, W, H);
+    setLS(ctx, "0px");
+    (DRAWERS[styleKey] ?? drawConstruct)(c);
     ctx.restore();
-
-    // 背番号風ゴースト数字（はみ出し）
-    ctx.save();
-    ctx.globalAlpha = 0.06;
-    ctx.fillStyle = C.white;
-    ctx.textAlign = "right";
-    ctx.textBaseline = "alphabetic";
-    ctx.font = A(760);
-    ctx.fillText("26", 1190, 1880);
-    ctx.restore();
-
-    ctx.textBaseline = "alphabetic";
-
-    // オーバーライン
-    ctx.textAlign = "left";
-    ctx.fillStyle = C.cyan;
-    ctx.font = A(44);
-    try {
-      (ctx as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing = "8px";
-    } catch {
-      /* noop */
-    }
-    ctx.fillText("FIFA WORLD CUP 2026", 90, 300);
-    try {
-      (ctx as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing = "0px";
-    } catch {
-      /* noop */
-    }
-
-    // 見出し
-    ctx.fillStyle = C.white;
-    ctx.font = J(800, 62);
-    ctx.fillText("私の勝敗予想", 90, 384);
-    ctx.fillStyle = C.blue;
-    ctx.fillRect(94, 404, 150, 8);
-
-    // チーム行
-    ctx.textAlign = "center";
-    ctx.font = "94px sans-serif";
-    ctx.fillText(data.homeFlag, 270, 600);
-    ctx.fillText(data.awayFlag, 810, 600);
-    ctx.fillStyle = C.cyan;
-    ctx.font = A(70);
-    ctx.fillText("VS", 540, 590);
-    // コード（勝者を白・敗者をくすませる）
-    const hc = fit(ctx, data.homeCode, 360, A, 120, 60);
-    ctx.fillStyle = winner === "home" ? C.white : C.mute2;
-    ctx.font = A(hc);
-    ctx.fillText(data.homeCode, 270, 742);
-    const ac = fit(ctx, data.awayCode, 360, A, 120, 60);
-    ctx.fillStyle = winner === "away" ? C.white : C.mute2;
-    ctx.font = A(ac);
-    ctx.fillText(data.awayCode, 810, 742);
-    // 国名
-    ctx.fillStyle = C.mute;
-    ctx.font = J(600, 28);
-    ctx.fillText(data.homeName, 270, 792);
-    ctx.fillText(data.awayName, 810, 792);
-
-    // ヒーロー
-    if (scoreOn) {
-      ctx.fillStyle = C.mute;
-      ctx.font = J(700, 38);
-      ctx.fillText("予想スコア", 540, 968);
-      ctx.font = A(300);
-      const sy = 1200;
-      ctx.fillStyle = score.h >= score.a ? C.cyan : C.white;
-      if (score.h < score.a) ctx.fillStyle = C.white;
-      ctx.fillStyle = score.h > score.a ? C.cyan : C.white;
-      ctx.fillText(String(score.h), 392, sy);
-      ctx.fillStyle = C.white;
-      ctx.fillText("–", 540, sy);
-      ctx.fillStyle = score.a > score.h ? C.cyan : C.white;
-      ctx.fillText(String(score.a), 688, sy);
-      const cap =
-        score.h === score.a
-          ? "引き分け予想"
-          : `${score.h > score.a ? data.homeName : data.awayName} の勝ち！`;
-      const cs = fit(ctx, cap, 920, (s) => J(800, s), 54, 34);
-      ctx.fillStyle = score.h === score.a ? C.white : C.blue;
-      ctx.font = J(800, cs);
-      ctx.fillText(cap, 540, 1320);
-    } else {
-      ctx.fillStyle = C.mute;
-      ctx.font = J(700, 38);
-      ctx.fillText("わたしの予想", 540, 1000);
-      let cap = "まだ予想していません";
-      let col = C.mute;
-      let sz = 64;
-      if (pick === "H") {
-        cap = `${data.homeName} 勝利！`;
-        col = C.cyan;
-        sz = 88;
-      } else if (pick === "A") {
-        cap = `${data.awayName} 勝利！`;
-        col = C.cyan;
-        sz = 88;
-      } else if (pick === "D") {
-        cap = "引き分け";
-        col = C.white;
-        sz = 88;
-      }
-      const fs = fit(ctx, cap, 940, (s) => J(900, s), sz, 36);
-      ctx.fillStyle = col;
-      ctx.font = J(900, fs);
-      ctx.fillText(cap, 540, 1140);
-    }
-
-    // 試合情報
-    ctx.fillStyle = C.mute;
-    ctx.font = J(600, 32);
-    const info = `${data.stage} ・ ${data.date} ${data.time} JST`;
-    const isz = fit(ctx, info, 960, (s) => J(600, s), 32, 22);
-    ctx.font = J(600, isz);
-    ctx.fillText(info, 540, 1450);
-
-    // フッター
-    ctx.fillStyle = C.white;
-    ctx.font = A(50);
-    ctx.fillText("100倍Wカップ", 540, 1565);
-    ctx.fillStyle = C.cyan;
-    ctx.font = J(600, 30);
-    ctx.fillText(
-      `#FIFAワールドカップ${data.jp ? "  #日本代表" : ""}`,
-      540,
-      1618
-    );
-
-    // 日の丸レッドの“点”（アクセント）
-    if (data.jp) {
-      ctx.fillStyle = C.red;
-      ctx.beginPath();
-      ctx.arc(W / 2, 1668, 8, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    // 細い外枠
-    ctx.strokeStyle = "rgba(247,250,255,.1)";
-    ctx.lineWidth = 2;
-    roundRect(ctx, 24, 24, W - 48, H - 48, 36);
-    ctx.stroke();
-  }, [data, pick, scoreOn, score]);
+  }, [data, pick, scoreOn, score, styleKey]);
 
   useEffect(() => {
     if (!open) return;
     let cancelled = false;
     draw();
-    ensureAnton().then(() => {
+    ensureStyleFonts(styleKey).then(() => {
       if (!cancelled) draw();
     });
     return () => {
       cancelled = true;
     };
-  }, [open, draw]);
+  }, [open, draw, styleKey]);
 
   const toBlob = () =>
     new Promise<Blob | null>((resolve) => {
@@ -383,7 +1079,7 @@ export default function StoryShare({ data }: { data: StoryData }) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `wcup-yosou-${data.id}.png`;
+    a.download = `wcup-yosou-${data.id}-${styleKey}.png`;
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -467,7 +1163,7 @@ export default function StoryShare({ data }: { data: StoryData }) {
             className="absolute inset-0 bg-black/60"
           />
           <div className="relative w-full sm:max-w-sm bg-background rounded-t-2xl sm:rounded-2xl shadow-2xl max-h-[92vh] overflow-y-auto">
-            <div className="sticky top-0 bg-jpnavy text-white px-4 py-3 flex items-center justify-between">
+            <div className="sticky top-0 z-10 bg-jpnavy text-white px-4 py-3 flex items-center justify-between">
               <div className="font-bold text-sm">📲 私のワールドカップ予想</div>
               <button
                 onClick={() => setOpen(false)}
@@ -522,6 +1218,51 @@ export default function StoryShare({ data }: { data: StoryData }) {
                   <Stepper team="h" flag={data.homeFlag} name={data.homeName} value={score.h} />
                   <span className="text-xl font-bold text-muted">-</span>
                   <Stepper team="a" flag={data.awayFlag} name={data.awayName} value={score.a} />
+                </div>
+              </div>
+
+              <div className="mb-3">
+                <div className="text-[11px] font-bold text-muted mb-1.5">
+                  ③ デザインを選ぶ（5種・アートグラフィック）
+                </div>
+                <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1">
+                  {STYLES.map((s) => {
+                    const active = styleKey === s.key;
+                    return (
+                      <button
+                        key={s.key}
+                        onClick={() => selectStyle(s.key)}
+                        aria-pressed={active}
+                        className={`shrink-0 w-[88px] rounded-xl border-2 overflow-hidden text-left transition-all ${
+                          active
+                            ? "border-jpred ring-2 ring-jpred/30"
+                            : "border-line hover:border-jpnavy/40"
+                        }`}
+                      >
+                        <div
+                          className="h-10 flex"
+                          style={{ background: s.sw[0] }}
+                        >
+                          <span
+                            className="flex-1"
+                            style={{ background: s.sw[1] }}
+                          />
+                          <span
+                            className="flex-1"
+                            style={{ background: s.sw[2] }}
+                          />
+                        </div>
+                        <div className="px-1.5 py-1">
+                          <div className="text-[11px] font-bold leading-tight">
+                            {s.name}
+                          </div>
+                          <div className="text-[8px] text-muted tracking-wide">
+                            {s.sub}
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
