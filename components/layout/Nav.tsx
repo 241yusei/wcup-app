@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 const links = [
   { href: "/", label: "ホーム" },
   { href: "/japan", label: "日本特集" },
+  { href: "/news", label: "ニュース" },
   { href: "/schedule", label: "試合日程" },
   { href: "/groups", label: "順位表" },
   { href: "/predictions", label: "勝敗予想" },
