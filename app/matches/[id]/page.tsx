@@ -223,6 +223,8 @@ export default async function MatchDetail({
                 stage: match.stage + (match.group ? `・組${match.group}` : ""),
                 homeName: home?.name ?? match.homeCode,
                 awayName: away?.name ?? match.awayCode,
+                homeCode: match.homeCode,
+                awayCode: match.awayCode,
                 homeFlag: home?.flag ?? "🏳️",
                 awayFlag: away?.flag ?? "🏳️",
                 date: jstDateLabel(match.utcDate),
