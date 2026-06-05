@@ -1,6 +1,9 @@
-// 100倍Wカップ サービスワーカー（PWAインストール＋簡易オフライン対応）
-const CACHE = "wcup-v1";
-const APP_SHELL = ["/", "/japan", "/schedule", "/offline"];
+// 100倍Wカップ サービスワーカー（PWAインストール＋オフライン時のフォールバック）
+// 方針：ネットワーク優先。常に最新を取りに行き、取得できた時だけキャッシュを更新する。
+// オフライン時のみキャッシュ（無ければオフラインページ）にフォールバック。
+// ※キャッシュ優先にすると更新したJSが反映されず古い画面が出るため、必ずネットワーク優先にする。
+const CACHE = "wcup-v3";
+const APP_SHELL = ["/", "/offline"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -16,8 +19,8 @@ self.addEventListener("activate", (event) => {
       .then((keys) =>
         Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
       )
+      .then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
 self.addEventListener("fetch", (event) => {
@@ -26,34 +29,22 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return; // 外部は触らない
 
-  // ページ遷移：ネットワーク優先、失敗時はキャッシュ→オフラインページ
-  if (req.mode === "navigate") {
-    event.respondWith(
-      fetch(req)
-        .then((res) => {
+  // すべてネットワーク優先：取得できたら最新を返しキャッシュ更新。失敗時のみキャッシュ。
+  event.respondWith(
+    fetch(req)
+      .then((res) => {
+        if (res && res.status === 200 && res.type === "basic") {
           const copy = res.clone();
           caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => {});
-          return res;
+        }
+        return res;
+      })
+      .catch(() =>
+        caches.match(req).then((r) => {
+          if (r) return r;
+          if (req.mode === "navigate") return caches.match("/offline");
+          return Response.error();
         })
-        .catch(() =>
-          caches.match(req).then((r) => r || caches.match("/offline"))
-        )
-    );
-    return;
-  }
-
-  // 静的アセット：キャッシュ優先、無ければ取得してキャッシュ
-  event.respondWith(
-    caches.match(req).then(
-      (cached) =>
-        cached ||
-        fetch(req).then((res) => {
-          if (res && res.status === 200 && res.type === "basic") {
-            const copy = res.clone();
-            caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => {});
-          }
-          return res;
-        })
-    )
+      )
   );
 });
