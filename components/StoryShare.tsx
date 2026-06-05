@@ -58,6 +58,11 @@ const STYLE_FONTS: Record<string, [string, string?][]> = {
   swiss: [["Archivo Black"]],
   memphis: [["Unbounded", "wght@800"]],
   deco: [["Cinzel", "wght@700"]],
+  ide: [["Archivo Black"]],
+  brut: [["Archivo Black"]],
+  vogue: [["Bodoni Moda", "opsz,wght@96,700"]],
+  frame: [["Fraunces", "opsz,wght@72,600"]],
+  mag: [["Anton"]],
 };
 function ensureStyleFonts(key: string): Promise<unknown> {
   const list = STYLE_FONTS[key] ?? [];
@@ -71,6 +76,8 @@ const F = {
   unbounded: (s: number) => `${s}px "Unbounded","Arial Black",sans-serif`,
   cinzel: (s: number) => `${s}px "Cinzel",Georgia,serif`,
   orbitron: (s: number) => `${s}px "Orbitron",Arial,sans-serif`,
+  bodoni: (s: number) => `${s}px "Bodoni Moda","Didot","Times New Roman",serif`,
+  fraunces: (s: number) => `${s}px "Fraunces",Georgia,serif`,
   jp: (w: number, s: number) =>
     `${w} ${s}px "Hiragino Sans","Noto Sans JP",sans-serif`,
 };
@@ -166,6 +173,21 @@ function grain(
     ctx.beginPath();
     ctx.arc(rx, ry, Math.random() * maxR + 0.4, 0, Math.PI * 2);
     ctx.fill();
+  }
+  ctx.restore();
+}
+
+// 雑誌表紙のダミーバーコード（縦線群）
+function barcode(ctx: Ctx2D, x: number, y: number, w: number, h: number, color: string) {
+  ctx.save();
+  ctx.fillStyle = color;
+  let cx = x;
+  let i = 0;
+  while (cx < x + w) {
+    const bw = 1 + ((i * 7 + 3) % 5);
+    if (i % 2 === 0) ctx.fillRect(cx, y, bw, h);
+    cx += bw + 2;
+    i++;
   }
   ctx.restore();
 }
@@ -905,12 +927,414 @@ function drawDeco(c: DrawCtx) {
   setLS(ctx, "0px");
 }
 
+/* ═══════════════════════ ⑥ IDE（i-D風 / ストリート・ウインク） ═══════════════════════ */
+function drawIde(c: DrawCtx) {
+  const { ctx } = c;
+  const BG = "#F2EDE3";
+  const INK = "#141414";
+  const RED = "#E5202E";
+  const BLUE = "#1A57D6";
+
+  ctx.fillStyle = BG;
+  ctx.fillRect(0, 0, W, H);
+  ctx.textBaseline = "alphabetic";
+
+  // マストヘッド＋ウインク
+  ctx.textAlign = "left";
+  ctx.fillStyle = INK;
+  ctx.font = F.archivo(140);
+  ctx.fillText("WCUP", 78, 360);
+  ctx.fillStyle = RED;
+  ctx.font = F.archivo(90);
+  ctx.fillText(";)", 712, 344);
+
+  // キッカー
+  setLS(ctx, "3px");
+  ctx.fillStyle = BLUE;
+  ctx.font = F.archivo(26);
+  ctx.fillText("THE PREDICTION ISSUE / No. 026", 82, 410);
+  setLS(ctx, "0px");
+
+  // バーコード右上
+  barcode(ctx, 812, 250, 190, 64, INK);
+
+  // 主役：対戦カード
+  ctx.textAlign = "center";
+  ctx.fillStyle = INK;
+  const codes = `${c.homeCode}  ${c.awayCode}`;
+  const cz = fit(ctx, codes, 920, F.archivo, 150, 80);
+  ctx.font = F.archivo(cz);
+  ctx.fillText(codes, 540, 770);
+  ctx.font = "58px sans-serif";
+  ctx.fillText(c.homeFlag, 300, 856);
+  ctx.fillText(c.awayFlag, 780, 856);
+  ctx.fillStyle = RED;
+  ctx.font = F.archivo(54);
+  ctx.fillText("VS", 540, 856);
+
+  if (c.scoreOn) {
+    ctx.fillStyle = RED;
+    ctx.font = F.archivo(210);
+    ctx.fillText(scoreStr(c), 540, 1130);
+  }
+
+  // キャプション帯
+  ctx.fillStyle = INK;
+  ctx.fillRect(120, 1190, 840, 116);
+  ctx.fillStyle = BG;
+  const cap = captionOf(c);
+  const cs = fit(ctx, cap, 780, F.archivo, 72, 38);
+  ctx.font = F.archivo(cs);
+  ctx.textBaseline = "middle";
+  ctx.fillText(cap, 540, 1250);
+  ctx.textBaseline = "alphabetic";
+
+  // コバーライン（左・赤丸ブレット）
+  ctx.textAlign = "left";
+  const tease = ["MY 予想", `${c.homeName} × ${c.awayName}`, c.stage];
+  tease.forEach((t, i) => {
+    const y = 1394 + i * 56;
+    ctx.fillStyle = RED;
+    ctx.beginPath();
+    ctx.arc(96, y - 9, 7, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = INK;
+    ctx.font = F.jp(700, 30);
+    ctx.fillText(t, 118, y);
+  });
+
+  // 右下：Win/Loss＋日付
+  ctx.textAlign = "right";
+  ctx.fillStyle = BLUE;
+  ctx.font = F.jp(700, 26);
+  ctx.fillText("WIN / LOSS PREDICTION", 984, 1394);
+  ctx.fillStyle = INK;
+  ctx.font = F.jp(600, 26);
+  ctx.fillText(`${c.date} ${c.time} JST`, 984, 1448);
+
+  // フッター
+  ctx.textAlign = "center";
+  ctx.fillStyle = INK;
+  setLS(ctx, "3px");
+  ctx.font = F.archivo(28);
+  ctx.fillText(hashtags(c), 540, 1580);
+  setLS(ctx, "0px");
+
+  grain(ctx, 0, 0, W, H, 300, INK, 0.04, 1.1);
+}
+
+/* ═══════════════════════ ⑦ BRUT（032c風 / ブルータル・レッド） ═══════════════════════ */
+function drawBrut(c: DrawCtx) {
+  const { ctx } = c;
+  const RED = "#E1000F";
+  const WHITE = "#FFFFFF";
+  const BLACK = "#000000";
+
+  ctx.fillStyle = RED;
+  ctx.fillRect(0, 0, W, H);
+  ctx.textBaseline = "alphabetic";
+
+  // マストヘッド小＋MY予想
+  ctx.textAlign = "left";
+  ctx.fillStyle = WHITE;
+  setLS(ctx, "4px");
+  ctx.font = F.archivo(34);
+  ctx.fillText("WORLD CUP", 70, 322);
+  setLS(ctx, "0px");
+  ctx.textAlign = "right";
+  ctx.fillStyle = BLACK;
+  ctx.font = F.jp(800, 28);
+  ctx.fillText("MY 予想", 1010, 322);
+
+  // 主役：縦に引き伸ばした国コード
+  const drawStretch = (code: string, cy: number, win: boolean) => {
+    const sz = fit(ctx, code, 1000, F.archivo, 290, 120);
+    ctx.save();
+    ctx.translate(540, cy);
+    ctx.scale(1, 2.05);
+    ctx.textAlign = "center";
+    ctx.textBaseline = "alphabetic";
+    ctx.fillStyle = win ? WHITE : BLACK;
+    ctx.font = F.archivo(sz);
+    ctx.fillText(code, 0, 0);
+    ctx.restore();
+  };
+  drawStretch(c.homeCode, 700, c.winner === "home");
+  drawStretch(c.awayCode, 1170, c.winner === "away");
+
+  // スコア（右下・黒アウトライン）
+  if (c.scoreOn) {
+    ctx.textAlign = "right";
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = BLACK;
+    ctx.fillStyle = RED;
+    ctx.font = F.archivo(140);
+    ctx.fillText(scoreStr(c), 1010, 1452);
+    ctx.strokeText(scoreStr(c), 1010, 1452);
+  }
+
+  // キャプション（黒・左下）
+  ctx.textAlign = "left";
+  ctx.fillStyle = BLACK;
+  const cap = captionOf(c);
+  const cs = fit(ctx, cap, 600, F.archivo, 84, 40);
+  ctx.font = F.archivo(cs);
+  ctx.fillText(cap, 70, 1452);
+
+  // 最下部：Win/Loss＋号＋ハッシュタグ
+  ctx.fillStyle = WHITE;
+  ctx.font = F.jp(600, 24);
+  ctx.textAlign = "left";
+  ctx.fillText(`WIN / LOSS PREDICTION · ${c.stage} · ${c.date} ${c.time} JST`, 70, 1556);
+  ctx.textAlign = "right";
+  setLS(ctx, "2px");
+  ctx.font = F.archivo(24);
+  ctx.fillText(hashtags(c), 1010, 1610);
+  setLS(ctx, "0px");
+}
+
+/* ═══════════════════════ ⑧ VOGUE（Didot / オートクチュール） ═══════════════════════ */
+function drawVogue(c: DrawCtx) {
+  const { ctx } = c;
+  const BG = "#F7F4EF";
+  const INK = "#14110F";
+  const GOLD = "#9E7C3C";
+  const WINE = "#7A1020";
+
+  ctx.fillStyle = BG;
+  ctx.fillRect(0, 0, W, H);
+  ctx.textAlign = "center";
+  ctx.textBaseline = "alphabetic";
+
+  // マストヘッド（Didot）
+  ctx.fillStyle = INK;
+  const mz = fit(ctx, "PREDICTION", 1000, F.bodoni, 170, 84);
+  ctx.font = F.bodoni(mz);
+  ctx.fillText("PREDICTION", 540, 404);
+
+  // 金の細罫
+  ctx.strokeStyle = GOLD;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(170, 452);
+  ctx.lineTo(910, 452);
+  ctx.stroke();
+
+  // キッカー（イタリック小）
+  ctx.fillStyle = GOLD;
+  ctx.font = `italic 28px "Bodoni Moda",serif`;
+  ctx.fillText("Win / Loss Prediction — MY 予想", 540, 512);
+
+  // 主役：英語国名
+  ctx.fillStyle = INK;
+  const vs = `${c.homeEn} — ${c.awayEn}`;
+  const vz = fit(ctx, vs, 940, F.bodoni, 92, 40);
+  ctx.font = F.bodoni(vz);
+  ctx.fillText(vs, 540, 760);
+  ctx.font = "52px sans-serif";
+  ctx.fillText(`${c.homeFlag}        ${c.awayFlag}`, 540, 838);
+
+  // スコア（金・上品）
+  if (c.scoreOn) {
+    ctx.fillStyle = GOLD;
+    ctx.font = F.bodoni(200);
+    ctx.fillText(scoreStr(c), 540, 1180);
+  }
+
+  // 勝者キャプション（ワイン）
+  ctx.fillStyle = WINE;
+  const cap = captionOf(c);
+  const cz = fit(ctx, cap, 860, F.bodoni, 72, 36);
+  ctx.font = F.bodoni(cz);
+  ctx.fillText(cap, 540, c.scoreOn ? 1320 : 1140);
+
+  // 下部：号・日付
+  ctx.fillStyle = INK;
+  ctx.font = `italic 26px "Bodoni Moda",serif`;
+  ctx.fillText(`No. 026 · ${c.stage} · ${c.date} ${c.time} JST`, 540, 1466);
+  setLS(ctx, "3px");
+  ctx.font = F.bodoni(26);
+  ctx.fillText(hashtags(c), 540, 1524);
+  setLS(ctx, "0px");
+}
+
+/* ═══════════════════════ ⑨ FRAME（黄色ボーダー / ドキュメンタリー表紙） ═══════════════════════ */
+function drawFrame(c: DrawCtx) {
+  const { ctx } = c;
+  const DARK = "#111418";
+  const WHITE = "#FFFFFF";
+  const YEL = "#FFCC00";
+  const RED = "#E64A2E";
+
+  ctx.fillStyle = DARK;
+  ctx.fillRect(0, 0, W, H);
+
+  // 黄色枠
+  const bw = 46;
+  ctx.fillStyle = YEL;
+  ctx.fillRect(40, 40, W - 80, bw);
+  ctx.fillRect(40, H - 40 - bw, W - 80, bw);
+  ctx.fillRect(40, 40, bw, H - 80);
+  ctx.fillRect(W - 40 - bw, 40, bw, H - 80);
+
+  // マストヘッド（上枠）
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = DARK;
+  ctx.textAlign = "left";
+  ctx.font = F.fraunces(38);
+  ctx.fillText("WORLD CUP", 70, 40 + bw / 2);
+  ctx.textAlign = "right";
+  ctx.font = F.fraunces(24);
+  ctx.fillText("THE MATCHDAY ISSUE", W - 70, 40 + bw / 2);
+  ctx.textBaseline = "alphabetic";
+
+  // キッカー
+  ctx.textAlign = "center";
+  ctx.fillStyle = YEL;
+  setLS(ctx, "3px");
+  ctx.font = F.jp(700, 26);
+  ctx.fillText("WIN / LOSS PREDICTION ・ MY 予想", 540, 360);
+  setLS(ctx, "0px");
+
+  // 主役：対戦カード
+  ctx.font = "50px sans-serif";
+  ctx.fillText(c.homeFlag, 300, 560);
+  ctx.fillText(c.awayFlag, 780, 560);
+  const drawC = (code: string, x: number, win: boolean) => {
+    const sz = fit(ctx, code, 360, F.fraunces, 128, 64);
+    ctx.fillStyle = win ? YEL : WHITE;
+    ctx.font = F.fraunces(sz);
+    ctx.fillText(code, x, 690);
+  };
+  drawC(c.homeCode, 300, c.winner === "home");
+  drawC(c.awayCode, 780, c.winner === "away");
+  ctx.fillStyle = RED;
+  ctx.font = F.fraunces(46);
+  ctx.fillText("VS", 540, 672);
+
+  if (c.scoreOn) {
+    ctx.fillStyle = WHITE;
+    ctx.font = F.fraunces(230);
+    ctx.fillText(scoreStr(c), 540, 1040);
+  }
+  ctx.fillStyle = YEL;
+  const cap = captionOf(c);
+  const ks = fit(ctx, cap, 840, F.fraunces, 84, 40);
+  ctx.font = F.fraunces(ks);
+  ctx.fillText(cap, 540, c.scoreOn ? 1200 : 1010);
+
+  // バーコード＋ハッシュタグ（枠内下部）
+  barcode(ctx, 440, 1340, 200, 58, WHITE);
+  ctx.fillStyle = "rgba(255,255,255,0.7)";
+  ctx.font = F.jp(600, 26);
+  ctx.fillText(hashtags(c), 540, 1300);
+
+  // 下枠：号・日付
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = DARK;
+  ctx.textAlign = "left";
+  ctx.font = F.fraunces(24);
+  ctx.fillText(`No. 026 · ${c.stage} · ${c.date} ${c.time} JST`, 80, H - 40 - bw / 2);
+  ctx.textBaseline = "alphabetic";
+
+  grain(ctx, 86, 86, W - 172, H - 172, 240, WHITE, 0.04, 1.0);
+}
+
+/* ═══════════════════════ ⑩ MAG（特集号 / 超特大見出し） ═══════════════════════ */
+function drawMag(c: DrawCtx) {
+  const { ctx } = c;
+  const BG = "#EDE8DF";
+  const INK = "#111111";
+  const RED = "#D81E2C";
+  const BLUE = "#1B6FB3";
+
+  ctx.fillStyle = BG;
+  ctx.fillRect(0, 0, W, H);
+  ctx.textBaseline = "alphabetic";
+
+  // マストヘッド
+  ctx.textAlign = "left";
+  ctx.fillStyle = INK;
+  ctx.font = F.archivo(54);
+  ctx.fillText("WORLD CUP", 80, 318);
+  // 特集ラベル（赤帯）
+  ctx.fillStyle = RED;
+  ctx.fillRect(80, 348, 248, 56);
+  ctx.fillStyle = BG;
+  ctx.font = F.archivo(28);
+  ctx.fillText("SPECIAL ISSUE", 98, 388);
+  // 号
+  ctx.textAlign = "right";
+  ctx.fillStyle = INK;
+  ctx.font = F.archivo(28);
+  ctx.fillText("No. 026", 1000, 318);
+
+  // 超特大見出し
+  ctx.textAlign = "center";
+  ctx.fillStyle = INK;
+  const head = "どっちが勝つ？";
+  const hz = fit(ctx, head, 960, (s) => F.jp(900, s), 150, 70);
+  ctx.font = F.jp(900, hz);
+  ctx.fillText(head, 540, 624);
+
+  // キッカー
+  ctx.fillStyle = RED;
+  setLS(ctx, "3px");
+  ctx.font = F.archivo(30);
+  ctx.fillText("WIN / LOSS PREDICTION", 540, 694);
+  setLS(ctx, "0px");
+  ctx.fillStyle = BLUE;
+  ctx.font = F.jp(800, 32);
+  ctx.fillText("MY 予想", 540, 744);
+
+  // 対戦カード
+  ctx.fillStyle = INK;
+  ctx.font = "54px sans-serif";
+  ctx.fillText(`${c.homeFlag}          ${c.awayFlag}`, 540, 884);
+  const codes = `${c.homeCode}   ${c.awayCode}`;
+  const cz = fit(ctx, codes, 900, F.archivo, 118, 60);
+  ctx.font = F.archivo(cz);
+  ctx.fillText(codes, 540, 1012);
+  ctx.fillStyle = RED;
+  ctx.font = F.archivo(46);
+  ctx.fillText("VS", 540, 944);
+
+  if (c.scoreOn) {
+    ctx.fillStyle = INK;
+    ctx.font = F.archivo(180);
+    ctx.fillText(scoreStr(c), 540, 1232);
+  }
+  ctx.fillStyle = RED;
+  const cap = captionOf(c);
+  const ks = fit(ctx, cap, 900, F.archivo, 84, 42);
+  ctx.font = F.archivo(ks);
+  ctx.fillText(cap, 540, c.scoreOn ? 1364 : 1206);
+
+  // 下部：号・日付＋バーコード＋ハッシュタグ
+  ctx.textAlign = "left";
+  ctx.fillStyle = INK;
+  ctx.font = F.jp(600, 28);
+  ctx.fillText(`${c.stage} · ${c.date} ${c.time} JST`, 80, 1474);
+  barcode(ctx, 80, 1504, 220, 54, INK);
+  ctx.textAlign = "right";
+  setLS(ctx, "2px");
+  ctx.font = F.archivo(28);
+  ctx.fillStyle = INK;
+  ctx.fillText(hashtags(c), 1000, 1544);
+  setLS(ctx, "0px");
+}
+
 const DRAWERS: Record<string, (c: DrawCtx) => void> = {
   construct: drawConstruct,
   holo: drawHolo,
   swiss: drawSwiss,
   memphis: drawMemphis,
   deco: drawDeco,
+  ide: drawIde,
+  brut: drawBrut,
+  vogue: drawVogue,
+  frame: drawFrame,
+  mag: drawMag,
 };
 
 // スタイル一覧（ピッカー用）
@@ -920,6 +1344,11 @@ const STYLES: { key: string; name: string; sub: string; sw: [string, string, str
   { key: "swiss", name: "スイス", sub: "BLUE NOTE", sw: ["#E8E2D0", "#C8341B", "#1F3A93"] },
   { key: "memphis", name: "メンフィス", sub: "80s POP", sw: ["#F7E8D5", "#FF4FA3", "#22C1C3"] },
   { key: "deco", name: "アールデコ", sub: "GOLD FINAL", sw: ["#0E1A24", "#C9A14A", "#E8D8A8"] },
+  { key: "ide", name: "i-D風", sub: "STREET WINK", sw: ["#F2EDE3", "#E5202E", "#1A57D6"] },
+  { key: "brut", name: "032c風", sub: "BRUTAL RED", sw: ["#E1000F", "#FFFFFF", "#000000"] },
+  { key: "vogue", name: "VOGUE風", sub: "DIDOT COUTURE", sw: ["#F7F4EF", "#9E7C3C", "#7A1020"] },
+  { key: "frame", name: "黄枠探検", sub: "YELLOW BORDER", sw: ["#111418", "#FFCC00", "#E64A2E"] },
+  { key: "mag", name: "特集号", sub: "BIG HEADLINE", sw: ["#EDE8DF", "#D81E2C", "#1B6FB3"] },
 ];
 
 /* ═══════════════════════ コンポーネント本体 ═══════════════════════ */
@@ -1223,7 +1652,7 @@ export default function StoryShare({ data }: { data: StoryData }) {
 
               <div className="mb-3">
                 <div className="text-[11px] font-bold text-muted mb-1.5">
-                  ③ デザインを選ぶ（5種・アートグラフィック）
+                  ③ デザインを選ぶ（全10種・アートグラフィック／雑誌カバー）
                 </div>
                 <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1">
                   {STYLES.map((s) => {
