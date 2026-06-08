@@ -175,7 +175,7 @@ export const news: NewsItem[] = [
   {
     id: "f7",
     category: "fun",
-    title: "吉田麻也の“花道” アイスランド戦で先発→13分で腕章を遠藤へ",
+    title: "吉田麻也の「花道」アイスランド戦で先発→13分で腕章を遠藤へ",
     summary:
       "壮行試合（5/31）で吉田麻也がキャプテンマークを巻いて先発。前半13分のボールアウト時に主将・遠藤航へ腕章を託して交代する、粋なセレモニーが用意された。吉田はその後、合宿にサポート役として合流した。",
     sourceName: "サッカーダイジェスト",
@@ -188,10 +188,94 @@ export const news: NewsItem[] = [
     category: "fun",
     title: "W杯の新ルールにGKも対応 鈴木彩艶「割るのも一つの戦術」",
     summary:
-      "再開を遅らせると相手ボールになる“新5秒ルール”など、今大会は細かなルール改正が話題。守護神の鈴木彩艶は『最悪のコーナーは避けたい。時間がなければすぐ蹴ってタッチラインを割るのも一つの戦術』と適応の構えを語った。",
+      "再開を遅らせると相手ボールになる「新5秒ルール」など、今大会は細かなルール改正が話題。守護神の鈴木彩艶は『最悪のコーナーは避けたい。時間がなければすぐ蹴ってタッチラインを割るのも一つの戦術』と適応の構えを語った。",
     sourceName: "ゲキサカ",
     sourceUrl: "https://web.gekisaka.jp/news/japan/detail/?452700-452700-fl=",
     date: "2026-06-01",
     tag: "豆知識",
+  },
+
+  // ─── サッカーと地政学・W杯の裏側（木崎伸也取材・ファクトチェック済み 2026-06-08）───
+  {
+    id: "g1",
+    category: "fun",
+    title: "史上初！W杯決勝にBTS・マドンナ・シャキーラ——スーパーボウル方式のハーフタイムショー",
+    summary:
+      "2026年W杯決勝（7月19日・メットライフ・スタジアム）で史上初のハーフタイムショーが実施される。BTS・マドンナ・シャキーラが出演し、コールドプレーのクリス・マーティンがプロデュース。ハーフタイムは約24分に延長予定。「サッカーのW杯がスーパーボウル化する」と賛否が分かれている。",
+    sourceName: "Al Jazeera",
+    sourceUrl:
+      "https://www.aljazeera.com/news/2026/6/5/fifa-world-cup-2026-super-bowl-half-time-show-kits-football-talking-points",
+    date: "2026-06-05",
+    tag: "豆知識",
+  },
+  {
+    id: "g2",
+    category: "fun",
+    title: "森保一、代表監督歴代最多71勝——「やんちゃな補欠」が歩んだ40年",
+    summary:
+      "森保一監督は日本代表監督として歴代最多71勝を達成。マツダFC時代は最低評価で入社し戦力外通告も経験した補欠選手だった。転機は21歳での結婚。広島でJ1を3度制覇後、就任当初の解任論を乗り越えて2期目担当（異例）。スポーツライター木崎伸也が2年半密着した『逆転監督 森保一』（文藝春秋）が発売前重版決定。",
+    sourceName: "PR TIMES（文藝春秋）",
+    sourceUrl:
+      "https://prtimes.jp/main/html/rd/p/000000994.000043732.html",
+    date: "2026-06-08",
+    tag: "面白ネタ",
+  },
+  {
+    id: "g3",
+    category: "fun",
+    title: "「スポーツウォッシング」とは——サッカーが外交の武器になる時代",
+    summary:
+      "人権問題を抱える国が「スポーツの祭典」で国際批判を薄める手法を『スポーツウォッシング』と呼ぶ。カタール2022（移民労働者問題）・サウジアラビア（プレミアリーグ買収）が典型例。一方モロッコは2022年ベスト4進出を足がかりに外交的地位を高め、2030年W杯共催権を獲得。小国がサッカーで「領土（影響圏）を広げる」時代が来た。",
+    sourceName: "Business Insider Japan",
+    sourceUrl:
+      "https://www.businessinsider.jp/article/2603-soccer-and-geopolitics/",
+    date: "2026-06-08",
+    tag: "地政学",
+  },
+  {
+    id: "g4",
+    category: "fun",
+    title: "習近平の「サッカー大国」の夢——数百億を注いでも代表は弱いまま",
+    summary:
+      "習近平はサッカー大国を中国共産党の目標に掲げ、2010年代の中国スーパーリーグへ数百億円規模の投資を実施。ブラジル代表MFのオスカルら世界的スターを破格の報酬で招聘したが、中国代表は今大会も出場ならず。「金を注いでも代表は強くならない」という逆説の教訓として世界に語り継がれている。",
+    sourceName: "CEO Today",
+    sourceUrl:
+      "https://www.ceotodaymagazine.com/2024/10/the-rise-and-fall-of-the-chinese-super-league-lessons-from-a-spending-spree/",
+    date: "2026-06-08",
+    tag: "地政学",
+  },
+  {
+    id: "g5",
+    category: "serious",
+    title: "W杯100周年（2030年）は6カ国開催——史上初の3大陸またぎフォーマット",
+    summary:
+      "2030年W杯の主催国はスペイン・ポルトガル・モロッコ。さらに1930年の第1回大会を開催したウルグアイ・アルゼンチン・パラグアイで100周年記念試合を実施する。欧州・アフリカ・南米の3大陸にまたがる史上初のフォーマットは、FIFA内部の勢力バランスを反映した政治的産物とも評される。",
+    sourceName: "FIFA公式",
+    sourceUrl:
+      "https://www.fifa.com/en/tournaments/mens/worldcup/articles/world-cup-2030-spain-portugal-morocco-host-centenary-argentina-uruguay-paraguay",
+    date: "2026-06-08",
+    tag: "大会情報",
+  },
+  {
+    id: "g6",
+    category: "serious",
+    title: "2034年W杯はサウジアラビア単独開催——2024年12月FIFA臨時総会で決定",
+    summary:
+      "2024年12月11日のFIFA臨時総会で2034年W杯のサウジアラビア単独開催が決定。有力な対抗馬が不在のまま事実上の信任投票となった。石油マネーによるスポーツウォッシング戦略の集大成と批判する声もある。2022年カタールに続く中東開催で、FIFAとオイルマネーの結びつきが鮮明になった。",
+    sourceName: "Wikipedia（2034 FIFA World Cup）",
+    sourceUrl: "https://en.wikipedia.org/wiki/2034_FIFA_World_Cup",
+    date: "2026-06-08",
+    tag: "地政学",
+  },
+  {
+    id: "g7",
+    category: "serious",
+    title: "スイスで幹部14人が逮捕された日——2015年FIFAゲート事件とは",
+    summary:
+      "2015年5月、米司法省がFIFA幹部ら14人（役員9人・企業幹部5人）を約24年間にわたる汚職・マネーロンダリングで起訴。スイスのホテルで幹部が連行される衝撃的な展開となり、ブラッター会長（当時）も辞任に追い込まれた。W杯開催地決定に賄賂が横行していた実態が露呈し、現在のFIFAの信頼問題の起点となった事件。",
+    sourceName: "Wikipedia（2015年FIFA汚職事件）",
+    sourceUrl: "https://en.wikipedia.org/wiki/2015_FIFA_corruption_case",
+    date: "2026-06-08",
+    tag: "地政学",
   },
 ];
