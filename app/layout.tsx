@@ -78,6 +78,8 @@ export default function RootLayout({
             </span>
           </div>
         </footer>
+        {/* モバイルの固定ボトムナビ分のスペーサー */}
+        <div className="md:hidden h-16" aria-hidden="true" />
       </body>
     </html>
   );
