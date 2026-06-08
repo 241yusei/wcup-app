@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/layout/Nav";
+import OnboardingQuiz from "@/components/OnboardingQuiz";
 import PeekCat from "@/components/PeekCat";
 import PWARegister from "@/components/PWARegister";
 
@@ -66,6 +67,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <div className="colors-stripe-thin w-full" />
         <Nav />
+        <OnboardingQuiz />
         <main className="flex-1">{children}</main>
         <PeekCat />
         <PWARegister />

@@ -16,6 +16,7 @@ import ReminderButton from "@/components/schedule/ReminderButton";
 import ShareButton from "@/components/ShareButton";
 import MatchIntroPopup from "@/components/MatchIntroPopup";
 import StoryShare from "@/components/StoryShare";
+import MatchNotes from "@/components/MatchNotes";
 import { Team } from "@/lib/types";
 
 // 静的書き出し（GitHub Pages）：全試合IDを事前生成する。
@@ -418,6 +419,9 @@ export default async function MatchDetail({
           </div>
         </div>
       </section>
+
+      {/* 観戦メモ */}
+      <MatchNotes matchId={match.id} />
 
       {/* 出典 */}
       {preview?.sources?.length ? (

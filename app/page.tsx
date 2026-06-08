@@ -5,6 +5,7 @@ import { getTeam, teams } from "@/data/teams";
 import { jstDateLabel, jstTimeLabel, jstWatchHint } from "@/lib/datetime";
 import ReminderButton from "@/components/schedule/ReminderButton";
 import MyFavorites from "@/components/MyFavorites";
+import HomeQuizBadge from "@/components/HomeQuizBadge";
 
 const teamMap: Record<string, { name: string; flag: string }> = Object.fromEntries(
   teams.map((t) => [t.code, { name: t.name, flag: t.flag }])
@@ -148,6 +149,9 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* 観戦スタイル診断バッジ（未診断は「診断する」バナー、診断済みはレベルチップ） */}
+      <HomeQuizBadge />
 
       {/* マイ推し（推し登録があれば表示） */}
       <MyFavorites teamMap={teamMap} />

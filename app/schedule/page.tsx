@@ -1,9 +1,8 @@
 import Image from "next/image";
 import { getMatches } from "@/lib/football";
-import { jstDateKey, jstDateLabel } from "@/lib/datetime";
-import MatchCard from "@/components/schedule/MatchCard";
+import { jstDateKey } from "@/lib/datetime";
 import { Match } from "@/lib/types";
-
+import ScheduleFavoriteFilter from "@/components/schedule/ScheduleFavoriteFilter";
 
 export default async function SchedulePage() {
   const { matches, live } = await getMatches();
@@ -12,13 +11,17 @@ export default async function SchedulePage() {
     (a, b) => +new Date(a.utcDate) - +new Date(b.utcDate)
   );
 
-  // 日本時間の日付ごとにグループ化
-  const byDate = new Map<string, Match[]>();
+  // 日本時間の日付ごとにグループ化（クライアントに渡せるシリアライズ可能な配列へ変換）
+  const dateMap = new Map<string, Match[]>();
   for (const m of sorted) {
     const key = jstDateKey(m.utcDate);
-    if (!byDate.has(key)) byDate.set(key, []);
-    byDate.get(key)!.push(m);
+    if (!dateMap.has(key)) dateMap.set(key, []);
+    dateMap.get(key)!.push(m);
   }
+  const groups = [...dateMap.entries()].map(([dateKey, ms]) => ({
+    dateKey,
+    matches: ms,
+  }));
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
@@ -31,9 +34,7 @@ export default async function SchedulePage() {
             🔔ボタンでカレンダーに登録できます。
           </p>
           <p className="text-xs text-muted mt-2">
-            {live
-              ? "🟢 ライブデータ取得中（football-data.org）"
-              : "📋 サンプル日程を表示中（APIキー設定で自動更新）"}
+            ⭐ 推し国を登録すると「推し国フィルター」が使えます。
           </p>
         </div>
         <Image
@@ -45,23 +46,8 @@ export default async function SchedulePage() {
         />
       </header>
 
-      <div className="space-y-8">
-        {[...byDate.entries()].map(([key, ms]) => {
-          return (
-            <section key={key}>
-              <div className="flex items-center gap-2 mb-3 sticky top-16 bg-background/95 py-2 z-10">
-                <h2 className="text-lg font-bold">{jstDateLabel(ms[0].utcDate)}</h2>
-                <span className="text-xs text-muted">{ms.length}試合</span>
-              </div>
-              <div className="space-y-3">
-                {ms.map((m) => (
-                  <MatchCard key={m.id} match={m} />
-                ))}
-              </div>
-            </section>
-          );
-        })}
-      </div>
+      {/* 推し国フィルター付きの日程ビュー（クライアントコンポーネント） */}
+      <ScheduleFavoriteFilter groups={groups} live={live} />
     </div>
   );
 }
