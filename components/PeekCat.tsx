@@ -5,7 +5,7 @@ import Link from "next/link";
 // タップ/クリックで「ゲンの玄人解説」へ。PCではホバーで全身が「ひょこっ」と出る。
 export default function PeekCat() {
   return (
-    <div className="fixed bottom-0 right-2 z-30 pointer-events-none">
+    <div className="fixed bottom-16 md:bottom-0 right-2 z-40 pointer-events-none">
       <Link
         href="/gen"
         title="ゲンの玄人解説"
