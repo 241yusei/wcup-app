@@ -1,18 +1,14 @@
-name: Deploy to GitHub Pages
+# Vercel への自動デプロイは Vercel ダッシュボードで GitHub 連携済みのため、
+# このワークフローはビルド確認のみ行います。
+# 実際のデプロイは Vercel が push を検知して自動実行します。
+
+name: Build Check
 
 on:
   push:
     branches: [main]
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
+  pull_request:
+    branches: [main]
 
 jobs:
   build:
@@ -24,23 +20,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      - name: Build (static export)
+      - name: Build
         run: npm run build
         env:
-          NEXT_PUBLIC_BASE_PATH: /wcup-app
-      - name: Disable Jekyll (serve _next assets)
-        run: touch out/.nojekyll
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./out
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}

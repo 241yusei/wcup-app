@@ -13,8 +13,7 @@ export default function PWARegister() {
   useEffect(() => {
     // サービスワーカー登録
     if ("serviceWorker" in navigator) {
-      const bp = process.env.NEXT_PUBLIC_BASE_PATH || "";
-      navigator.serviceWorker.register(`${bp}/sw.js`).catch(() => {});
+      navigator.serviceWorker.register("/sw.js").catch(() => {});
     }
 
     // インストール促進バナー（Android/Chrome系）
