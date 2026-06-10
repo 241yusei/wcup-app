@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 // 全ナビアイテム（デスクトップ全表示 / モバイルはメニューシートで全表示）
 const allLinks = [
   { href: "/", label: "ホーム", icon: "🏠" },
-  { href: "/story", label: "因縁帖", icon: "🌙" },
+  { href: "/story", label: "因縁", icon: "🌙" },
   { href: "/japan", label: "日本特集", icon: "🇯🇵" },
   { href: "/news", label: "ニュース", icon: "📰" },
   { href: "/schedule", label: "試合日程", icon: "📅" },
@@ -21,7 +21,7 @@ const allLinks = [
 // モバイルボトムナビ：最重要4タブ＋メニューの5スロット構成
 const bottomNavLinks = [
   { href: "/", label: "ホーム", icon: "🏠" },
-  { href: "/story", label: "因縁帖", icon: "🌙" },
+  { href: "/story", label: "因縁", icon: "🌙" },
   { href: "/japan", label: "日本特集", icon: "🇯🇵" },
   { href: "/schedule", label: "試合日程", icon: "📅" },
 ];

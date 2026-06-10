@@ -8,7 +8,7 @@ import { jstDateLabel, jstTimeLabel } from "@/lib/datetime";
 import WakeBadge from "@/components/WakeBadge";
 
 export const metadata: Metadata = {
-  title: "因縁帖｜100倍Wカップ",
+  title: "因縁｜100倍Wカップ",
   description:
     "W杯2026の試合を「物語」として読む。因縁・登場人物・伏線・結末予想——語り部はボールネコのゲン。",
 };
@@ -39,7 +39,7 @@ export default async function StoryPage() {
         />
         <div className="relative">
           <div className="colors-stripe-thin w-16 rounded-full mb-4" />
-          <h1 className="text-3xl font-bold mb-3">因縁帖</h1>
+          <h1 className="text-3xl font-bold mb-3">因縁</h1>
           <p className="text-sm text-white/85 leading-relaxed max-w-md">
             スコアやスタッツは、他のアプリでも読める。
             <br />
