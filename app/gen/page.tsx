@@ -3,9 +3,9 @@ import Image from "next/image";
 import { gen, proSections } from "@/data/proCommentary";
 
 export const metadata = {
-  title: "ゲンの玄人解説｜そこまで言う⁉ 忖度なしの本音｜100倍Wカップ",
+  title: "トリオンの玄人解説｜そこまで言う⁉ 忖度なしの本音｜100倍Wカップ",
   description:
-    "隠れキャラ「ボールネコのゲン」が、にわか向けの優しさ抜きで語る玄人解説。日本の本当の強みと泣き所、初戦オランダ攻略の核心、勝負を決める“3秒”、優勝の読みまで。サッカー強者目線の忖度なし分析。",
+    "隠れキャラ「トリオン」が、にわか向けの優しさ抜きで語る玄人解説。日本の本当の強みと泣き所、初戦オランダ攻略の核心、勝負を決める“3秒”、優勝の読みまで。サッカー強者目線の忖度なし分析。",
 };
 
 export default function GenPage() {
@@ -17,7 +17,7 @@ export default function GenPage() {
         <div className="bg-jpnavy text-white p-6 flex items-center gap-4">
           <Image
             src="/char-ball.png"
-            alt="ボールネコのゲン"
+            alt="トリオン"
             width={120}
             height={193}
             className="h-28 w-auto shrink-0 drop-shadow-xl"
@@ -39,7 +39,7 @@ export default function GenPage() {
       <section className="mb-10">
         <h2 className="text-lg font-bold mb-3 flex items-center gap-2">
           <span className="colors-stripe-thin w-6 rounded-full inline-block" />
-          まず、ゲンの三行まとめ
+          まず、トリオンの三行まとめ
         </h2>
         <div className="rounded-2xl border-2 border-jpred/30 bg-jpred/[0.04] p-4 space-y-2">
           {gen.tldr.map((t, i) => (
@@ -89,7 +89,7 @@ export default function GenPage() {
       </div>
 
       <p className="text-[11px] text-muted mt-8 leading-relaxed">
-        ※ 戦術プロファイルは取材・公開情報に基づく分析、勝敗の見立て・予想は「ゲン」の
+        ※ 戦術プロファイルは取材・公開情報に基づく分析、勝敗の見立て・予想は「トリオン」の
         一つの見方です。にわかさん向けのやさしい解説は
         <Link href="/deep" className="text-jpnavy underline underline-offset-2 decoration-jpnavy/40">
           サッカー深掘り

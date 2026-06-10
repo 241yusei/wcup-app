@@ -10,7 +10,7 @@ import WakeBadge from "@/components/WakeBadge";
 export const metadata: Metadata = {
   title: "因縁｜100倍Wカップ",
   description:
-    "W杯2026の試合を「物語」として読む。因縁・登場人物・伏線・結末予想——語り部はボールネコのゲン。",
+    "W杯2026の試合を「物語」として読む。因縁・登場人物・伏線・結末予想——語り部はトリオン。",
 };
 
 export default async function StoryPage() {

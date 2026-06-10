@@ -1,5 +1,5 @@
 // 起きる?寝る?ナビ — 日本時間の生活と試合の価値を秤にかける判定エンジン。
-// 「この試合のために目覚ましをかける価値があるか」を5段階で示し、ゲンの一言を添える。
+// 「この試合のために目覚ましをかける価値があるか」を5段階で示し、トリオンの一言を添える。
 
 import { Match } from "@/lib/types";
 import { getTeam } from "@/data/teams";
@@ -8,7 +8,7 @@ export interface WakeVerdict {
   score: 1 | 2 | 3 | 4 | 5; // 観戦価値（時間帯は加味しない純粋な試合価値）
   stars: string;            // "★★★★☆" 形式
   label: string;            // "絶対起きろ" など
-  genComment: string;       // ゲンの一言（時間帯を踏まえた助言）
+  genComment: string;       // トリオンの一言（時間帯を踏まえた助言）
   hardship: "midnight" | "earlymorning" | "daytime" | "evening"; // JST時間帯
 }
 
@@ -65,7 +65,7 @@ export function judgeWake(match: Match): WakeVerdict {
   const label =
     s === 5 ? "絶対起きろ" : s === 4 ? "起きる価値あり" : s === 3 ? "余裕があれば" : s === 2 ? "ハイライトで十分" : "結果だけ追え";
 
-  // ゲンの一言: 試合価値 × 時間帯のマトリクスで生成
+  // トリオンの一言: 試合価値 × 時間帯のマトリクスで生成
   let genComment: string;
   if (jp) {
     genComment =

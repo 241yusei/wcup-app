@@ -17,7 +17,7 @@ const features = [
     href: "/story",
     icon: "🌙",
     title: "因縁",
-    desc: "試合を「物語」として読む。因縁・登場人物・伏線——語り部はゲン。",
+    desc: "試合を「物語」として読む。因縁・登場人物・伏線——語り部はトリオン。",
   },
   {
     href: "/album",
@@ -100,8 +100,8 @@ const features = [
   {
     href: "/gen",
     icon: "🐱",
-    title: "ゲンの玄人解説",
-    desc: "隠れキャラ・ボールネコのゲンが忖度なしで語る本音。そこまで言う⁉の強者目線。",
+    title: "トリオンの玄人解説",
+    desc: "隠れキャラ・トリオンが忖度なしで語る本音。そこまで言う⁉の強者目線。",
   },
 ];
 
@@ -188,7 +188,7 @@ export default async function Home() {
                 試合は、物語として読むと100倍になる。
               </p>
               <p className="text-xs text-white/70 mt-1">
-                因縁・登場人物・伏線——語り部はボールネコのゲン
+                因縁・登場人物・伏線——語り部はトリオン
               </p>
             </div>
             <span className="shrink-0 text-sm font-bold bg-white text-jpnavy rounded-full px-4 py-2">

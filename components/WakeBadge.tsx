@@ -32,7 +32,7 @@ export default function WakeBadge({
     );
   }
 
-  // 詳細版（試合詳細ページ用）: ゲンの一言つき
+  // 詳細版（試合詳細ページ用）: トリオンの一言つき
   return (
     <div className="rounded-xl border border-line bg-surface p-4">
       <div className="flex items-center justify-between mb-2">

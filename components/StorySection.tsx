@@ -28,10 +28,10 @@ export default function StorySection({ story }: { story: MatchStory }) {
       </div>
 
       <div className="bg-surface p-6 space-y-8">
-        {/* プロローグ（ゲン語り） */}
+        {/* プロローグ（トリオン語り） */}
         <div>
           <div className="flex items-center gap-2 mb-3 text-sm font-bold text-jpnavy">
-            <span aria-hidden>🐾</span> ゲンが語る、この一戦の前夜
+            <span aria-hidden>🐾</span> トリオンが語る、この一戦の前夜
           </div>
           <div className="space-y-3">
             {story.prologue.map((p, i) => (
@@ -92,7 +92,7 @@ export default function StorySection({ story }: { story: MatchStory }) {
         {/* 結末予想 */}
         <div className="rounded-xl bg-jpnavy/5 border border-jpnavy/20 p-4">
           <div className="text-sm font-bold text-jpnavy mb-1.5">
-            🐾 ゲンの読み — 結末はこうなる
+            🐾 トリオンの読み — 結末はこうなる
           </div>
           <p className="text-sm leading-relaxed text-foreground/90">{story.ending}</p>
         </div>

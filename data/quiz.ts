@@ -289,8 +289,8 @@ export const levels: UserLevel[] = [
       {
         href: "/gen",
         icon: "🐱",
-        title: "ゲンの玄人解説",
-        reason: "ボールネコ・ゲンが忖度なしで語る本音分析",
+        title: "トリオンの玄人解説",
+        reason: "トリオンが忖度なしで語る本音分析",
       },
       {
         href: "/teams",
@@ -327,7 +327,7 @@ export const levels: UserLevel[] = [
       {
         href: "/gen",
         icon: "🐱",
-        title: "ゲンの玄人解説",
+        title: "トリオンの玄人解説",
         reason: "忖度なしの強者目線。あなたの視点と照らし合わせて",
       },
       {
