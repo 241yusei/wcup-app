@@ -188,7 +188,7 @@ export default async function Home() {
                 試合は、物語として読むと100倍になる。
               </p>
               <p className="text-xs text-white/70 mt-1">
-                因縁・登場人物・伏線——語り部はトリオン
+                因縁・登場人物・伏線
               </p>
             </div>
             <span className="shrink-0 text-sm font-bold bg-white text-jpnavy rounded-full px-4 py-2">
