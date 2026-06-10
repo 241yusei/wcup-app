@@ -48,7 +48,6 @@ export default async function StoryPage() {
             <br />
             キックオフの笛は、物語の最初のページをめくる音になる。
           </p>
-          <p className="text-xs text-white/50 mt-4">語り部：ボールネコのゲン 🐾</p>
         </div>
       </header>
 
