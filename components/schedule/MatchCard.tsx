@@ -4,6 +4,7 @@ import { getTeam } from "@/data/teams";
 import { jstTimeLabel, jstWatchHint } from "@/lib/datetime";
 import ReminderButton from "./ReminderButton";
 import MatchPredictor from "@/components/MatchPredictor";
+import WakeBadge from "@/components/WakeBadge";
 
 function TeamSide({ code, align }: { code: string; align: "l" | "r" }) {
   const t = getTeam(code);
@@ -59,6 +60,13 @@ export default function MatchCard({ match }: { match: Match }) {
         </div>
         <TeamSide code={match.awayCode} align="r" />
       </div>
+
+      {/* 起きる?寝る?ナビ */}
+      {!finished && (
+        <div className="mt-3">
+          <WakeBadge match={match} />
+        </div>
+      )}
 
       {/* 会場（地域・スタジアム） */}
       {(match.city || match.stadium || match.venue) && (

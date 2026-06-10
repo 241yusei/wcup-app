@@ -7,21 +7,23 @@ import { useState, useEffect } from "react";
 // 全ナビアイテム（デスクトップ全表示 / モバイルはメニューシートで全表示）
 const allLinks = [
   { href: "/", label: "ホーム", icon: "🏠" },
+  { href: "/story", label: "前夜ストーリー", icon: "🌙" },
   { href: "/japan", label: "日本特集", icon: "🇯🇵" },
   { href: "/news", label: "ニュース", icon: "📰" },
   { href: "/schedule", label: "試合日程", icon: "📅" },
   { href: "/groups", label: "順位表", icon: "🏆" },
   { href: "/predictions", label: "勝敗予想", icon: "⭐" },
   { href: "/teams", label: "各国図鑑", icon: "🌍" },
+  { href: "/album", label: "アルバム", icon: "📔" },
   { href: "/watch", label: "どこで見る", icon: "📺" },
 ];
 
 // モバイルボトムナビ：最重要4タブ＋メニューの5スロット構成
 const bottomNavLinks = [
   { href: "/", label: "ホーム", icon: "🏠" },
+  { href: "/story", label: "物語", icon: "🌙" },
   { href: "/japan", label: "日本特集", icon: "🇯🇵" },
   { href: "/schedule", label: "試合日程", icon: "📅" },
-  { href: "/predictions", label: "勝敗予想", icon: "⭐" },
 ];
 
 export default function Nav() {

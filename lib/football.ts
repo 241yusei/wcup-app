@@ -33,6 +33,38 @@ const venueLookup = new Map<
     ])
 );
 
+// APIの数値IDをシードの "m-xx" 形式に正規化する。
+// ストーリー・勝敗予想・観戦メモ・スタンプなど localStorage のキーが
+// ライブ/フォールバックで食い違わないようにするための対応表。
+const idLookup = new Map<string, { id: string; utcDate: string }[]>();
+for (const m of fallbackMatches) {
+  const k = pairKey(m.homeCode, m.awayCode);
+  if (!idLookup.has(k)) idLookup.set(k, []);
+  idLookup.get(k)!.push({ id: m.id, utcDate: m.utcDate });
+}
+
+function canonicalId(
+  homeCode: string,
+  awayCode: string,
+  utcDate: string,
+  apiId: string
+): string {
+  const candidates = idLookup.get(pairKey(homeCode, awayCode));
+  if (!candidates?.length) return apiId;
+  // 同一カードが大会中に複数回ある可能性（決勝Tでの再戦）に備え、日時が最も近いものを採用
+  let best = apiId;
+  let bestDiff = Infinity;
+  for (const c of candidates) {
+    const diff = Math.abs(+new Date(c.utcDate) - +new Date(utcDate));
+    if (diff < bestDiff) {
+      bestDiff = diff;
+      best = c.id;
+    }
+  }
+  // 48時間以上ズレていたら別試合とみなしAPIのIDを使う
+  return bestDiff < 48 * 3600 * 1000 ? best : apiId;
+}
+
 function mapStage(stage: string): string {
   const m: Record<string, string> = {
     GROUP_STAGE: "グループステージ",
@@ -67,7 +99,7 @@ export async function getMatches(): Promise<{ matches: Match[]; live: boolean }>
         const awayCode = toCode(away?.name ?? "");
         const v = venueLookup.get(pairKey(homeCode, awayCode));
         return {
-          id: String(mm.id),
+          id: canonicalId(homeCode, awayCode, mm.utcDate as string, String(mm.id)),
           utcDate: mm.utcDate as string,
           stage: mapStage(mm.stage as string),
           group:

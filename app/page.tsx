@@ -14,6 +14,18 @@ const teamMap: Record<string, { name: string; flag: string }> = Object.fromEntri
 
 const features = [
   {
+    href: "/story",
+    icon: "🌙",
+    title: "前夜ストーリー",
+    desc: "試合を「物語」として読む。因縁・登場人物・伏線——語り部はゲン。",
+  },
+  {
+    href: "/album",
+    icon: "📔",
+    title: "マイW杯アルバム",
+    desc: "観た試合のスタンプ・予想成績・メモが「自分だけの大会記録」に育つ。",
+  },
+  {
     href: "/japan",
     icon: "🇯🇵",
     title: "日本特集",
@@ -152,6 +164,39 @@ export default async function Home() {
 
       {/* 観戦スタイル診断バッジ（未診断は「診断する」バナー、診断済みはレベルチップ） */}
       <HomeQuizBadge />
+
+      {/* 前夜ストーリーへの導線（夜空バナー） */}
+      <section className="max-w-6xl mx-auto px-4 pt-6">
+        <Link
+          href="/story"
+          className="block rounded-2xl bg-jpnavy text-white p-5 relative overflow-hidden hover:opacity-95 transition-opacity"
+        >
+          <div
+            className="absolute inset-0 opacity-25"
+            style={{
+              backgroundImage:
+                "radial-gradient(1px 1px at 15% 30%, white, transparent), radial-gradient(1.5px 1.5px at 70% 20%, white, transparent), radial-gradient(1px 1px at 45% 75%, white, transparent), radial-gradient(1px 1px at 90% 55%, white, transparent)",
+            }}
+            aria-hidden
+          />
+          <div className="relative flex items-center justify-between gap-4">
+            <div>
+              <div className="text-[11px] text-white/60 tracking-widest mb-1">
+                🌙 前夜ストーリー
+              </div>
+              <p className="font-bold leading-snug">
+                試合は、物語として読むと100倍になる。
+              </p>
+              <p className="text-xs text-white/70 mt-1">
+                因縁・登場人物・伏線——語り部はボールネコのゲン
+              </p>
+            </div>
+            <span className="shrink-0 text-sm font-bold bg-white text-jpnavy rounded-full px-4 py-2">
+              読む →
+            </span>
+          </div>
+        </Link>
+      </section>
 
       {/* マイ推し（推し登録があれば表示） */}
       <MyFavorites teamMap={teamMap} />

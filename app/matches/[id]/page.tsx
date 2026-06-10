@@ -17,6 +17,10 @@ import ShareButton from "@/components/ShareButton";
 import MatchIntroPopup from "@/components/MatchIntroPopup";
 import StoryShare from "@/components/StoryShare";
 import MatchNotes from "@/components/MatchNotes";
+import StorySection from "@/components/StorySection";
+import WakeBadge from "@/components/WakeBadge";
+import WatchedStamp from "@/components/WatchedStamp";
+import { getStory } from "@/data/stories";
 import { Team } from "@/lib/types";
 
 // 静的書き出し（GitHub Pages）：全試合IDを事前生成する。
@@ -122,6 +126,7 @@ export default async function MatchDetail({
   const finished = match.status === "FINISHED";
   const jpInvolved = match.homeCode === "JPN" || match.awayCode === "JPN";
   const hint = jstWatchHint(match.utcDate);
+  const story = getStory(match.id);
 
   // preview の formA/formB は teamA/teamB 基準。表示用に home/away へ対応づける。
   let homeForm: string | undefined;
@@ -248,6 +253,20 @@ export default async function MatchDetail({
           </div>
         </div>
       </header>
+
+      {/* 起きる?寝る?ナビ */}
+      {!finished && (
+        <div className="mb-10">
+          <WakeBadge match={match} detailed />
+        </div>
+      )}
+
+      {/* 前夜ストーリー（物語のある試合のみ） */}
+      {story && (
+        <div id="story" className="scroll-mt-20">
+          <StorySection story={story} />
+        </div>
+      )}
 
       {/* 観戦のキーポイント（全試合を観た上での見方）— 最重要セクションとして最初に強調 */}
       {preview?.watchPoints?.length ? (
@@ -418,6 +437,15 @@ export default async function MatchDetail({
             {away && <TriviaList team={away} />}
           </div>
         </div>
+      </section>
+
+      {/* 観たよスタンプ */}
+      <section className="mb-10 rounded-2xl border-2 border-dashed border-jpred/30 bg-jpred/[0.03] p-5 text-center">
+        <p className="text-sm font-bold mb-1">この試合、観た？</p>
+        <p className="text-xs text-muted mb-3">
+          スタンプを押すと<Link href="/album" className="text-jpnavy underline underline-offset-2">マイW杯アルバム</Link>に記録される
+        </p>
+        <WatchedStamp matchId={match.id} />
       </section>
 
       {/* 観戦メモ */}
