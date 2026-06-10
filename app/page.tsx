@@ -335,7 +335,19 @@ export default async function Home() {
               className="group bg-surface border border-line rounded-2xl p-6 cursor-pointer transition-all hover:-translate-y-1 hover:border-jpnavy/50 hover:shadow-md active:scale-[0.98]"
             >
               <div className="flex items-start justify-between">
-                <div className="text-3xl mb-3">{f.icon}</div>
+                <div className="text-3xl mb-3">
+                  {f.href === "/gen" ? (
+                    <Image
+                      src="/trion.png"
+                      alt="トリオン"
+                      width={48}
+                      height={48}
+                      className="object-contain drop-shadow"
+                    />
+                  ) : (
+                    f.icon
+                  )}
+                </div>
                 <span
                   className="text-jpnavy/40 text-xl group-hover:text-jpnavy group-hover:translate-x-0.5 transition-all"
                   aria-hidden
