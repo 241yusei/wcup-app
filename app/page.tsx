@@ -16,7 +16,7 @@ const features = [
   {
     href: "/story",
     icon: "🌙",
-    title: "前夜ストーリー",
+    title: "因縁帖",
     desc: "試合を「物語」として読む。因縁・登場人物・伏線——語り部はゲン。",
   },
   {
@@ -165,7 +165,7 @@ export default async function Home() {
       {/* 観戦スタイル診断バッジ（未診断は「診断する」バナー、診断済みはレベルチップ） */}
       <HomeQuizBadge />
 
-      {/* 前夜ストーリーへの導線（夜空バナー） */}
+      {/* 因縁帖への導線（夜空バナー） */}
       <section className="max-w-6xl mx-auto px-4 pt-6">
         <Link
           href="/story"
@@ -182,7 +182,7 @@ export default async function Home() {
           <div className="relative flex items-center justify-between gap-4">
             <div>
               <div className="text-[11px] text-white/60 tracking-widest mb-1">
-                🌙 前夜ストーリー
+                🌙 因縁帖
               </div>
               <p className="font-bold leading-snug">
                 試合は、物語として読むと100倍になる。

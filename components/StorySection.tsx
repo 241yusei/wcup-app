@@ -1,4 +1,4 @@
-// 前夜ストーリーの表示セクション。試合詳細ページに差し込む「夜の章」。
+// 因縁帖の表示セクション。試合詳細ページに差し込む「夜の章」。
 // 紺色の夜空デザインで、情報ページの中に物語の時間をつくる。
 
 import { MatchStory } from "@/data/stories";
@@ -18,7 +18,7 @@ export default function StorySection({ story }: { story: MatchStory }) {
         />
         <div className="relative">
           <div className="text-xs text-white/60 tracking-widest mb-2">
-            🌙 前夜ストーリー — {story.chapter}
+            🌙 因縁帖 — {story.chapter}
           </div>
           <h2 className="text-2xl font-bold leading-snug mb-3">{story.title}</h2>
           <p className="text-sm text-white/85 leading-relaxed border-l-2 border-jpred pl-3">
