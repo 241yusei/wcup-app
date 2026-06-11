@@ -278,4 +278,77 @@ export const news: NewsItem[] = [
     date: "2026-06-08",
     tag: "地政学",
   },
+
+  // ─── ついに開幕！ 開幕日〜直前の最新トピック（ファクトチェック済み 2026-06-11）───
+  {
+    id: "n10",
+    category: "serious",
+    title: "ついに開幕！ 開幕戦はメキシコ×南アフリカ 日本時間6/12(金)4:00キックオフ",
+    summary:
+      "史上最大48チーム・3カ国共催のW杯2026がついに開幕。開幕戦はメキシコ×南アフリカで、舞台は改修を終えたメキシコシティのアステカ（大会名Estadio Mexico City）。同会場は1970・1986年に続き世界初の3度目W杯開幕戦。現地6/11 14:00（CT）＝日本時間6/12(金)午前4:00キックオフ。翌6/12には開催国アメリカ×パラグアイ、カナダ×（相手）も控える。",
+    sourceName: "ESPN",
+    sourceUrl:
+      "https://www.espn.com/football/story/_/id/49007230/world-cup-2026-mexico-vs-south-africa-kickoff-how-watch-stats-team-news-fifa-opener",
+    date: "2026-06-11",
+    tag: "大会情報",
+  },
+  {
+    id: "f9",
+    category: "fun",
+    title: "開幕戦は“16年越しの再会” オチョアは2010年と2026年の両方を知る唯一の男",
+    summary:
+      "南アフリカがメキシコと当たるのは、2010年大会の開幕戦でチャバララの伝説的ミドルが国を沸かせてから、ちょうど16年後。メキシコの守護神ギジェルモ・オチョア（40）は、両チーム合わせて2010年と2026年の両W杯メンバーに名を連ねる唯一の選手という、にわかでも語れる開幕戦の小ネタ。",
+    sourceName: "FIFA公式",
+    sourceUrl:
+      "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/estadio-azteca-mexico-city-host-opening-match-world-cup-2026",
+    date: "2026-06-11",
+    tag: "面白ネタ",
+  },
+  {
+    id: "f10",
+    category: "fun",
+    title: "開会式は史上初の3都市開催 シャキーラが大会公式ソング「Dai Dai」を披露",
+    summary:
+      "開会式はメキシコシティ（6/11）・トロント＆ロサンゼルス（6/12）の3都市で順次開催。メキシコシティではシャキーラがナイジェリアのバーナ・ボーイと公式ソング『Dai Dai』を歌い、J・バルヴィンやマナーらラテンの名手が集結（約16分半）。LAではケイティ・ペリーらが出演。演出は五輪式典も手がけたマルコ・バリッチ。決勝のハーフタイムショー導入と並び“W杯のショー化”が話題に。",
+    sourceName: "Al Jazeera",
+    sourceUrl:
+      "https://www.aljazeera.com/sports/2026/6/9/world-cup-opening-ceremony-whos-performing-when-it-starts-how-to-watch",
+    date: "2026-06-10",
+    tag: "豆知識",
+  },
+  {
+    id: "n11",
+    category: "serious",
+    title: "日本代表、ベースキャンプ地ナッシュビル入り 公開練習に約5000人",
+    summary:
+      "日本は現地6/8（日本時間6/9）にメキシコ・モンテレイでの暑熱順化を終え、ベースキャンプ地の米テネシー州ナッシュビルに到着。一般公開された練習には約5000人が来場し、遠藤航・鎌田大地・前田大然ら欧州主力組に現地のクラブサポーターからも声援が飛んだ。別調整中だった主将・遠藤も全体練習の一部に合流し、初戦オランダ戦（日本時間6/15）へ最終調整に入った。",
+    sourceName: "日本経済新聞",
+    sourceUrl:
+      "https://www.nikkei.com/article/DGXZQODH10CXN0Q6A610C2000000/",
+    date: "2026-06-10",
+    tag: "日本代表",
+  },
+  {
+    id: "n12",
+    category: "serious",
+    title: "開幕直前に各国で離脱者 モロッコは主力2人を負傷で緊急入れ替え",
+    summary:
+      "登録メンバーは初戦の24時間前まで負傷者の入れ替えが認められており、開幕直前に動きが相次いだ。モロッコは6/10にDFアゲルドとFWエッザルズリが負傷離脱し、サアダネとサビを追加招集。カナダも6/9にマルセロ・フローレスに代えてジェイデン・ネルソンを登録した。土壇場のコンディション争いも勝負を分ける。",
+    sourceName: "Wikipedia（2026 FIFA World Cup squads）",
+    sourceUrl: "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_squads",
+    date: "2026-06-10",
+    tag: "大会情報",
+  },
+  {
+    id: "n13",
+    category: "serious",
+    title: "開催国アメリカに不安 強化試合でドイツに1-2黒星、初戦は6/12パラグアイ戦",
+    summary:
+      "開催国アメリカは開幕前最後の強化試合でドイツに1-2と敗戦。CBクリス・リチャーズが足首の負傷から復帰できておらず、守備に不安を残したまま現地6/12の初戦パラグアイ戦を迎える。ホームの後押しを力に変えられるかが、グループ突破の鍵を握る。",
+    sourceName: "Yahoo Sports",
+    sourceUrl:
+      "https://sports.yahoo.com/soccer/live/2026-world-cup-news-live-updates-injuries-squads-storylines-as-the-tournament-looms-200000776.html",
+    date: "2026-06-09",
+    tag: "大会情報",
+  },
 ];
