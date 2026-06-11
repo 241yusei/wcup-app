@@ -6,8 +6,6 @@ import { jstDateLabel, jstTimeLabel, jstWatchHint } from "@/lib/datetime";
 import ReminderButton from "@/components/schedule/ReminderButton";
 import MyFavorites from "@/components/MyFavorites";
 import HomeQuizBadge from "@/components/HomeQuizBadge";
-import TrionHero from "@/components/TrionHero";
-import { judgeWake } from "@/lib/wakeup";
 
 const teamMap: Record<string, { name: string; flag: string }> = Object.fromEntries(
   teams.map((t) => [t.code, { name: t.name, flag: t.flag }])
@@ -113,24 +111,6 @@ export default async function Home() {
     .filter((m) => m.homeCode === "JPN" || m.awayCode === "JPN")
     .sort((a, b) => +new Date(a.utcDate) - +new Date(b.utcDate));
 
-  // トリオンが案内する「次の日本戦」
-  const nextJp = japanMatches.find((m) => m.status !== "FINISHED");
-  const trionData = nextJp
-    ? (() => {
-        const oppCode = nextJp.homeCode === "JPN" ? nextJp.awayCode : nextJp.homeCode;
-        const opp = getTeam(oppCode);
-        return {
-          matchId: nextJp.id,
-          oppName: opp?.name ?? oppCode,
-          oppFlag: opp?.flag ?? "🏳️",
-          dateLabel: jstDateLabel(nextJp.utcDate),
-          timeLabel: jstTimeLabel(nextJp.utcDate),
-          utcDate: nextJp.utcDate,
-          comment: judgeWake(nextJp).genComment,
-        };
-      })()
-    : undefined;
-
   return (
     <div>
       {/* ヒーロー */}
@@ -167,7 +147,14 @@ export default async function Home() {
             </div>
           </div>
           <div className="flex justify-center">
-            <TrionHero data={trionData} />
+            <Image
+              src="/mascot-v2.png"
+              alt="ワールドカップ人間くん"
+              width={400}
+              height={400}
+              className="h-64 w-auto drop-shadow-xl"
+              priority
+            />
           </div>
         </div>
       </section>
