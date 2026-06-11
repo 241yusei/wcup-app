@@ -278,4 +278,143 @@ export const news: NewsItem[] = [
     date: "2026-06-08",
     tag: "地政学",
   },
+
+  // ─── ついに開幕！大会序盤＆日本代表の直近ニュース（ファクトチェック済み 2026-06-12）───
+  {
+    id: "w1",
+    category: "serious",
+    title: "W杯2026開幕 メキシコがアステカで南アフリカに2-0、開幕戦史上最多3枚の退場",
+    summary:
+      "6月11日、メキシコ市エスタディオ・アステカで開幕戦が行われ、地元メキシコが南アフリカを2-0で撃破。前半9分にJ・キニョネスが大会第1号ゴール、後半にR・ヒメネスが追加点。一方で南アフリカ2枚・メキシコ1枚の計3枚のレッドカードが出る荒れた展開で、これはW杯開幕戦史上最多。メキシコは開幕戦8度目で初白星を挙げた。",
+    sourceName: "ESPN",
+    sourceUrl: "https://www.espn.com/soccer/match/_/gameId/760415/south-africa-mexico",
+    date: "2026-06-11",
+    tag: "大会情報",
+  },
+  {
+    id: "w2",
+    category: "fun",
+    title: "頭蓋骨骨折から生還した男 ヒメネスのW杯初ゴールに涙",
+    summary:
+      "開幕戦で追加点を決めたメキシコのR・ヒメネス（35）は、2020年にアーセナル戦で頭蓋骨を骨折し命の危険すらあった重傷から復帰した苦労人。今年3月には父を亡くしたばかりで、ゴール後は天を指して亡き父に捧げた。大会最初の感動ストーリーとして世界中で話題に。番狂わせにも復活劇にも、必ず物語がある。",
+    sourceName: "CBS Sports",
+    sourceUrl:
+      "https://www.cbssports.com/soccer/news/how-mexico-star-raul-jimenez-overcame-skull-fracture-loss-of-father-world-cup-2026/",
+    date: "2026-06-11",
+    tag: "面白ネタ",
+  },
+  {
+    id: "w3",
+    category: "fun",
+    title: "開会式はシャキーラら出演 アステカが史上初の「3度目の開幕戦」",
+    summary:
+      "改修されたアステカ・スタジアムは1970年・1986年に続き、史上初となる3度目のW杯開幕戦の舞台に。開幕戦の90分前から8万人超を前に開会式が行われ、シャキーラ、バーナ・ボーイ、J・バルヴィンらが花火と光のショーで祝祭を演出した。決勝のハーフタイムショー（BTS・マドンナら）と並ぶ、今大会の「ショー化」の象徴。",
+    sourceName: "Al Jazeera",
+    sourceUrl:
+      "https://www.aljazeera.com/sports/2026/6/9/world-cup-opening-ceremony-whos-performing-when-it-starts-how-to-watch",
+    date: "2026-06-11",
+    tag: "豆知識",
+  },
+  {
+    id: "w4",
+    category: "serious",
+    title: "日本代表、ベースキャンプ地ナッシュビルに到着 遠藤航が英語であいさつ",
+    summary:
+      "日本代表は6月8日（日本時間9日）にメキシコ・モンテレイを発ち、ベースキャンプ地の米テネシー州ナッシュビルに到着。歓迎式では尺八による君が代演奏などが行われ、主将・遠藤航が英語で「この町からW杯の旅を始められて嬉しい」とあいさつした。初戦オランダ戦（6/15）へ向け本格始動。",
+    sourceName: "産経新聞",
+    sourceUrl: "https://news.yahoo.co.jp/articles/ec866a88f3f52c57e33ada05a91ae1438370a23f",
+    date: "2026-06-09",
+    tag: "日本代表",
+  },
+  {
+    id: "w5",
+    category: "serious",
+    title: "ナッシュビルで初練習 別メニュー続いた遠藤航が全体練習に合流",
+    summary:
+      "日本代表は6月10日、ナッシュビルSCの施設でベースキャンプ初練習を実施。負傷明けで別メニュー調整が続いていた遠藤航がスパイクを履いて全体練習に合流し、初戦へ向け好材料に。長友佑都は日の丸と背番号5入りのヘアバンドを着用、南野拓実はボール回しで球出し役を務めた。オランダ戦まで残り4日。",
+    sourceName: "超WORLDサッカー！",
+    sourceUrl: "https://web.ultra-soccer.jp/news/all/23512/",
+    date: "2026-06-11",
+    tag: "日本代表",
+  },
+  {
+    id: "w6",
+    category: "serious",
+    title: "初戦の相手オランダ、最終調整でウズベキスタンに2-1辛勝 クーマン「同じ布陣で臨む」",
+    summary:
+      "日本の初戦相手オランダは現地6月8日、ウズベキスタン（FIFAランク50位）との強化試合をガクポのPK2得点で2-1と辛勝。決定機を逃す展開にファンからは「緩い」との声も上がった。クーマン監督は日本戦も「同じ布陣で臨むことになる」と明言。相手の手の内が見えたことは日本にとって小さくない材料。",
+    sourceName: "サッカー批評Web",
+    sourceUrl: "https://news.yahoo.co.jp/articles/ac06311bbdf5954105001165bc6b5afedddc7195",
+    date: "2026-06-10",
+    tag: "日本代表",
+  },
+  {
+    id: "w7",
+    category: "serious",
+    title: "オランダ正GKフェルブルッヘン、負傷も日本戦出場へ前向き",
+    summary:
+      "オランダの正GKフェルブルッヘン（ブライトン、23歳＝三笘薫の同僚）がウズベキスタン戦で股関節を痛めて交代。だがクーマン監督は「日曜の日本戦ではプレーできると思う」「激しく接触しただけ」と起用に前向きな見方を示した。日本にとっては相手守備の不安要素が薄まる可能性もあり、初戦の注目点の一つ。",
+    sourceName: "サッカーダイジェストWeb",
+    sourceUrl: "https://www.soccerdigestweb.com/news/detail/id=191846",
+    date: "2026-06-11",
+    tag: "日本代表",
+  },
+  {
+    id: "w8",
+    category: "fun",
+    title: "田中碧が酷暑に本音「俺、汗かけないんすよ」 ダラスは予想35度",
+    summary:
+      "MF田中碧が、自身が発汗しにくい体質であることを「俺、汗かけないんすよ…見てくださいよ」と吐露。オランダ戦が行われるダラスのAT&Tスタジアムは現地午後3時開始で予想気温35度前後の酷暑が見込まれる。同会場は最新の空調設備を備え暑さ軽減が図られているが、選手のコンディション管理が勝敗を分ける鍵に。",
+    sourceName: "Qoly",
+    sourceUrl:
+      "https://topics.smt.docomo.ne.jp/amp/article/qoly/sports/qoly-4a26c41ca3b86c155aee2d97eb2dfe9b50d114d7",
+    date: "2026-06-09",
+    tag: "面白ネタ",
+  },
+  {
+    id: "w9",
+    category: "fun",
+    title: "公式球「トリオンダ」は“充電”が必要 内蔵センサーが毎秒500回計測",
+    summary:
+      "アディダスの公式球トリオンダ（=「三つの波」、開催3カ国を象徴）はバッテリー内蔵で、試合前に専用ステーションでのワイヤレス充電が必要。約90分で満充電、実戦で約6時間使用できる。内蔵の500Hzセンサーがボールへの接触やスピンを毎秒500回計測し、オフサイドやハンドの判定を支援する。ボールが“通信機器”になる時代。",
+    sourceName: "Yahoo Sports",
+    sourceUrl: "https://sports.yahoo.com/articles/2026-fifa-world-cup-ball-171931236.html",
+    date: "2026-06-07",
+    tag: "テクノロジー",
+  },
+  {
+    id: "w10",
+    category: "serious",
+    title: "全104試合でセミ自動オフサイドを初導入 出場選手は全員3Dスキャン",
+    summary:
+      "男子W杯で初めて全104試合にセミ自動オフサイド技術（SAOT）を導入。12台のカメラが各選手を毎秒50枚撮影し、明確なオフサイド（判定の閾値は10cm）は副審の耳元へ直接通知される。出場全選手はあらかじめ3Dスキャンされアバター化。VARを経由せず副審が素早く判定できるのが従来との違いで、試合のテンポにも影響しそう。",
+    sourceName: "FourFourTwo",
+    sourceUrl:
+      "https://www.fourfourtwo.com/competition/every-new-fifa-rule-at-the-2026-world-cup-goalkeeper-timeout-ban-five-second-countdowns-and-var-offsides-whats-changed",
+    date: "2026-06-11",
+    tag: "テクノロジー",
+  },
+  {
+    id: "w11",
+    category: "serious",
+    title: "決勝チケットが200万ドル超に高騰 ダイナミックプライシングを当局が調査",
+    summary:
+      "今大会で本格導入された需要連動型のダイナミックプライシングが批判を浴びている。平均価格は約1,300ドル、決勝は安い席でも1万ドル、一部の転売価格は200万ドル超に。元FIFAガバナンス責任者が「利益優先」と批判し、ニューヨーク・ニュージャージー両州の司法長官が調査に乗り出した。「庶民の祭典」の理念が揺らいでいる。",
+    sourceName: "NPR",
+    sourceUrl: "https://www.npr.org/2026/05/28/nx-s1-5836514/2026-world-cup-fifa-ticket-prices",
+    date: "2026-05-28",
+    tag: "大会運営",
+  },
+  {
+    id: "w12",
+    category: "fun",
+    title: "ハーランドのノルウェー、28年ぶりW杯出場 予選37得点で突破",
+    summary:
+      "得点王エルリング・ハーランド擁するノルウェーが1998年以来28年ぶりにW杯へ。欧州予選を8戦全勝、欧州最多の37得点で突破し、ハーランド個人も予選16得点で欧州得点王（2位の2倍）。本大会はグループIでフランス・セネガル・イラクと同組。長く「無冠の名手」を抱えた国の悲願の復帰は、今大会の隠れた見どころ。",
+    sourceName: "Olympics.com",
+    sourceUrl:
+      "https://www.olympics.com/en/news/fifa-world-cup-2026-norway-all-players-full-squad-list-key-stats-and-schedule",
+    date: "2026-06-09",
+    tag: "海外選手",
+  },
 ];
