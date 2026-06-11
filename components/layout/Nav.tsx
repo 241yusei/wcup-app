@@ -3,6 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import SearchModal from "@/components/SearchModal";
+import ThemeToggle from "@/components/ThemeToggle";
 
 // 全ナビアイテム（デスクトップ全表示 / モバイルはメニューシートで全表示）
 const allLinks = [
@@ -58,8 +60,14 @@ export default function Nav() {
             </span>
           </Link>
 
+          {/* 検索＆深夜観戦モード（全画面幅で表示） */}
+          <div className="ml-auto md:ml-0 md:order-last flex items-center gap-2 shrink-0">
+            <SearchModal />
+            <ThemeToggle />
+          </div>
+
           {/* デスクトップナビ — md以上のみ表示 */}
-          <nav className="hidden md:flex gap-1 ml-auto overflow-x-auto no-scrollbar">
+          <nav className="hidden md:flex gap-1 md:ml-auto overflow-x-auto no-scrollbar">
             {allLinks.map((l) => (
               <Link
                 key={l.href}

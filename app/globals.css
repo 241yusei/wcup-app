@@ -11,6 +11,33 @@
   --line: #e4dfd0;
 }
 
+/* 深夜観戦モード（ダークモード）。
+   深夜・早朝キックオフを布団の中で追うアプリなので、目に優しい暗色を提供する。
+   jp-navy はテキスト・ボーダー用に明るく上書きし、bg-jpnavy（紺バナー）は固定色で維持する。 */
+.dark {
+  --background: #11131a;
+  --surface: #1a1d27;
+  --foreground: #ece9e1;
+  --muted: #a59f8e;
+  --jp-navy: #aab8ec;
+  --line: #2c3040;
+}
+.dark .bg-jpnavy {
+  background-color: #1d2a5c;
+}
+.dark .hover\:bg-jpnavy:hover {
+  background-color: #1d2a5c;
+}
+.dark .bg-jpnavy\/5 {
+  background-color: rgba(170, 184, 236, 0.06);
+}
+.dark .bg-jpnavy\/10 {
+  background-color: rgba(170, 184, 236, 0.12);
+}
+.dark .text-jpnavy\/40 {
+  color: rgba(170, 184, 236, 0.5);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
