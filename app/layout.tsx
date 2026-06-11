@@ -15,11 +15,10 @@ const siteTitle = "100倍Wカップ｜日本代表を100倍楽しむ";
 const siteDesc =
   "日本代表の試合（日本時間）・対戦国の攻略・観戦ポイント・優勝予想まで。サッカーをよく知らなくても日本戦を100倍楽しめるW杯アプリ。";
 
-// 公開オリジン。Vercel ダッシュボードで NEXT_PUBLIC_SITE_URL を設定するか、
-// VERCEL_URL（Vercel が自動付与）を利用。ローカルは localhost にフォールバック。
-const baseUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+// GitHub Pages のサブパス（NEXT_PUBLIC_BASE_PATH=/wcup-app）。
+const bp = process.env.NEXT_PUBLIC_BASE_PATH || "";
+// 公開オリジン（GitHub Pages）。未設定時はフォールバック。
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://241yusei.github.io";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -28,17 +27,17 @@ export const metadata: Metadata = {
   openGraph: {
     title: siteTitle,
     description: siteDesc,
-    url: `${baseUrl}/`,
+    url: `${baseUrl}${bp}/`,
     siteName: "100倍Wカップ",
     locale: "ja_JP",
     type: "website",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "100倍Wカップ" }],
+    images: [{ url: `${bp}/og.png`, width: 1200, height: 630, alt: "100倍Wカップ" }],
   },
   twitter: {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDesc,
-    images: ["/og.png"],
+    images: [`${bp}/og.png`],
   },
   appleWebApp: {
     capable: true,
@@ -47,10 +46,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+      { url: `${bp}/icon-192.png`, sizes: "192x192", type: "image/png" },
+      { url: `${bp}/icon-512.png`, sizes: "512x512", type: "image/png" },
     ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    apple: [{ url: `${bp}/apple-touch-icon.png`, sizes: "180x180" }],
   },
 };
 
