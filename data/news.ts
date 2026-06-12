@@ -417,4 +417,61 @@ export const news: NewsItem[] = [
     date: "2026-06-09",
     tag: "海外選手",
   },
+
+  // ─── 大会2日目・最新情報（ファクトチェック済み 2026-06-12）───
+  {
+    id: "20260612-1",
+    category: "serious",
+    title: "韓国がチェコに2-1逆転勝利 ファン・インボムが1G1A",
+    summary:
+      "グループA第2試合（6/12）、韓国がグアダラハラでチェコに2-1の逆転勝利。59分にチェコのクレイチーが先制するも、67分にファン・インボムが同点弾、80分に途中出場のオ・ヒョンギュが決勝ゴールを決め逆転した。ファン・インボムは1ゴール1アシストの大活躍。日本と同じグループFではないが、アジア勢の快勝として注目される。",
+    sourceName: "Yahoo!ニュース",
+    sourceUrl: "https://news.yahoo.co.jp/articles/ea9cff0a1e80a9a8d635e424e9815980ac5b097b",
+    date: "2026-06-12",
+    tag: "試合結果",
+  },
+  {
+    id: "20260612-2",
+    category: "serious",
+    title: "南野拓実、負傷離脱も「メンター」として日本代表に合流",
+    summary:
+      "左ひざ前十字靭帯断裂で26人枠から外れた南野拓実が「メンター」の立場でナッシュビルの日本代表ベースキャンプに合流。6月9日の練習に姿を現し、チームとランニングをこなした。森保監督は「チームを勝たせる存在になってほしい」と期待を語った。精神的支柱としてピッチ外からオランダ戦を支える。",
+    sourceName: "サッカーキング",
+    sourceUrl: "https://www.soccer-king.jp/news/japan/national/20260609/2169294.html",
+    date: "2026-06-12",
+    tag: "日本代表",
+  },
+  {
+    id: "20260612-3",
+    category: "serious",
+    title: "オランダのDF ティンバー、股関節負傷でW杯2026全日程欠場確定",
+    summary:
+      "アーセナルのDF ユリエン・ティンバー（24）が股関節の故障から回復できず、W杯2026の欠場が確定。代替招集はルツァレル・ヘールトルーイダ（サンダーランド）に決定した。日本の初戦相手オランダにとって守備の主力が不在。日本にとっては好材料となるか、オランダ戦の注目点のひとつ。",
+    sourceName: "ESPN",
+    sourceUrl: "https://www.espn.com/soccer/story/_/id/49001511/netherlands-arsenal-defender-jurrien-timber-miss-world-cup-injury",
+    date: "2026-06-11",
+    tag: "日本代表",
+  },
+  {
+    id: "20260612-4",
+    category: "serious",
+    title: "スペインのヤマルとN・ウィリアムスが全体練習に復帰 初戦はベンチスタートの見通し",
+    summary:
+      "負傷で別メニュー調整が続いていたスペインのラミン・ヤマルとニコ・ウィリアムスが6月11日、チャタヌーガのベースキャンプで全体練習に合流。初戦（6/15、対カーボベルデ）ではスタメンを外れベンチスタートの見通しだが、2人の復帰でスペインの戦力は整いつつある。優勝候補の動向として注目。",
+    sourceName: "ESPN",
+    sourceUrl: "https://www.espn.com/soccer/story/_/id/49031484/spain-world-cup-2026-lamine-yamal-nico-williams-injury",
+    date: "2026-06-11",
+    tag: "海外選手",
+  },
+  {
+    id: "20260612-5",
+    category: "fun",
+    title: "開幕式に「ラブブ」コスチュームが登場 W杯×ポップカルチャーが世界でバズる",
+    summary:
+      "アステカスタジアムの開幕式で、人気キャラクター「ラブブ（Labubu）」を模したコスチュームをまとったマスコットがW杯トロフィーのぬいぐるみを持って登場。Xでトレンド入りするなど、サッカーとポップカルチャーの意外なコラボが世界中で話題に。今大会の「エンタメ化」を象徴する一幕として語り継がれそう。",
+    sourceName: "NBC News",
+    sourceUrl: "https://www.nbcnews.com/sports/soccer/live-blog/fifa-world-cup-2026-opening-ceremonies-june-11-live-updates-rcna349400",
+    date: "2026-06-11",
+    tag: "面白ネタ",
+  },
 ];

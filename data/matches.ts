@@ -16,7 +16,9 @@ export const fallbackMatches: Match[] = [
     venue: "メキシコシティ（開幕戦）",
     city: "メキシコシティ",
     stadium: "エスタディオ・アステカ",
-    status: "SCHEDULED",
+    status: "FINISHED",
+    homeScore: 2,
+    awayScore: 0,
   },
   // グループC マルキーカード 現地6/13 18:00 ET → JST 6/14 07:00
   {
