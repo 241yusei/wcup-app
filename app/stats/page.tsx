@@ -27,12 +27,14 @@ export default async function StatsPage() {
         teamCode: s.teamCode,
         goals: s.goals,
         assists: s.assists,
+        note: undefined as string | undefined,
       }))
     : currentScorers.map((s) => ({
         player: s.player,
         teamCode: s.teamCode,
         goals: s.goals,
         assists: undefined as number | undefined,
+        note: s.note,
       }));
 
   return (
@@ -87,7 +89,14 @@ export default async function StatsPage() {
                 {i + 1}
               </span>
               <Flag code={s.teamCode} />
-              <span className="font-bold text-sm flex-1">{s.player}</span>
+              <div className="flex-1 min-w-0">
+                <span className="font-bold text-sm">{s.player}</span>
+                {s.note && (
+                  <span className="block text-[10px] text-muted leading-tight">
+                    {s.note}
+                  </span>
+                )}
+              </div>
               {s.assists != null && (
                 <span className="text-xs text-muted">
                   {s.assists}
