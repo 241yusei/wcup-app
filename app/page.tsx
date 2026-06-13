@@ -5,7 +5,7 @@ import { getTeam, teams } from "@/data/teams";
 import { jstDateLabel, jstTimeLabel, jstWatchHint } from "@/lib/datetime";
 import { Match } from "@/lib/types";
 import ReminderButton from "@/components/schedule/ReminderButton";
-import MyFavorites from "@/components/MyFavorites";
+import MyFavorites, { type FavMatch } from "@/components/MyFavorites";
 import HomeQuizBadge from "@/components/HomeQuizBadge";
 import NextMatchCountdown from "@/components/NextMatchCountdown";
 import { japanBroadcast } from "@/data/broadcast";
@@ -107,6 +107,17 @@ export default async function Home() {
   const upcoming = sorted.filter((m) => m.status !== "FINISHED").slice(0, 5);
   const lastFinished = [...sorted].reverse().find((m) => m.status === "FINISHED");
   const pickup = [lastFinished, ...upcoming].filter(Boolean) as Match[];
+
+  // 推しフィード用の軽量データ（クライアントコンポーネントへ渡す）。
+  const favMatches: FavMatch[] = sorted.map((m) => ({
+    id: m.id,
+    homeCode: m.homeCode,
+    awayCode: m.awayCode,
+    utcDate: m.utcDate,
+    status: m.status,
+    stage: m.stage,
+    city: m.city,
+  }));
 
   return (
     <div>
@@ -210,7 +221,7 @@ export default async function Home() {
       </section>
 
       {/* マイ推し */}
-      <MyFavorites teamMap={teamMap} />
+      <MyFavorites teamMap={teamMap} matches={favMatches} />
 
       {/* 日本代表の全試合 */}
       <section className="max-w-6xl mx-auto px-4 py-10">
