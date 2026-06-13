@@ -23,6 +23,7 @@ import WatchedStamp from "@/components/WatchedStamp";
 import WinProbBar from "@/components/WinProbBar";
 import FormationPitch from "@/components/FormationPitch";
 import { getStory } from "@/data/stories";
+import { japanBroadcast } from "@/data/broadcast";
 import { Team } from "@/lib/types";
 
 // 静的書き出し（GitHub Pages）：全試合IDを事前生成する。
@@ -128,6 +129,15 @@ export default async function MatchDetail({
   const finished = match.status === "FINISHED";
   const jpInvolved = match.homeCode === "JPN" || match.awayCode === "JPN";
   const hint = jstWatchHint(match.utcDate);
+  // 日本戦は「どこで見れるか」をこの画面で即答する（放送局・無料可否）。
+  const jpOppName = jpInvolved
+    ? match.homeCode === "JPN"
+      ? away?.name
+      : home?.name
+    : undefined;
+  const jpTv = jpInvolved
+    ? japanBroadcast.find((b) => b.opp === jpOppName)
+    : undefined;
   const story = getStory(match.id);
 
   // preview の formA/formB は teamA/teamB 基準。表示用に home/away へ対応づける。
@@ -266,13 +276,30 @@ export default async function MatchDetail({
           rankHome={home?.fifaRank}
           rankAway={away?.fifaRank}
         />
+        {jpTv && (
+          <div className="rounded-2xl border-2 border-jpred/40 bg-jpred/[0.04] p-4">
+            <div className="text-xs font-bold text-jpred mb-1.5 flex items-center gap-1.5">
+              <span aria-hidden>📺</span>この試合の放送・配信
+            </div>
+            <p className="text-sm font-bold leading-snug">{jpTv.tv}</p>
+            <p className="text-xs text-[#2e7d32] font-bold mt-0.5">🆓 {jpTv.free}</p>
+            <Link
+              href="/watch"
+              className="inline-block text-xs font-medium text-jpnavy hover:underline mt-2"
+            >
+              視聴ガイドの詳細を見る →
+            </Link>
+          </div>
+        )}
         <div className="flex flex-wrap gap-2">
-          <Link
-            href="/watch"
-            className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-full bg-jpnavy/10 text-jpnavy hover:bg-jpnavy hover:text-white transition-colors"
-          >
-            📺 この試合をどこで見る？
-          </Link>
+          {!jpTv && (
+            <Link
+              href="/watch"
+              className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-full bg-jpnavy/10 text-jpnavy hover:bg-jpnavy hover:text-white transition-colors"
+            >
+              📺 この試合をどこで見る？
+            </Link>
+          )}
           {(match.city || match.stadium) && (
             <Link
               href="/venues"

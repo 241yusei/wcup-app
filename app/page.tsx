@@ -8,6 +8,7 @@ import ReminderButton from "@/components/schedule/ReminderButton";
 import MyFavorites from "@/components/MyFavorites";
 import HomeQuizBadge from "@/components/HomeQuizBadge";
 import NextMatchCountdown from "@/components/NextMatchCountdown";
+import { japanBroadcast } from "@/data/broadcast";
 
 const teamMap: Record<string, { name: string; flag: string }> = Object.fromEntries(
   teams.map((t) => [t.code, { name: t.name, flag: t.flag }])
@@ -94,6 +95,9 @@ export default async function Home() {
   const nextJapanOpp = nextJapan
     ? getTeam(nextJapan.homeCode === "JPN" ? nextJapan.awayCode : nextJapan.homeCode)
     : undefined;
+  const nextJapanTv = nextJapanOpp
+    ? japanBroadcast.find((b) => b.opp === nextJapanOpp.name)
+    : undefined;
 
   // 直近の試合：最新の終了結果1件＋これからの試合5件。
   const upcoming = sorted.filter((m) => m.status !== "FINISHED").slice(0, 5);
@@ -167,6 +171,11 @@ export default async function Home() {
                   {jstDateLabel(nextJapan.utcDate)} {jstTimeLabel(nextJapan.utcDate)} JST
                   {nextJapan.city && `・${nextJapan.city}`}
                 </p>
+                {nextJapanTv && (
+                  <p className="text-xs text-white/90 mt-1.5 font-medium">
+                    📺 {nextJapanTv.tv}（{nextJapanTv.free}）
+                  </p>
+                )}
               </div>
               <div className="shrink-0">
                 <NextMatchCountdown
