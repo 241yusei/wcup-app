@@ -80,7 +80,7 @@ const GROUP_PLANS: GroupPlan[] = [
   },
   {
     g: "B",
-    order: ["CAN", "SUI", "QAT", "BIH"],
+    order: ["CAN", "BIH", "QAT", "SUI"],
     days: [
       { date: "2026-06-12", v: ["TOR", "VAN"], t: ["19:00", "22:00"] },
       { date: "2026-06-18", v: ["TOR", "SEA"], t: ["23:00", "20:00"] },
@@ -175,6 +175,12 @@ const GROUP_PLANS: GroupPlan[] = [
 const OVERRIDE: Record<string, Partial<Match>> = {
   // 開幕戦（メキシコシティ・アステカ）現地6/11 13:00 CT → JST 6/12 04:00、結果 2-0
   "A-1-a": { id: "m-open", status: "FINISHED", homeScore: 2, awayScore: 0 },
+  // グループA 第2試合 韓国×チェコ（グアダラハラ）→ KOR 2-1 CZE
+  "A-1-b": { status: "FINISHED", homeScore: 2, awayScore: 1 },
+  // グループB 第1節 カナダ×ボスニア（トロント）→ CAN 1-1 BIH
+  "B-1-a": { status: "FINISHED", homeScore: 1, awayScore: 1 },
+  // グループD 第1節 アメリカ×パラグアイ（ロサンゼルス）→ USA 4-1 PAR
+  "D-1-a": { status: "FINISHED", homeScore: 4, awayScore: 1 },
   // グループC 注目カード ブラジル×モロッコ（2022準決勝級の好カード）
   "C-1-a": { id: "m-c1" },
   // グループL 注目カード イングランド×クロアチア（2018準決勝の再戦）

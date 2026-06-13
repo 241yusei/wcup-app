@@ -474,4 +474,28 @@ export const news: NewsItem[] = [
     date: "2026-06-11",
     tag: "面白ネタ",
   },
+
+  // ─── 大会3日目（6/12〜13）最新試合結果 ───
+  {
+    id: "20260613-1",
+    category: "serious",
+    title: "バログン2発でUSAがパラグアイを4-1撃破 地元W杯最高のスタート",
+    summary:
+      "6/12（現地）、ロサンゼルスのSoFiスタジアムでグループD第1節。アメリカのFWフォラリン・バログン（アーセナル）が開始7分から2得点のブレイスで試合を決定づけ、終盤ジオ・レイナも加点し4-1の快勝。パラグアイはマウリシオの1点のみ。32年ぶりに自国開催となるW杯でUSAが最高のスタートを切った。バログンは得点ランキング単独トップへ。",
+    sourceName: "CBS Sports",
+    sourceUrl: "https://www.cbssports.com/soccer/news/usa-paraguay-live-updates-world-cup-2026-score-result/live/",
+    date: "2026-06-12",
+    tag: "試合結果",
+  },
+  {
+    id: "20260613-2",
+    category: "serious",
+    title: "カナダがカナダの地でW杯初ポイント トロントでボスニアと1-1",
+    summary:
+      "6/12、BMOフィールド（トロント）でグループB第1節。ボスニアのルキッチが代表初ゴールで先制するも、カナダはラリンが78分に同点弾。共催国カナダが自国開催のW杯でついに勝ち点1を獲得した。試合はカナダのホームゲームとして歴史的な1戦に。次節カナダはカタールと、ボスニアはスイスとそれぞれ対戦する。",
+    sourceName: "CBC",
+    sourceUrl: "https://www.cbc.ca/sports/livestory/fifa-world-cup-2026-canada-vs-bosnia-and-herzegovina-june-12-live-updates-9.7222390",
+    date: "2026-06-12",
+    tag: "試合結果",
+  },
 ];
