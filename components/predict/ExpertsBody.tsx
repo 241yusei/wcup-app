@@ -1,22 +1,32 @@
 import Link from "next/link";
-import Image from "next/image";
 import {
   predictions,
   tallyByCountry,
   regionOrder,
   type Region,
 } from "@/data/predictions";
-import SectionTabs, { PREDICT_TABS } from "@/components/layout/SectionTabs";
 
-export const metadata = {
-  title: "みんなの優勝予想｜世界の識者は誰を本命に？｜100倍Wカップ",
-  description:
-    "世界中の解説者・元代表・監督・記者・統計モデルが公表した2026ワールドカップの優勝予想を、出典付きで総まとめ。誰が一番予想されているのか、票数ランキングも。",
-};
-
+// 予想ハブ「識者の優勝予想」タブの本文（旧 /predict の中身）。
 const medal = ["🥇", "🥈", "🥉"];
 
-export default function PredictPage() {
+function regionLabel(r: Region): string {
+  switch (r) {
+    case "データ予測":
+      return "🤖 統計モデル・スーパーコンピューターの予測";
+    case "欧州":
+      return "🏴 欧州の識者";
+    case "南米・スペイン語圏":
+      return "🌎 南米・スペイン語圏の識者";
+    case "米国・グローバル":
+      return "🗽 米国・グローバルの識者";
+    case "日本・アジア":
+      return "🇯🇵 日本・アジアの識者";
+    default:
+      return r;
+  }
+}
+
+export default function ExpertsBody() {
   const tally = tallyByCountry();
   const top = tally[0];
   const maxCount = top?.count ?? 1;
@@ -25,28 +35,12 @@ export default function PredictPage() {
     .filter((g) => g.items.length > 0);
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
-      <header className="mb-8 flex items-end justify-between gap-4">
-        <div>
-          <div className="colors-stripe-thin w-16 rounded-full mb-3" />
-          <h1 className="text-3xl font-bold mb-1">みんなの優勝予想</h1>
-          <p className="text-muted">
-            世界中の
-            <strong className="text-jpnavy">識者は誰を本命に推すのか</strong>
-            。解説者・元代表・監督・記者・統計モデルが公表した予想を、
-            すべて出典付きで集めました。
-          </p>
-        </div>
-        <Image
-          src="/char-ball.png"
-          alt=""
-          width={120}
-          height={193}
-          className="hidden sm:block h-28 w-auto shrink-0 drop-shadow-lg"
-        />
-      </header>
-
-      <SectionTabs items={PREDICT_TABS} title="予想" />
+    <div>
+      <p className="text-muted text-sm mb-6 leading-relaxed">
+        世界中の
+        <strong className="text-jpnavy">識者は誰を本命に推すのか</strong>
+        。解説者・元代表・監督・記者・統計モデルが公表した予想を、すべて出典付きで集めました。
+      </p>
 
       {predictions.length === 0 ? (
         <p className="text-muted text-sm">予想データを準備中です。</p>
@@ -54,7 +48,7 @@ export default function PredictPage() {
         <>
           {/* 票数ランキング */}
           <section className="mb-10">
-            <h2 className="scroll-mt-20 text-lg font-bold mb-3 flex items-center gap-2">
+            <h2 className="scroll-mt-32 text-lg font-bold mb-3 flex items-center gap-2">
               <span className="colors-stripe-thin w-6 rounded-full inline-block" />
               📊 優勝予想ランキング（{predictions.length}人の予想を集計）
             </h2>
@@ -97,7 +91,7 @@ export default function PredictPage() {
           {/* 地域別の予想一覧 */}
           {grouped.map((g) => (
             <section key={g.region} className="mb-10">
-              <h2 className="scroll-mt-20 text-lg font-bold mb-3 flex items-center gap-2">
+              <h2 className="scroll-mt-32 text-lg font-bold mb-3 flex items-center gap-2">
                 <span className="colors-stripe-thin w-6 rounded-full inline-block" />
                 {regionLabel(g.region)}
               </h2>
@@ -107,11 +101,8 @@ export default function PredictPage() {
                     key={p.name + p.source}
                     className="rounded-2xl border border-line bg-surface p-4 sm:p-5"
                   >
-                    {/* 本命国：カード上部に大きく明示（スマホでも一目で分かる） */}
                     <div className="flex items-center gap-2 mb-2.5">
-                      <span className="text-[11px] font-bold text-muted shrink-0">
-                        本命
-                      </span>
+                      <span className="text-[11px] font-bold text-muted shrink-0">本命</span>
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-jpnavy text-white text-base font-bold px-3.5 py-1">
                         <span className="text-lg leading-none">{p.pickFlag}</span>
                         {p.pick}
@@ -121,9 +112,7 @@ export default function PredictPage() {
                       {p.flag} {p.name}
                     </div>
                     <div className="text-xs text-muted mt-0.5">{p.role}</div>
-                    <p className="text-sm text-muted leading-relaxed mt-3">
-                      {p.detail}
-                    </p>
+                    <p className="text-sm text-muted leading-relaxed mt-3">{p.detail}</p>
                     <a
                       href={p.source}
                       target="_blank"
@@ -140,16 +129,13 @@ export default function PredictPage() {
         </>
       )}
 
-      {/* 導線 */}
       <section className="mb-4">
         <Link
           href="/teams"
           className="group block rounded-2xl border border-jpnavy/20 bg-jpnavy text-white p-6 hover:opacity-95 transition-opacity"
         >
           <div className="text-2xl mb-2">🏴</div>
-          <div className="font-bold text-lg mb-1">
-            予想された国の“中身”を見てみる
-          </div>
+          <div className="font-bold text-lg mb-1">予想された国の“中身”を見てみる</div>
           <p className="text-sm text-white/80 leading-relaxed">
             なぜその国が本命なのか。戦術・注目選手・観戦前ブリーフィングは各国図鑑でチェック。あなた自身の予想も立ててみよう。
           </p>
@@ -160,21 +146,4 @@ export default function PredictPage() {
       </section>
     </div>
   );
-}
-
-function regionLabel(r: Region): string {
-  switch (r) {
-    case "データ予測":
-      return "🤖 統計モデル・スーパーコンピューターの予測";
-    case "欧州":
-      return "🏴 欧州の識者";
-    case "南米・スペイン語圏":
-      return "🌎 南米・スペイン語圏の識者";
-    case "米国・グローバル":
-      return "🗽 米国・グローバルの識者";
-    case "日本・アジア":
-      return "🇯🇵 日本・アジアの識者";
-    default:
-      return r;
-  }
 }

@@ -66,16 +66,3 @@ export const JAPAN_TABS: TabItem[] = [
   { href: "/japan", label: "特集・突破条件", icon: "🇯🇵" },
   { href: "/squad", label: "代表メンバー", icon: "📋" },
 ];
-
-// 予想ハブのタブ定義。
-export const PREDICT_TABS: TabItem[] = [
-  { href: "/predictions", label: "自分の勝敗予想", icon: "✍️" },
-  { href: "/predict", label: "識者の優勝予想", icon: "🔮" },
-];
-
-// 学ぶハブのタブ定義。
-export const LEARN_TABS: TabItem[] = [
-  { href: "/guide", label: "入門ガイド", icon: "🧭" },
-  { href: "/deep", label: "深掘り", icon: "🔭" },
-  { href: "/gen", label: "トリオン解説", icon: "🐱" },
-];

@@ -21,6 +21,7 @@ import StorySection from "@/components/StorySection";
 import WakeBadge from "@/components/WakeBadge";
 import WatchedStamp from "@/components/WatchedStamp";
 import WinProbBar from "@/components/WinProbBar";
+import FormationPitch from "@/components/FormationPitch";
 import { getStory } from "@/data/stories";
 import { Team } from "@/lib/types";
 
@@ -282,6 +283,23 @@ export default async function MatchDetail({
           )}
         </div>
       </section>
+
+      {/* 注目選手の配置イメージ */}
+      {(home?.players?.length || away?.players?.length) && (
+        <section className="mb-10">
+          <SectionTitle>📐 注目選手の配置イメージ</SectionTitle>
+          <FormationPitch
+            homeName={home?.name ?? match.homeCode}
+            awayName={away?.name ?? match.awayCode}
+            homeFlag={home?.flag ?? "🏳️"}
+            awayFlag={away?.flag ?? "🏳️"}
+            homePlayers={home?.players ?? []}
+            awayPlayers={away?.players ?? []}
+            homeColor={home?.themeColor}
+            awayColor={away?.themeColor}
+          />
+        </section>
+      )}
 
       {/* 起きる?寝る?ナビ */}
       {!finished && (

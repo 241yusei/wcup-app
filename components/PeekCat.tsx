@@ -7,7 +7,7 @@ export default function PeekCat() {
   return (
     <div className="fixed bottom-16 md:bottom-0 right-2 z-40 pointer-events-none">
       <Link
-        href="/gen"
+        href="/guide"
         title="トリオンの玄人解説"
         aria-label="トリオンの玄人解説を見る"
         className="group pointer-events-auto flex flex-col items-end gap-1 translate-y-[20%] sm:translate-y-[44%] sm:hover:translate-y-[6%] active:translate-y-[12%] transition-transform duration-500 ease-out"

@@ -9,14 +9,8 @@ import {
   talkingPoints,
   glossary,
 } from "@/data/deepdive";
-import SectionTabs, { LEARN_TABS } from "@/components/layout/SectionTabs";
 
-export const metadata = {
-  title: "サッカー深掘り｜にわかから“通”へ｜100倍Wカップ",
-  description:
-    "観戦の解像度を上げる深掘りコーナー。戦術キーワード・ボールから目を離す観戦術・数字（xG等）の読み方・用語辞典まで。にわかから“通”へステップアップ。",
-};
-
+// 学ぶハブ「深掘り」タブの本文（旧 /deep の中身）。
 const sectionNav = [
   { href: "#roadmap", label: "🗺️ ロードマップ" },
   { href: "#perspective", label: "🔄 視点を変える" },
@@ -29,39 +23,21 @@ const sectionNav = [
 
 function SectionTitle({ id, children }: { id: string; children: React.ReactNode }) {
   return (
-    <h2
-      id={id}
-      className="scroll-mt-20 text-lg font-bold mb-3 flex items-center gap-2"
-    >
+    <h2 id={id} className="scroll-mt-32 text-lg font-bold mb-3 flex items-center gap-2">
       <span className="colors-stripe-thin w-6 rounded-full inline-block" />
       {children}
     </h2>
   );
 }
 
-export default function DeepPage() {
+export default function DeepBody() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
-      <header className="mb-8 flex items-end justify-between gap-4">
-        <div>
-          <div className="colors-stripe-thin w-16 rounded-full mb-3" />
-          <h1 className="text-3xl font-bold mb-1">サッカー深掘り</h1>
-          <p className="text-muted">
-            「ボールを追う」だけじゃもったいない。
-            <strong className="text-jpnavy">にわかから“通”へ</strong>
-            、観戦の解像度を一段あげる読みもの。
-          </p>
-        </div>
-        <Image
-          src="/char-fan.png"
-          alt=""
-          width={120}
-          height={285}
-          className="hidden sm:block h-28 w-auto shrink-0 drop-shadow-lg"
-        />
-      </header>
-
-      <SectionTabs items={LEARN_TABS} title="学ぶ" />
+    <div>
+      <p className="text-muted text-sm mb-6 leading-relaxed">
+        「ボールを追う」だけじゃもったいない。
+        <strong className="text-jpnavy">にわかから“通”へ</strong>
+        、観戦の解像度を一段あげる読みもの。
+      </p>
 
       {/* セクション内ナビ */}
       <nav className="mb-10 flex flex-wrap gap-2">
@@ -76,7 +52,6 @@ export default function DeepPage() {
         ))}
       </nav>
 
-      {/* ロードマップ */}
       <section className="mb-12">
         <SectionTitle id="roadmap">🗺️ 観戦レベル・ロードマップ</SectionTitle>
         <p className="text-sm text-muted mb-4">
@@ -90,9 +65,7 @@ export default function DeepPage() {
             >
               <div
                 className="absolute left-0 top-0 bottom-0 w-1.5"
-                style={{
-                  backgroundColor: ["#4caf50", "#2f6fed", "#d7282f"][i] ?? "#14224f",
-                }}
+                style={{ backgroundColor: ["#4caf50", "#2f6fed", "#d7282f"][i] ?? "#14224f" }}
               />
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-2xl" aria-hidden>
@@ -110,7 +83,6 @@ export default function DeepPage() {
         </div>
       </section>
 
-      {/* 視点を変えるコツ */}
       <section className="mb-12">
         <SectionTitle id="perspective">🔄 観る視点を変えるコツ</SectionTitle>
         <p className="text-sm text-muted mb-4">
@@ -118,10 +90,7 @@ export default function DeepPage() {
         </p>
         <div className="grid sm:grid-cols-2 gap-3">
           {perspectiveTips.map((t) => (
-            <div
-              key={t.title}
-              className="bg-surface border border-line rounded-xl p-4"
-            >
+            <div key={t.title} className="bg-surface border border-line rounded-xl p-4">
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-xl" aria-hidden>
                   {t.icon}
@@ -134,7 +103,6 @@ export default function DeepPage() {
         </div>
       </section>
 
-      {/* 戦術キーワード */}
       <section className="mb-12">
         <SectionTitle id="tactics">🧠 これで通ぶれる・戦術キーワード12</SectionTitle>
         <p className="text-sm text-muted mb-4">
@@ -154,9 +122,7 @@ export default function DeepPage() {
                 </span>
                 <span className="font-bold text-sm">{k.term}</span>
               </div>
-              <span className="text-[11px] text-jpnavy font-medium mb-2">
-                {k.short}
-              </span>
+              <span className="text-[11px] text-jpnavy font-medium mb-2">{k.short}</span>
               <p className="text-sm text-muted leading-relaxed flex-1">{k.body}</p>
               <p className="text-xs text-foreground/80 mt-3 pt-2 border-t border-line">
                 <span className="font-bold">👁 ここを見る</span> {k.watchTip}
@@ -166,7 +132,6 @@ export default function DeepPage() {
         </div>
       </section>
 
-      {/* 通の観戦術 */}
       <section className="mb-12">
         <SectionTitle id="pro">🔭 “通”の観戦ポイント</SectionTitle>
         <p className="text-sm text-muted mb-4">
@@ -190,7 +155,6 @@ export default function DeepPage() {
         </div>
       </section>
 
-      {/* 数字の読み方 */}
       <section className="mb-12">
         <SectionTitle id="stats">📊 数字（スタッツ）の読み方</SectionTitle>
         <p className="text-sm text-muted mb-4">
@@ -200,10 +164,7 @@ export default function DeepPage() {
         </p>
         <div className="space-y-3">
           {statsGuide.map((s) => (
-            <div
-              key={s.stat}
-              className="bg-surface border border-line rounded-xl p-4"
-            >
+            <div key={s.stat} className="bg-surface border border-line rounded-xl p-4">
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-xl" aria-hidden>
                   {s.icon}
@@ -219,7 +180,6 @@ export default function DeepPage() {
         </div>
       </section>
 
-      {/* 語れる小ネタ */}
       <section className="mb-12">
         <SectionTitle id="talk">💬 “通”っぽく語れる観戦小ネタ</SectionTitle>
         <p className="text-sm text-muted mb-4">
@@ -227,10 +187,7 @@ export default function DeepPage() {
         </p>
         <div className="grid sm:grid-cols-2 gap-3">
           {talkingPoints.map((t) => (
-            <div
-              key={t.title}
-              className="bg-surface border border-line rounded-xl p-4"
-            >
+            <div key={t.title} className="bg-surface border border-line rounded-xl p-4">
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-xl" aria-hidden>
                   {t.icon}
@@ -243,7 +200,6 @@ export default function DeepPage() {
         </div>
       </section>
 
-      {/* 用語辞典 */}
       <section className="mb-10">
         <SectionTitle id="glossary">📖 サッカー用語辞典</SectionTitle>
         <p className="text-sm text-muted mb-4">
@@ -255,10 +211,7 @@ export default function DeepPage() {
               <h3 className="text-sm font-bold mb-2 text-jpnavy">{g.category}</h3>
               <dl className="grid sm:grid-cols-2 gap-x-4 gap-y-2">
                 {g.terms.map((t) => (
-                  <div
-                    key={t.term}
-                    className="border-b border-line/70 pb-2"
-                  >
+                  <div key={t.term} className="border-b border-line/70 pb-2">
                     <dt className="text-sm font-bold flex items-baseline gap-1.5 flex-wrap">
                       {t.term}
                       {t.reading && (
@@ -267,9 +220,7 @@ export default function DeepPage() {
                         </span>
                       )}
                     </dt>
-                    <dd className="text-xs text-muted leading-relaxed mt-0.5">
-                      {t.def}
-                    </dd>
+                    <dd className="text-xs text-muted leading-relaxed mt-0.5">{t.def}</dd>
                   </div>
                 ))}
               </dl>
@@ -278,7 +229,6 @@ export default function DeepPage() {
         </div>
       </section>
 
-      {/* CTA */}
       <div className="mt-12 rounded-2xl border border-line bg-surface p-6 flex items-center gap-4">
         <Image
           src="/char-ball.png"
@@ -292,16 +242,10 @@ export default function DeepPage() {
             知識を仕入れたら、あとは“推し”を見つけて観るだけ。
           </p>
           <div className="flex gap-3 flex-wrap">
-            <Link
-              href="/teams"
-              className="text-sm font-medium text-jpnavy hover:underline"
-            >
+            <Link href="/teams" className="text-sm font-medium text-jpnavy hover:underline">
               各国図鑑で推しを探す →
             </Link>
-            <Link
-              href="/schedule"
-              className="text-sm font-medium text-jpnavy hover:underline"
-            >
+            <Link href="/schedule" className="text-sm font-medium text-jpnavy hover:underline">
               日本時間の日程を見る →
             </Link>
           </div>

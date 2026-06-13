@@ -35,9 +35,8 @@ const SECONDARY: NavItem[] = [
   { href: "/predictions", label: "予想", icon: "🔮" },
   { href: "/news", label: "ニュース", icon: "📰" },
   { href: "/watch", label: "どこで見る", icon: "📺" },
-  { href: "/guide", label: "学ぶ（入門・深掘り）", icon: "🧭" },
+  { href: "/guide", label: "学ぶ（入門・深掘り・トリオン）", icon: "🧭" },
   { href: "/album", label: "マイアルバム", icon: "📔" },
-  { href: "/gen", label: "トリオンの本音", icon: "🐱" },
 ];
 
 export default function Nav() {

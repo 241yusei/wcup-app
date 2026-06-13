@@ -26,13 +26,10 @@ const PAGES: Hit[] = [
   { type: "ページ", icon: "🏆", title: "決勝トーナメント", sub: "ラウンド32〜決勝", href: "/bracket" },
   { type: "ページ", icon: "👟", title: "得点ランキング", sub: "ゴールデンブーツ・レース", href: "/stats" },
   { type: "ページ", icon: "🏟", title: "スタジアム・開催都市", sub: "16会場ガイド", href: "/venues" },
-  { type: "ページ", icon: "🔮", title: "勝敗予想", sub: "予想して的中率を競う", href: "/predictions" },
-  { type: "ページ", icon: "🏆", title: "識者の優勝予想", sub: "世界の解説者の本命", href: "/predict" },
+  { type: "ページ", icon: "🔮", title: "予想", sub: "自分の勝敗予想＋識者の優勝予想", href: "/predictions" },
   { type: "ページ", icon: "📺", title: "どこで見る？", sub: "放送・配信ガイド", href: "/watch" },
-  { type: "ページ", icon: "🔭", title: "サッカー深掘り", sub: "戦術・用語辞典", href: "/deep" },
   { type: "ページ", icon: "📰", title: "ニュース", sub: "最新情報・面白ネタ", href: "/news" },
-  { type: "ページ", icon: "🧭", title: "100倍ガイド", sub: "ルール・観戦のコツ", href: "/guide" },
-  { type: "ページ", icon: "🐱", title: "トリオンの玄人解説", sub: "忖度なしの本音分析", href: "/gen" },
+  { type: "ページ", icon: "🧭", title: "学ぶ", sub: "入門・深掘り・トリオン解説", href: "/guide" },
 ];
 
 function buildIndex(): Hit[] {
