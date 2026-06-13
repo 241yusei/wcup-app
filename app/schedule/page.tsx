@@ -32,8 +32,9 @@ export default async function SchedulePage() {
           <div className="colors-stripe-thin w-16 rounded-full mb-3" />
           <h1 className="text-3xl font-bold mb-1">試合日程</h1>
           <p className="text-muted">
-            すべて<strong className="text-jpnavy">日本時間</strong>で表示。
-            🔔ボタンでカレンダーに登録できます。
+            すべて<strong className="text-jpnavy">日本時間</strong>で表示。各試合に
+            <strong className="text-jpnavy">📺 どこで観れるか</strong>も表示。
+            🔔でカレンダー登録できます。
           </p>
           <p className="text-xs text-muted mt-2">
             ⭐ 推し国を登録すると「推し国フィルター」が使えます。

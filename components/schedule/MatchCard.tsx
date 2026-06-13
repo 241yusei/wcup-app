@@ -6,6 +6,7 @@ import ReminderButton from "./ReminderButton";
 import MatchPredictor from "@/components/MatchPredictor";
 import WakeBadge from "@/components/WakeBadge";
 import LiveBadge from "@/components/LiveBadge";
+import WatchBadge from "./WatchBadge";
 
 function TeamSide({ code, align }: { code: string; align: "l" | "r" }) {
   const t = getTeam(code);
@@ -36,10 +37,19 @@ export default function MatchCard({ match }: { match: Match }) {
       }`}
     >
       <div className="flex items-center justify-between mb-3 text-xs text-muted">
-        <span className="font-medium">
-          {match.stage}
-          {match.group ? `・組${match.group}` : ""}
-        </span>
+        <div className="flex items-center gap-1.5 flex-wrap">
+          {jpInvolved && (
+            <span className="text-[10px] font-bold rounded-full px-1.5 py-0.5 bg-jpred text-white">
+              🇯🇵 日本戦
+            </span>
+          )}
+          {match.group && (
+            <span className="text-[10px] font-bold rounded px-1.5 py-0.5 bg-jpnavy/10 text-jpnavy">
+              組{match.group}
+            </span>
+          )}
+          <span className="font-medium">{match.stage}</span>
+        </div>
         <div className="flex items-center gap-2">
           <LiveBadge utcDate={match.utcDate} status={match.status} />
           {hint && <span className="text-jpred font-medium">{hint}</span>}
@@ -81,6 +91,11 @@ export default function MatchCard({ match }: { match: Match }) {
             )}
           </span>
         </div>
+      )}
+
+      {/* どこで観れる（視聴先を視覚的に） */}
+      {!finished && (
+        <WatchBadge homeCode={match.homeCode} awayCode={match.awayCode} />
       )}
 
       {/* 勝敗予想 */}
