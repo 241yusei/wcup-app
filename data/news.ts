@@ -424,10 +424,10 @@ export const news: NewsItem[] = [
     category: "serious",
     title: "韓国がチェコに2-1逆転勝利 ファン・インボムが1G1A",
     summary:
-      "グループA第2試合（6/12）、韓国がグアダラハラでチェコに2-1の逆転勝利。59分にチェコのクレイチーが先制するも、67分にファン・インボムが同点弾、80分に途中出場のオ・ヒョンギュが決勝ゴールを決め逆転した。ファン・インボムは1ゴール1アシストの大活躍。日本と同じグループFではないが、アジア勢の快勝として注目される。",
-    sourceName: "Yahoo!ニュース",
-    sourceUrl: "https://news.yahoo.co.jp/articles/ea9cff0a1e80a9a8d635e424e9815980ac5b097b",
-    date: "2026-06-12",
+      "開幕日（6/11）の第2試合、韓国がグアダラハラでチェコに2-1の逆転勝利。59分にチェコ主将クレイチーがロングスローからのヘッドで先制するも、67分にファン・インボムが同点弾、80分にオ・ヒョンギュが決勝ゴールを決め逆転した。ファン・インボムは1ゴール1アシストの活躍。メキシコと同じグループAで、開幕節からアジア勢が白星を挙げた。",
+    sourceName: "Sky Sports",
+    sourceUrl: "https://www.skysports.com/football/korea-rep-vs-czech-rep/report/549766",
+    date: "2026-06-11",
     tag: "試合結果",
   },
   {
@@ -473,5 +473,51 @@ export const news: NewsItem[] = [
     sourceUrl: "https://www.nbcnews.com/sports/soccer/live-blog/fifa-world-cup-2026-opening-ceremonies-june-11-live-updates-rcna349400",
     date: "2026-06-11",
     tag: "面白ネタ",
+  },
+
+  // ─── 大会3日目・最新情報（ファクトチェック済み 2026-06-13）───
+  {
+    id: "20260613-1",
+    category: "serious",
+    title: "カナダ、自国開催の初戦でボスニアと1-1ドロー W杯で初の勝ち点",
+    summary:
+      "6月12日、トロントのBMOフィールドでカナダ史上初の自国開催W杯マッチ（グループB）が行われ、カナダがボスニア・ヘルツェゴビナと1-1で引き分けた。前半19分にボスニアのルキッチが先制したが、後半にサイル・ラリンが値千金の同点弾。カナダはW杯本大会で自国としての初勝ち点を獲得した。マーシュ監督は満員の地元サポーターが生んだ『敵にとって過酷な雰囲気』を勝因に挙げた。",
+    sourceName: "Olympics.com",
+    sourceUrl: "https://www.olympics.com/en/news/fifa-world-cup-2026-canada-bosnia-football-results-live-updates",
+    date: "2026-06-12",
+    tag: "試合結果",
+  },
+  {
+    id: "20260613-2",
+    category: "serious",
+    title: "開催国アメリカが好発進 パラグアイ相手に前半だけで3-0と圧倒",
+    summary:
+      "6月12日（日本時間13日午前）、ロサンゼルスのSoFiスタジアムでアメリカがグループD初戦に臨み、パラグアイ相手に前半だけで3-0と圧倒した。7分にプリシッチとマケニーの崩しからボバディージャのオウンゴールで先制、31分と前半終了間際にバログンが連続ゴールでブレイス達成。プリシッチはこの日、代表でも屈指の支配的なパフォーマンスを披露し、ポチェッティーノ・ジャパンならぬ『ポチェッティーノUSA』が地元の大歓声に応えた。",
+    sourceName: "NBC News",
+    sourceUrl: "https://www.nbcnews.com/sports/soccer/live-blog/fifa-world-cup-2026-june-12-live-updates-rcna349721",
+    date: "2026-06-13",
+    tag: "試合結果",
+  },
+  {
+    id: "20260613-3",
+    category: "serious",
+    title: "今夜の大一番ブラジル×モロッコ 優勝候補と“2022の旋風”が激突",
+    summary:
+      "6月13日（日本時間14日）、ニュージャージーのメットライフ・スタジアムでグループCのブラジル×モロッコが行われる。アンチェロッティ率いるブラジルはヴィニシウス、ラフィーニャ、ネイマールらを擁し通算6度目の戴冠を狙う優勝候補。対するモロッコは2022年カタール大会でアフリカ勢初の4強に輝いた『旋風』の主役で、ハキミら若く大胆な世代が強豪を苦しめてきた。ブックメーカーはブラジル優勢とみるが、モロッコの組織的な守備と速攻が見どころ。",
+    sourceName: "ESPN",
+    sourceUrl: "https://www.espn.com/soccer/story/_/id/49026946/fifa-world-cup-2026-brazil-vs-morocco-kickoff-how-watch-stats-team-news",
+    date: "2026-06-13",
+    tag: "試合予定",
+  },
+  {
+    id: "20260613-4",
+    category: "serious",
+    title: "日本代表、初戦オランダ戦まで残りわずか 久保軸に最終調整",
+    summary:
+      "森保ジャパンの初戦オランダ戦（現地6/14・日本時間6/15朝）が目前に迫った。三笘薫・南野拓実を負傷で欠くなか、攻撃は『唯一の世界クラス』と評される久保建英が軸。相手オランダは主力DFティンバーの全日程欠場が確定しており、守備に不安を抱えての対戦となる。日本はナッシュビルからダラスへ移動し、酷暑のAT&Tスタジアムでの一戦に備える。",
+    sourceName: "Yahoo Sports",
+    sourceUrl: "https://sports.yahoo.com/articles/japan-world-cup-2026-squad-150102694.html",
+    date: "2026-06-13",
+    tag: "日本代表",
   },
 ];
