@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { getMatches } from "@/lib/football";
 import { jstDateKey } from "@/lib/datetime";
 import { Match } from "@/lib/types";
@@ -35,6 +36,11 @@ export default async function SchedulePage() {
           </p>
           <p className="text-xs text-muted mt-2">
             ⭐ 推し国を登録すると「推し国フィルター」が使えます。
+          </p>
+          <p className="text-xs mt-2">
+            <Link href="/watch" className="font-bold text-jpnavy hover:underline">
+              📺 どこで観れる？ 放送・配信ガイド →
+            </Link>
           </p>
         </div>
         <Image
