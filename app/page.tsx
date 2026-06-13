@@ -9,6 +9,7 @@ import MyFavorites from "@/components/MyFavorites";
 import HomeQuizBadge from "@/components/HomeQuizBadge";
 import NextMatchCountdown from "@/components/NextMatchCountdown";
 import { japanBroadcast } from "@/data/broadcast";
+import LiveBadge from "@/components/LiveBadge";
 
 const teamMap: Record<string, { name: string; flag: string }> = Object.fromEntries(
   teams.map((t) => [t.code, { name: t.name, flag: t.flag }])
@@ -50,6 +51,9 @@ function MatchRow({ m }: { m: Match }) {
             </div>
             <div className="font-mono font-bold text-sm leading-tight">
               {jstTimeLabel(m.utcDate)}
+            </div>
+            <div className="mt-0.5">
+              <LiveBadge utcDate={m.utcDate} status={m.status} />
             </div>
           </>
         )}

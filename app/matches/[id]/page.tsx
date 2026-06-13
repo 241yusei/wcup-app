@@ -266,16 +266,15 @@ export default async function MatchDetail({
         </div>
       </header>
 
-      {/* 勝敗確率の目安＋視聴・会場への導線 */}
+      {/* 起きる?寝る?ナビ（深夜・早朝の観戦判断をいちばん上に） */}
+      {!finished && (
+        <div className="mb-10">
+          <WakeBadge match={match} detailed />
+        </div>
+      )}
+
+      {/* 視聴・会場（「どこで見れる？」にこの場で即答） */}
       <section className="mb-10 space-y-3">
-        <WinProbBar
-          homeName={home?.name ?? match.homeCode}
-          awayName={away?.name ?? match.awayCode}
-          homeFlag={home?.flag ?? "🏳️"}
-          awayFlag={away?.flag ?? "🏳️"}
-          rankHome={home?.fifaRank}
-          rankAway={away?.fifaRank}
-        />
         {jpTv && (
           <div className="rounded-2xl border-2 border-jpred/40 bg-jpred/[0.04] p-4">
             <div className="text-xs font-bold text-jpred mb-1.5 flex items-center gap-1.5">
@@ -311,29 +310,17 @@ export default async function MatchDetail({
         </div>
       </section>
 
-      {/* 注目選手の配置イメージ */}
-      {(home?.players?.length || away?.players?.length) && (
-        <section className="mb-10">
-          <SectionTitle>📐 注目選手の配置イメージ</SectionTitle>
-          <FormationPitch
-            homeName={home?.name ?? match.homeCode}
-            awayName={away?.name ?? match.awayCode}
-            homeFlag={home?.flag ?? "🏳️"}
-            awayFlag={away?.flag ?? "🏳️"}
-            homePlayers={home?.players ?? []}
-            awayPlayers={away?.players ?? []}
-            homeColor={home?.themeColor}
-            awayColor={away?.themeColor}
-          />
-        </section>
-      )}
-
-      {/* 起きる?寝る?ナビ */}
-      {!finished && (
-        <div className="mb-10">
-          <WakeBadge match={match} detailed />
-        </div>
-      )}
+      {/* 勝敗確率の目安 */}
+      <section className="mb-10">
+        <WinProbBar
+          homeName={home?.name ?? match.homeCode}
+          awayName={away?.name ?? match.awayCode}
+          homeFlag={home?.flag ?? "🏳️"}
+          awayFlag={away?.flag ?? "🏳️"}
+          rankHome={home?.fifaRank}
+          rankAway={away?.fifaRank}
+        />
+      </section>
 
       {/* 前夜ストーリー（物語のある試合のみ） */}
       {story && (
@@ -428,6 +415,23 @@ export default async function MatchDetail({
           </div>
         )}
       </section>
+
+      {/* 注目選手の配置イメージ */}
+      {(home?.players?.length || away?.players?.length) && (
+        <section className="mb-10">
+          <SectionTitle>📐 注目選手の配置イメージ</SectionTitle>
+          <FormationPitch
+            homeName={home?.name ?? match.homeCode}
+            awayName={away?.name ?? match.awayCode}
+            homeFlag={home?.flag ?? "🏳️"}
+            awayFlag={away?.flag ?? "🏳️"}
+            homePlayers={home?.players ?? []}
+            awayPlayers={away?.players ?? []}
+            homeColor={home?.themeColor}
+            awayColor={away?.themeColor}
+          />
+        </section>
+      )}
 
       {/* 通算対戦成績 */}
       {preview?.h2h && (
