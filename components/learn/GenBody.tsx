@@ -2,17 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { gen, proSections } from "@/data/proCommentary";
 
-export const metadata = {
-  title: "トリオンの玄人解説｜そこまで言う⁉ 忖度なしの本音｜100倍Wカップ",
-  description:
-    "隠れキャラ「トリオン」が、にわか向けの優しさ抜きで語る玄人解説。日本の本当の強みと泣き所、初戦オランダ攻略の核心、勝負を決める“3秒”、優勝の読みまで。サッカー強者目線の忖度なし分析。",
-};
-
-export default function GenPage() {
+// 学ぶハブ「トリオン解説」タブの本文（旧 /gen の中身）。
+export default function GenBody() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
+    <div>
       {/* ヒーロー */}
-      <header className="mb-8 rounded-2xl overflow-hidden border border-line">
+      <div className="mb-8 rounded-2xl overflow-hidden border border-line">
         <div className="colors-stripe-thin w-full" />
         <div className="bg-jpnavy text-white p-6 flex items-center gap-4">
           <Image
@@ -20,20 +15,18 @@ export default function GenPage() {
             alt="トリオン"
             width={120}
             height={193}
-            className="h-28 w-auto shrink-0 drop-shadow-xl"
+            className="h-24 w-auto shrink-0 drop-shadow-xl"
           />
           <div>
-            <div className="text-xs text-white/70 mb-1">
-              🐾 {gen.fullName}の
-            </div>
-            <h1 className="text-3xl font-bold mb-1">{gen.pageTitle}</h1>
+            <div className="text-xs text-white/70 mb-1">🐾 {gen.fullName}の</div>
+            <h2 className="text-2xl font-bold mb-1">{gen.pageTitle}</h2>
             <p className="text-white/80 text-sm">{gen.tagline}</p>
           </div>
         </div>
         <div className="bg-surface p-5">
           <p className="text-sm leading-relaxed">{gen.intro}</p>
         </div>
-      </header>
+      </div>
 
       {/* 三行まとめ */}
       <section className="mb-10">
@@ -90,23 +83,15 @@ export default function GenPage() {
 
       <p className="text-[11px] text-muted mt-8 leading-relaxed">
         ※ 戦術プロファイルは取材・公開情報に基づく分析、勝敗の見立て・予想は「トリオン」の
-        一つの見方です。にわかさん向けのやさしい解説は
-        <Link href="/deep" className="text-jpnavy underline underline-offset-2 decoration-jpnavy/40">
-          サッカー深掘り
-        </Link>
-        や
-        <Link href="/guide" className="text-jpnavy underline underline-offset-2 decoration-jpnavy/40">
-          100倍ガイド
-        </Link>
-        へ。
+        一つの見方です。やさしい解説は上のタブ「入門ガイド」「深掘り」へ。
       </p>
 
       <div className="mt-4 flex flex-wrap gap-4">
-        <Link href="/japan" className="text-sm font-bold text-jpnavy underline underline-offset-2 decoration-jpnavy/40 hover:decoration-jpnavy">
+        <Link
+          href="/japan"
+          className="text-sm font-bold text-jpnavy underline underline-offset-2 decoration-jpnavy/40 hover:decoration-jpnavy"
+        >
           🇯🇵 日本特集（攻略・突破条件）→
-        </Link>
-        <Link href="/deep" className="text-sm font-medium text-jpnavy underline underline-offset-2 decoration-jpnavy/40 hover:decoration-jpnavy">
-          🔭 サッカー深掘り →
         </Link>
       </div>
     </div>

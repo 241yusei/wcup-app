@@ -5,6 +5,7 @@ import { jstTimeLabel, jstWatchHint } from "@/lib/datetime";
 import ReminderButton from "./ReminderButton";
 import MatchPredictor from "@/components/MatchPredictor";
 import WakeBadge from "@/components/WakeBadge";
+import LiveBadge from "@/components/LiveBadge";
 
 function TeamSide({ code, align }: { code: string; align: "l" | "r" }) {
   const t = getTeam(code);
@@ -40,6 +41,7 @@ export default function MatchCard({ match }: { match: Match }) {
           {match.group ? `・組${match.group}` : ""}
         </span>
         <div className="flex items-center gap-2">
+          <LiveBadge utcDate={match.utcDate} status={match.status} />
           {hint && <span className="text-jpred font-medium">{hint}</span>}
           <span className="font-mono text-base font-bold text-foreground">
             {jstTimeLabel(match.utcDate)}

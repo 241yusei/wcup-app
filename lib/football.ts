@@ -128,3 +128,50 @@ export async function getMatches(): Promise<{ matches: Match[]; live: boolean }>
     return { matches: fallbackMatches, live: false };
   }
 }
+
+// 得点ランキング（ゴールデンブーツ）をAPIから取得。
+// 環境変数未設定／失敗時は live:false を返し、ページ側はフォールバック表示に切り替える。
+const SCORERS_API =
+  "https://api.football-data.org/v4/competitions/WC/scorers?limit=20";
+
+export interface LiveScorer {
+  player: string;
+  teamCode: string;
+  goals: number;
+  assists?: number;
+}
+
+export async function getScorers(): Promise<{
+  scorers: LiveScorer[];
+  live: boolean;
+}> {
+  const key = process.env.FOOTBALL_DATA_API_KEY;
+  if (!key) return { scorers: [], live: false };
+
+  try {
+    const res = await fetch(SCORERS_API, {
+      headers: { "X-Auth-Token": key },
+      next: { revalidate: 300 }, // 5分キャッシュ
+    });
+    if (!res.ok) throw new Error(`status ${res.status}`);
+    const data = await res.json();
+    const scorers: LiveScorer[] = (data.scorers ?? []).map(
+      (s: Record<string, unknown>) => {
+        const player = s.player as { name?: string } | undefined;
+        const team = s.team as { name?: string } | undefined;
+        return {
+          player: player?.name ?? "不明",
+          teamCode: toCode(team?.name ?? ""),
+          goals: (s.goals as number) ?? 0,
+          assists:
+            typeof s.numberOfAssists === "number"
+              ? (s.numberOfAssists as number)
+              : undefined,
+        };
+      }
+    );
+    return { scorers, live: scorers.length > 0 };
+  } catch {
+    return { scorers: [], live: false };
+  }
+}

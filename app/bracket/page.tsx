@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { japanInfo } from "@/data/japanHub";
+import SectionTabs, { MATCH_TABS } from "@/components/layout/SectionTabs";
 
 export const metadata = {
   title: "決勝トーナメント早見｜ラウンド32〜決勝の流れ｜100倍Wカップ",
@@ -78,6 +79,8 @@ export default function BracketPage() {
           ラウンド32から決勝までの流れを早見でチェック。
         </p>
       </header>
+
+      <SectionTabs items={MATCH_TABS} title="試合" />
 
       {/* フォーマット */}
       <section className="mb-8">

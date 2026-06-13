@@ -10,6 +10,7 @@ import {
   japanStatsCaveats,
 } from "@/data/japanHub";
 import { jstDateLabel, jstTimeLabel, jstWatchHint } from "@/lib/datetime";
+import SectionTabs, { JAPAN_TABS } from "@/components/layout/SectionTabs";
 import ReminderButton from "@/components/schedule/ReminderButton";
 import NextMatchCountdown from "@/components/NextMatchCountdown";
 
@@ -75,6 +76,8 @@ export default async function JapanPage() {
           )}
         </div>
       </header>
+
+      <SectionTabs items={JAPAN_TABS} title="日本代表" />
 
       {/* 日本の3試合 */}
       <section className="mb-12">

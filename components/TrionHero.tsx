@@ -93,7 +93,7 @@ export default function TrionHero({ data }: { data?: TrionHeroData }) {
       </div>
 
       {/* トリオン本体 */}
-      <Link href="/gen" className="group relative mt-2" title="トリオンの玄人解説">
+      <Link href="/guide" className="group relative mt-2" title="トリオンの玄人解説">
         <div className="absolute inset-0 bg-jpnavy/5 rounded-full blur-3xl" />
         <Image
           src="/trion.png"

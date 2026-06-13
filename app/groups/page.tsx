@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getMatches } from "@/lib/football";
 import { computeStandings, hasResults, type Row } from "@/lib/standings";
 import { getTeam } from "@/data/teams";
+import SectionTabs, { MATCH_TABS } from "@/components/layout/SectionTabs";
 
 
 export const metadata = {
@@ -70,6 +71,8 @@ export default async function GroupsPage() {
         </div>
       </header>
 
+      <SectionTabs items={MATCH_TABS} title="試合" />
+
       {/* 突破ルールの凡例 */}
       <div className="rounded-xl border border-line bg-surface p-3 mb-6 text-xs text-muted flex flex-wrap items-center gap-x-4 gap-y-1">
         <span className="flex items-center gap-1.5">
@@ -81,7 +84,7 @@ export default async function GroupsPage() {
           3位＝成績上位8チームなら突破
         </span>
         <span className="ml-auto text-[11px]">
-          {live ? "🟢 ライブ" : "📋 サンプル"}
+          {live ? "🟢 ライブ" : started ? "🟡 結果反映中" : "📋 サンプル"}
         </span>
       </div>
 

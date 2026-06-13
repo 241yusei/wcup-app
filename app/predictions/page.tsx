@@ -1,14 +1,15 @@
 import { getMatches } from "@/lib/football";
 import { getTeam } from "@/data/teams";
+import Tabs from "@/components/Tabs";
 import PredictionsSummary, {
   type PredMatch,
 } from "@/components/PredictionsSummary";
-
+import ExpertsBody from "@/components/predict/ExpertsBody";
 
 export const metadata = {
-  title: "わたしの勝敗予想｜的中率をチェック｜100倍Wカップ",
+  title: "予想｜自分の勝敗予想と識者の優勝予想｜100倍Wカップ",
   description:
-    "試合カードで予想した勝敗をまとめて確認。的中数・的中率がたまる予想ノート。にわかでも自分ごとに楽しめる。",
+    "2026ワールドカップの予想ハブ。試合カードで選んだ自分の勝敗予想の的中率と、世界中の識者・統計モデルの優勝予想ランキングを、1ページでまとめてチェック。",
 };
 
 export default async function PredictionsPage() {
@@ -32,17 +33,25 @@ export default async function PredictionsPage() {
     <div className="max-w-3xl mx-auto px-4 py-10">
       <header className="mb-6">
         <div className="colors-stripe-thin w-16 rounded-full mb-3" />
-        <h1 className="text-3xl font-bold mb-1">わたしの勝敗予想</h1>
+        <h1 className="text-3xl font-bold mb-1">🔮 予想</h1>
         <p className="text-muted text-sm leading-relaxed">
-          試合カードの「勝敗予想」で選んだ結果がここに集まります。
-          的中率を上げて、にわかでも自分ごとにW杯を楽しもう。
+          自分の勝敗予想の的中率と、世界の識者の優勝予想。どちらもここで。
           <span className="block text-[11px] mt-1">
-            ※ 予想はこの端末内（ブラウザ）にのみ保存されます。
+            ※ 自分の予想はこの端末内（ブラウザ）にのみ保存されます。
           </span>
         </p>
       </header>
 
-      <PredictionsSummary matches={list} />
+      <Tabs
+        tabs={[
+          {
+            label: "自分の勝敗予想",
+            icon: "✍️",
+            panel: <PredictionsSummary matches={list} />,
+          },
+          { label: "識者の優勝予想", icon: "🔮", panel: <ExpertsBody /> },
+        ]}
+      />
     </div>
   );
 }

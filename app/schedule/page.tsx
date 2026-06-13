@@ -1,8 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
 import { getMatches } from "@/lib/football";
 import { jstDateKey } from "@/lib/datetime";
 import { Match } from "@/lib/types";
 import ScheduleFavoriteFilter from "@/components/schedule/ScheduleFavoriteFilter";
+import SectionTabs, { MATCH_TABS } from "@/components/layout/SectionTabs";
 
 export default async function SchedulePage() {
   const { matches, live } = await getMatches();
@@ -36,6 +38,11 @@ export default async function SchedulePage() {
           <p className="text-xs text-muted mt-2">
             ⭐ 推し国を登録すると「推し国フィルター」が使えます。
           </p>
+          <p className="text-xs mt-2">
+            <Link href="/watch" className="font-bold text-jpnavy hover:underline">
+              📺 どこで観れる？ 放送・配信ガイド →
+            </Link>
+          </p>
         </div>
         <Image
           src="/mascot-ball-side.png"
@@ -45,6 +52,8 @@ export default async function SchedulePage() {
           className="hidden sm:block shrink-0 drop-shadow-lg"
         />
       </header>
+
+      <SectionTabs items={MATCH_TABS} title="試合" />
 
       {/* 推し国フィルター付きの日程ビュー（クライアントコンポーネント） */}
       <ScheduleFavoriteFilter groups={groups} live={live} />

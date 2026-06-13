@@ -255,13 +255,13 @@ export const levels: UserLevel[] = [
         reason: "日本の勝ち上がりロードを先取り予習",
       },
       {
-        href: "/predict",
+        href: "/predictions",
         icon: "🔮",
         title: "識者の優勝予想",
         reason: "世界中の識者の本命はどこ？出典付きで総まとめ",
       },
       {
-        href: "/deep",
+        href: "/guide",
         icon: "🔭",
         title: "サッカー深掘り",
         reason: "戦術キーワードを覚えると観戦の解像度が変わる",
@@ -281,13 +281,13 @@ export const levels: UserLevel[] = [
       "あなたなら分かる — このアプリ、通の視点で使い倒してください。",
     recommendations: [
       {
-        href: "/deep",
+        href: "/guide",
         icon: "🔭",
         title: "サッカー深掘り",
         reason: "通向けコンテンツ集。観戦の解像度をさらに上げる",
       },
       {
-        href: "/gen",
+        href: "/guide",
         icon: "🐱",
         title: "トリオンの玄人解説",
         reason: "トリオンが忖度なしで語る本音分析",
@@ -299,7 +299,7 @@ export const levels: UserLevel[] = [
         reason: "各国の戦術詳細まで踏み込んで読める",
       },
       {
-        href: "/predict",
+        href: "/predictions",
         icon: "🏆",
         title: "識者の優勝予想",
         reason: "統計モデルと識者予想を自分の読みと照らし合わせる",
@@ -325,19 +325,19 @@ export const levels: UserLevel[] = [
       "本物のサッカーオタク向けのコンテンツ、用意してあります。",
     recommendations: [
       {
-        href: "/gen",
+        href: "/guide",
         icon: "🐱",
         title: "トリオンの玄人解説",
         reason: "忖度なしの強者目線。あなたの視点と照らし合わせて",
       },
       {
-        href: "/deep",
+        href: "/guide",
         icon: "🔭",
         title: "サッカー深掘り",
         reason: "xG・ポジショナルプレー — 全セクション解禁",
       },
       {
-        href: "/predict",
+        href: "/predictions",
         icon: "🏆",
         title: "識者の優勝予想",
         reason: "Optaモデル vs 現地記者の読み。あなたはどっちに賭ける？",

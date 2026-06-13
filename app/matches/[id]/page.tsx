@@ -20,7 +20,10 @@ import MatchNotes from "@/components/MatchNotes";
 import StorySection from "@/components/StorySection";
 import WakeBadge from "@/components/WakeBadge";
 import WatchedStamp from "@/components/WatchedStamp";
+import WinProbBar from "@/components/WinProbBar";
+import FormationPitch from "@/components/FormationPitch";
 import { getStory } from "@/data/stories";
+import { japanBroadcast } from "@/data/broadcast";
 import { Team } from "@/lib/types";
 
 // 静的書き出し（GitHub Pages）：全試合IDを事前生成する。
@@ -126,6 +129,15 @@ export default async function MatchDetail({
   const finished = match.status === "FINISHED";
   const jpInvolved = match.homeCode === "JPN" || match.awayCode === "JPN";
   const hint = jstWatchHint(match.utcDate);
+  // 日本戦は「どこで見れるか」をこの画面で即答する（放送局・無料可否）。
+  const jpOppName = jpInvolved
+    ? match.homeCode === "JPN"
+      ? away?.name
+      : home?.name
+    : undefined;
+  const jpTv = jpInvolved
+    ? japanBroadcast.find((b) => b.opp === jpOppName)
+    : undefined;
   const story = getStory(match.id);
 
   // preview の formA/formB は teamA/teamB 基準。表示用に home/away へ対応づける。
@@ -254,12 +266,61 @@ export default async function MatchDetail({
         </div>
       </header>
 
-      {/* 起きる?寝る?ナビ */}
+      {/* 起きる?寝る?ナビ（深夜・早朝の観戦判断をいちばん上に） */}
       {!finished && (
         <div className="mb-10">
           <WakeBadge match={match} detailed />
         </div>
       )}
+
+      {/* 視聴・会場（「どこで見れる？」にこの場で即答） */}
+      <section className="mb-10 space-y-3">
+        {jpTv && (
+          <div className="rounded-2xl border-2 border-jpred/40 bg-jpred/[0.04] p-4">
+            <div className="text-xs font-bold text-jpred mb-1.5 flex items-center gap-1.5">
+              <span aria-hidden>📺</span>この試合の放送・配信
+            </div>
+            <p className="text-sm font-bold leading-snug">{jpTv.tv}</p>
+            <p className="text-xs text-[#2e7d32] font-bold mt-0.5">🆓 {jpTv.free}</p>
+            <Link
+              href="/watch"
+              className="inline-block text-xs font-medium text-jpnavy hover:underline mt-2"
+            >
+              視聴ガイドの詳細を見る →
+            </Link>
+          </div>
+        )}
+        <div className="flex flex-wrap gap-2">
+          {!jpTv && (
+            <Link
+              href="/watch"
+              className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-full bg-jpnavy/10 text-jpnavy hover:bg-jpnavy hover:text-white transition-colors"
+            >
+              📺 この試合をどこで見る？
+            </Link>
+          )}
+          {(match.city || match.stadium) && (
+            <Link
+              href="/venues"
+              className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-full bg-jpnavy/10 text-jpnavy hover:bg-jpnavy hover:text-white transition-colors"
+            >
+              🏟 {match.city ?? "会場"}の情報
+            </Link>
+          )}
+        </div>
+      </section>
+
+      {/* 勝敗確率の目安 */}
+      <section className="mb-10">
+        <WinProbBar
+          homeName={home?.name ?? match.homeCode}
+          awayName={away?.name ?? match.awayCode}
+          homeFlag={home?.flag ?? "🏳️"}
+          awayFlag={away?.flag ?? "🏳️"}
+          rankHome={home?.fifaRank}
+          rankAway={away?.fifaRank}
+        />
+      </section>
 
       {/* 前夜ストーリー（物語のある試合のみ） */}
       {story && (
@@ -354,6 +415,23 @@ export default async function MatchDetail({
           </div>
         )}
       </section>
+
+      {/* 注目選手の配置イメージ */}
+      {(home?.players?.length || away?.players?.length) && (
+        <section className="mb-10">
+          <SectionTitle>📐 注目選手の配置イメージ</SectionTitle>
+          <FormationPitch
+            homeName={home?.name ?? match.homeCode}
+            awayName={away?.name ?? match.awayCode}
+            homeFlag={home?.flag ?? "🏳️"}
+            awayFlag={away?.flag ?? "🏳️"}
+            homePlayers={home?.players ?? []}
+            awayPlayers={away?.players ?? []}
+            homeColor={home?.themeColor}
+            awayColor={away?.themeColor}
+          />
+        </section>
+      )}
 
       {/* 通算対戦成績 */}
       {preview?.h2h && (
