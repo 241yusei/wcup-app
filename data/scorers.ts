@@ -20,10 +20,16 @@ export interface CurrentScorer {
   player: string;
   teamCode: string;
   goals: number;
+  note?: string;
 }
 export const currentScorers: CurrentScorer[] = [
-  // 開幕戦 メキシコ 2-0 南アフリカ（チーム単位での確定得点）
-  { player: "メキシコ代表（開幕戦の得点）", teamCode: "MEX", goals: 2 },
+  // 開幕戦 メキシコ 2-0 南アフリカ：サンティアゴ・ヒメネスが2得点（ブレイス）
+  {
+    player: "サンティアゴ・ヒメネス",
+    teamCode: "MEX",
+    goals: 2,
+    note: "開幕戦で2得点（ブレイス）",
+  },
 ];
 
 // ゴールデンブーツ本命ウォッチリスト（大会前評価・編集部）。
