@@ -6,6 +6,7 @@ import {
   regionOrder,
   type Region,
 } from "@/data/predictions";
+import SectionTabs, { PREDICT_TABS } from "@/components/layout/SectionTabs";
 
 export const metadata = {
   title: "みんなの優勝予想｜世界の識者は誰を本命に？｜100倍Wカップ",
@@ -44,6 +45,8 @@ export default function PredictPage() {
           className="hidden sm:block h-28 w-auto shrink-0 drop-shadow-lg"
         />
       </header>
+
+      <SectionTabs items={PREDICT_TABS} title="予想" />
 
       {predictions.length === 0 ? (
         <p className="text-muted text-sm">予想データを準備中です。</p>

@@ -20,6 +20,7 @@ import MatchNotes from "@/components/MatchNotes";
 import StorySection from "@/components/StorySection";
 import WakeBadge from "@/components/WakeBadge";
 import WatchedStamp from "@/components/WatchedStamp";
+import WinProbBar from "@/components/WinProbBar";
 import { getStory } from "@/data/stories";
 import { Team } from "@/lib/types";
 
@@ -253,6 +254,34 @@ export default async function MatchDetail({
           </div>
         </div>
       </header>
+
+      {/* 勝敗確率の目安＋視聴・会場への導線 */}
+      <section className="mb-10 space-y-3">
+        <WinProbBar
+          homeName={home?.name ?? match.homeCode}
+          awayName={away?.name ?? match.awayCode}
+          homeFlag={home?.flag ?? "🏳️"}
+          awayFlag={away?.flag ?? "🏳️"}
+          rankHome={home?.fifaRank}
+          rankAway={away?.fifaRank}
+        />
+        <div className="flex flex-wrap gap-2">
+          <Link
+            href="/watch"
+            className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-full bg-jpnavy/10 text-jpnavy hover:bg-jpnavy hover:text-white transition-colors"
+          >
+            📺 この試合をどこで見る？
+          </Link>
+          {(match.city || match.stadium) && (
+            <Link
+              href="/venues"
+              className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-full bg-jpnavy/10 text-jpnavy hover:bg-jpnavy hover:text-white transition-colors"
+            >
+              🏟 {match.city ?? "会場"}の情報
+            </Link>
+          )}
+        </div>
+      </section>
 
       {/* 起きる?寝る?ナビ */}
       {!finished && (

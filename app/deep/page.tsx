@@ -9,6 +9,7 @@ import {
   talkingPoints,
   glossary,
 } from "@/data/deepdive";
+import SectionTabs, { LEARN_TABS } from "@/components/layout/SectionTabs";
 
 export const metadata = {
   title: "サッカー深掘り｜にわかから“通”へ｜100倍Wカップ",
@@ -59,6 +60,8 @@ export default function DeepPage() {
           className="hidden sm:block h-28 w-auto shrink-0 drop-shadow-lg"
         />
       </header>
+
+      <SectionTabs items={LEARN_TABS} title="学ぶ" />
 
       {/* セクション内ナビ */}
       <nav className="mb-10 flex flex-wrap gap-2">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import SectionTabs, { LEARN_TABS } from "@/components/layout/SectionTabs";
 
 export const metadata = {
   title: "W杯を100倍楽しむ入門ガイド｜100倍Wカップ",
@@ -101,6 +102,8 @@ export default function GuidePage() {
           className="hidden sm:block shrink-0 drop-shadow-lg"
         />
       </header>
+
+      <SectionTabs items={LEARN_TABS} title="学ぶ" />
 
       {/* 3分でわかる2026 */}
       <section className="mb-10">

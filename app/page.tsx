@@ -3,119 +3,108 @@ import Image from "next/image";
 import { getMatches } from "@/lib/football";
 import { getTeam, teams } from "@/data/teams";
 import { jstDateLabel, jstTimeLabel, jstWatchHint } from "@/lib/datetime";
+import { Match } from "@/lib/types";
 import ReminderButton from "@/components/schedule/ReminderButton";
 import MyFavorites from "@/components/MyFavorites";
 import HomeQuizBadge from "@/components/HomeQuizBadge";
+import NextMatchCountdown from "@/components/NextMatchCountdown";
 
 const teamMap: Record<string, { name: string; flag: string }> = Object.fromEntries(
   teams.map((t) => [t.code, { name: t.name, flag: t.flag }])
 );
 
-
-const features = [
-  {
-    href: "/story",
-    icon: "🌙",
-    title: "因縁",
-    desc: "試合を「物語」として読む。因縁・登場人物・伏線——語り部はトリオン。",
-  },
-  {
-    href: "/album",
-    icon: "📔",
-    title: "マイW杯アルバム",
-    desc: "観た試合のスタンプ・予想成績・メモが「自分だけの大会記録」に育つ。",
-  },
-  {
-    href: "/japan",
-    icon: "🇯🇵",
-    title: "日本特集",
-    desc: "グループF突破条件・対戦国の攻略・観戦ポイント・次戦カウントダウン。",
-  },
-  {
-    href: "/squad",
-    icon: "📋",
-    title: "代表メンバー",
-    desc: "サムライブルー全26名＋スタッフ。経歴・プレースタイルを網羅した名簿。",
-  },
-  {
-    href: "/schedule",
-    icon: "🕐",
-    title: "試合日程",
-    desc: "全試合を日本時間で。深夜・早朝も見逃さない。カレンダー登録もワンタップ。",
-  },
-  {
-    href: "/groups",
-    icon: "📊",
-    title: "グループ順位表",
-    desc: "全12組の組み合わせと勝点。結果をリアルタイム反映。突破圏も一目で。",
-  },
-  {
-    href: "/bracket",
-    icon: "🏆",
-    title: "決勝トーナメント",
-    desc: "ラウンド32〜決勝の流れと日程。日本代表の勝ち上がりマップも。",
-  },
-  {
-    href: "/predictions",
-    icon: "🔮",
-    title: "勝敗予想",
-    desc: "試合の勝敗を予想して的中率を競う。にわかでも自分ごとに楽しめる。",
-  },
-  {
-    href: "/watch",
-    icon: "📺",
-    title: "どこで見る？",
-    desc: "日本の放送・配信ガイド。地上波・DAZNの違い、日本戦を無料で見る方法。",
-  },
-  {
-    href: "/teams",
-    icon: "🏴",
-    title: "各国図鑑",
-    desc: "48カ国の戦術・注目選手・小ネタまで。推し国・推し選手がきっと見つかる。",
-  },
-  {
-    href: "/deep",
-    icon: "🔭",
-    title: "サッカー深掘り",
-    desc: "戦術・観戦術・数字の読み方・用語辞典。にわかから“通”へ解像度を上げる。",
-  },
-  {
-    href: "/predict",
-    icon: "🏆",
-    title: "識者の優勝予想",
-    desc: "世界中の解説者・元代表・統計モデルは誰を本命に？出典付きで総まとめ。",
-  },
-  {
-    href: "/news",
-    icon: "📰",
-    title: "ニュース",
-    desc: "大会の最新情報も、人に話したくなる面白ネタも、まとめてチェック。",
-  },
-  {
-    href: "/guide",
-    icon: "🧭",
-    title: "100倍ガイド",
-    desc: "ルールも観戦のコツも、にわかさん目線で。これを読めば予習はバッチリ。",
-  },
-  {
-    href: "/gen",
-    icon: "🐱",
-    title: "トリオンの玄人解説",
-    desc: "トリオンが忖度なしで語る本音。そこまで言う⁉の強者目線。",
-  },
+// ホームに置く主要導線（厳選）。残りは「もっと」メニュー／各ハブのタブから。
+const quickLinks = [
+  { href: "/schedule", icon: "📅", title: "試合日程", desc: "全104試合を日本時間で" },
+  { href: "/groups", icon: "📊", title: "順位表", desc: "全12組の勝点状況" },
+  { href: "/japan", icon: "🇯🇵", title: "日本特集", desc: "突破条件・対戦国攻略" },
+  { href: "/teams", icon: "🌍", title: "各国図鑑", desc: "48カ国・注目選手" },
+  { href: "/stats", icon: "👟", title: "得点ランキング", desc: "ゴールデンブーツ" },
+  { href: "/watch", icon: "📺", title: "どこで見る？", desc: "放送・配信ガイド" },
 ];
+
+// 試合カード1行（直近の試合タイムライン用）。
+function MatchRow({ m }: { m: Match }) {
+  const home = getTeam(m.homeCode);
+  const away = getTeam(m.awayCode);
+  const finished = m.status === "FINISHED";
+  const jp = m.homeCode === "JPN" || m.awayCode === "JPN";
+  const hint = jstWatchHint(m.utcDate);
+  return (
+    <Link
+      href={`/matches/${m.id}`}
+      className={`flex items-center gap-3 rounded-2xl border bg-surface p-3.5 hover:border-jpnavy/40 transition-colors ${
+        jp ? "border-jpred/50 ring-1 ring-jpred/10" : "border-line"
+      }`}
+    >
+      <div className="shrink-0 w-20 text-center">
+        {finished ? (
+          <span className="text-[10px] font-bold text-muted bg-line/60 rounded-full px-2 py-0.5">
+            終了
+          </span>
+        ) : (
+          <>
+            <div className="text-[11px] text-muted leading-tight">
+              {jstDateLabel(m.utcDate)}
+            </div>
+            <div className="font-mono font-bold text-sm leading-tight">
+              {jstTimeLabel(m.utcDate)}
+            </div>
+          </>
+        )}
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2">
+          <span className="text-lg">{home?.flag ?? "🏳️"}</span>
+          <span className="font-bold text-sm truncate">{home?.name ?? m.homeCode}</span>
+          {finished && (
+            <span className="ml-auto font-mono font-extrabold">{m.homeScore}</span>
+          )}
+        </div>
+        <div className="flex items-center gap-2 mt-0.5">
+          <span className="text-lg">{away?.flag ?? "🏳️"}</span>
+          <span className="font-bold text-sm truncate">{away?.name ?? m.awayCode}</span>
+          {finished && (
+            <span className="ml-auto font-mono font-extrabold">{m.awayScore}</span>
+          )}
+        </div>
+      </div>
+      <div className="shrink-0 text-right">
+        <div className="text-[10px] text-muted">{m.stage}</div>
+        {hint ? (
+          <div className="text-[10px] text-jpred font-medium">{hint}</div>
+        ) : (
+          m.city && <div className="text-[10px] text-muted truncate max-w-24">📍{m.city}</div>
+        )}
+      </div>
+    </Link>
+  );
+}
 
 export default async function Home() {
   const { matches } = await getMatches();
-  const japanMatches = matches
-    .filter((m) => m.homeCode === "JPN" || m.awayCode === "JPN")
-    .sort((a, b) => +new Date(a.utcDate) - +new Date(b.utcDate));
+  const sorted = [...matches].sort(
+    (a, b) => +new Date(a.utcDate) - +new Date(b.utcDate)
+  );
+
+  const japanMatches = sorted.filter(
+    (m) => m.homeCode === "JPN" || m.awayCode === "JPN"
+  );
+  const nextJapan = japanMatches.find((m) => m.status !== "FINISHED");
+  const nextJapanOpp = nextJapan
+    ? getTeam(nextJapan.homeCode === "JPN" ? nextJapan.awayCode : nextJapan.homeCode)
+    : undefined;
+
+  // 直近の試合：最新の終了結果1件＋これからの試合5件。
+  const upcoming = sorted.filter((m) => m.status !== "FINISHED").slice(0, 5);
+  const lastFinished = [...sorted].reverse().find((m) => m.status === "FINISHED");
+  const pickup = [lastFinished, ...upcoming].filter(Boolean) as Match[];
 
   return (
     <div>
       {/* ヒーロー */}
       <section className="relative overflow-hidden border-b border-line">
-        <div className="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-2 gap-8 items-center">
+        <div className="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-2 gap-8 items-center">
           <div>
             <div className="colors-stripe-thin w-24 rounded-full mb-4" />
             <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-4">
@@ -125,11 +114,9 @@ export default async function Home() {
               <br />
               <span className="text-jpnavy">楽しもう。</span>
             </h1>
-            <p className="text-muted text-lg mb-6 leading-relaxed">
+            <p className="text-muted text-base mb-6 leading-relaxed">
               サッカーをよく知らなくても大丈夫。
-              <br />
-              日本時間の日程・各国の見どころ・面白ニュースを、
-              ぜんぶここで。
+              日程・順位・各国の見どころ・視聴ガイドまで、ぜんぶここで。
             </p>
             <div className="flex gap-3 flex-wrap">
               <Link
@@ -152,54 +139,68 @@ export default async function Home() {
               alt="ワールドカップ人間くん"
               width={400}
               height={400}
-              className="h-64 w-auto drop-shadow-xl"
+              className="h-56 w-auto drop-shadow-xl"
               priority
             />
           </div>
         </div>
       </section>
 
-      {/* 観戦スタイル診断バッジ（未診断は「診断する」バナー、診断済みはレベルチップ） */}
       <HomeQuizBadge />
 
-      {/* 因縁への導線（夜空バナー） */}
-      <section className="max-w-6xl mx-auto px-4 pt-6">
-        <Link
-          href="/story"
-          className="block rounded-2xl bg-jpnavy text-white p-5 relative overflow-hidden hover:opacity-95 transition-opacity"
-        >
-          <div
-            className="absolute inset-0 opacity-25"
-            style={{
-              backgroundImage:
-                "radial-gradient(1px 1px at 15% 30%, white, transparent), radial-gradient(1.5px 1.5px at 70% 20%, white, transparent), radial-gradient(1px 1px at 45% 75%, white, transparent), radial-gradient(1px 1px at 90% 55%, white, transparent)",
-            }}
-            aria-hidden
-          />
-          <div className="relative flex items-center justify-between gap-4">
-            <div>
-              <div className="text-[11px] text-white/60 tracking-widest mb-1">
-                🌙 因縁
+      {/* 次の日本戦カウントダウン */}
+      {nextJapan && (
+        <section className="max-w-6xl mx-auto px-4 pt-6">
+          <Link
+            href={`/matches/${nextJapan.id}`}
+            className="block rounded-2xl bg-jpred text-white p-5 hover:opacity-95 transition-opacity"
+          >
+            <div className="flex items-center justify-between gap-4 flex-wrap">
+              <div>
+                <div className="text-[11px] text-white/70 tracking-widest mb-1">
+                  🇯🇵 次の日本戦
+                </div>
+                <p className="font-bold text-lg leading-snug">
+                  日本 vs {nextJapanOpp?.name ?? "—"} {nextJapanOpp?.flag}
+                </p>
+                <p className="text-xs text-white/80 mt-1">
+                  {jstDateLabel(nextJapan.utcDate)} {jstTimeLabel(nextJapan.utcDate)} JST
+                  {nextJapan.city && `・${nextJapan.city}`}
+                </p>
               </div>
-              <p className="font-bold leading-snug">
-                試合は、物語として読むと100倍になる。
-              </p>
-              <p className="text-xs text-white/70 mt-1">
-                因縁・登場人物・伏線
-              </p>
+              <div className="shrink-0">
+                <NextMatchCountdown
+                  targetUtc={nextJapan.utcDate}
+                  label="キックオフまで"
+                />
+              </div>
             </div>
-            <span className="shrink-0 text-sm font-bold bg-white text-jpnavy rounded-full px-4 py-2">
-              読む →
-            </span>
-          </div>
-        </Link>
+          </Link>
+        </section>
+      )}
+
+      {/* 直近・注目の試合 */}
+      <section className="max-w-6xl mx-auto px-4 pt-8">
+        <div className="flex items-end justify-between gap-3 mb-4">
+          <h2 className="text-2xl font-bold flex items-center gap-2">
+            ⚡ 直近の試合
+          </h2>
+          <Link href="/schedule" className="text-sm font-bold text-jpnavy hover:underline">
+            全日程 →
+          </Link>
+        </div>
+        <div className="grid sm:grid-cols-2 gap-3">
+          {pickup.map((m) => (
+            <MatchRow key={m.id} m={m} />
+          ))}
+        </div>
       </section>
 
-      {/* マイ推し（推し登録があれば表示） */}
+      {/* マイ推し */}
       <MyFavorites teamMap={teamMap} />
 
-      {/* 日本代表の試合 */}
-      <section className="max-w-6xl mx-auto px-4 py-12">
+      {/* 日本代表の全試合 */}
+      <section className="max-w-6xl mx-auto px-4 py-10">
         <div className="flex items-center gap-3 mb-5">
           <Image
             src="/mascot-ball.png"
@@ -246,18 +247,14 @@ export default async function Home() {
                     </Link>
                   </div>
                   <div className="mt-3 flex items-baseline gap-2">
-                    <span className="font-bold text-lg">
-                      {jstDateLabel(m.utcDate)}
-                    </span>
+                    <span className="font-bold text-lg">{jstDateLabel(m.utcDate)}</span>
                     <span className="font-mono font-bold text-lg">
                       {jstTimeLabel(m.utcDate)}
                     </span>
                     <span className="text-xs text-muted">JST</span>
                   </div>
                   {hint && (
-                    <div className="text-xs text-jpred font-medium mt-1">
-                      {hint}
-                    </div>
+                    <div className="text-xs text-jpred font-medium mt-1">{hint}</div>
                   )}
                   {(m.city || m.stadium) && (
                     <div className="mt-2 flex items-start gap-1.5 text-xs text-muted">
@@ -265,9 +262,7 @@ export default async function Home() {
                       <span>
                         {m.city}
                         {m.stadium && (
-                          <span className="text-foreground/70">
-                            ・{m.stadium}
-                          </span>
+                          <span className="text-foreground/70">・{m.stadium}</span>
                         )}
                       </span>
                     </div>
@@ -291,75 +286,57 @@ export default async function Home() {
             })}
           </div>
         )}
-        <div className="mt-4 flex flex-wrap gap-4">
-          <Link
-            href="/japan"
-            className="text-sm font-bold text-jpnavy hover:underline"
-          >
-            🇯🇵 日本特集（攻略・突破条件）を見る →
-          </Link>
-          <Link
-            href="/schedule"
-            className="text-sm font-medium text-jpnavy hover:underline"
-          >
-            全試合の日程を見る →
-          </Link>
-        </div>
       </section>
 
-      {/* 機能カード */}
-      <section className="max-w-6xl mx-auto px-4 pb-16">
-        <div className="flex items-center gap-3 mb-5">
-          <Image
-            src="/char-ball.png"
-            alt=""
-            width={120}
-            height={193}
-            className="h-16 w-auto shrink-0 drop-shadow-md"
+      {/* 因縁バナー */}
+      <section className="max-w-6xl mx-auto px-4">
+        <Link
+          href="/story"
+          className="block rounded-2xl bg-jpnavy text-white p-5 relative overflow-hidden hover:opacity-95 transition-opacity"
+        >
+          <div
+            className="absolute inset-0 opacity-25"
+            style={{
+              backgroundImage:
+                "radial-gradient(1px 1px at 15% 30%, white, transparent), radial-gradient(1.5px 1.5px at 70% 20%, white, transparent), radial-gradient(1px 1px at 45% 75%, white, transparent), radial-gradient(1px 1px at 90% 55%, white, transparent)",
+            }}
+            aria-hidden
           />
-          <div>
-            <h2 className="text-2xl font-bold">⚽ もっと深掘りする</h2>
-            <span className="text-sm text-muted">
-              日程・図鑑・ニュース・ガイド。気になるところからどうぞ。
+          <div className="relative flex items-center justify-between gap-4">
+            <div>
+              <div className="text-[11px] text-white/60 tracking-widest mb-1">🌙 因縁</div>
+              <p className="font-bold leading-snug">
+                試合は、物語として読むと100倍になる。
+              </p>
+              <p className="text-xs text-white/70 mt-1">因縁・登場人物・伏線</p>
+            </div>
+            <span className="shrink-0 text-sm font-bold bg-white text-jpnavy rounded-full px-4 py-2">
+              読む →
             </span>
           </div>
-        </div>
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {features.map((f) => (
+        </Link>
+      </section>
+
+      {/* クイックリンク（厳選） */}
+      <section className="max-w-6xl mx-auto px-4 py-10">
+        <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">🧭 メニュー</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+          {quickLinks.map((f) => (
             <Link
               key={f.href}
               href={f.href}
-              className="group bg-surface border border-line rounded-2xl p-6 cursor-pointer transition-all hover:-translate-y-1 hover:border-jpnavy/50 hover:shadow-md active:scale-[0.98]"
+              className="group bg-surface border border-line rounded-2xl p-4 transition-all hover:-translate-y-0.5 hover:border-jpnavy/50 hover:shadow-sm active:scale-[0.98]"
             >
-              <div className="flex items-start justify-between">
-                <div className="text-3xl mb-3">
-                  {f.href === "/gen" ? (
-                    <Image
-                      src="/trion.png"
-                      alt="トリオン"
-                      width={48}
-                      height={48}
-                      className="object-contain drop-shadow"
-                    />
-                  ) : (
-                    f.icon
-                  )}
-                </div>
-                <span
-                  className="text-jpnavy/40 text-xl group-hover:text-jpnavy group-hover:translate-x-0.5 transition-all"
-                  aria-hidden
-                >
-                  ›
-                </span>
-              </div>
-              <h3 className="text-lg font-bold mb-2">{f.title}</h3>
-              <p className="text-sm text-muted leading-relaxed">{f.desc}</p>
-              <span className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-jpnavy">
-                ひらく <span aria-hidden>→</span>
-              </span>
+              <div className="text-2xl mb-1.5">{f.icon}</div>
+              <h3 className="font-bold">{f.title}</h3>
+              <p className="text-xs text-muted leading-relaxed mt-0.5">{f.desc}</p>
             </Link>
           ))}
         </div>
+        <p className="text-xs text-muted mt-4">
+          ほかの機能（予想・ニュース・アルバム・学ぶ・トリオン解説）は、右上／下の
+          <strong className="text-jpnavy">「もっと」</strong>から。
+        </p>
       </section>
     </div>
   );

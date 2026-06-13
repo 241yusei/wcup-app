@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { gen, proSections } from "@/data/proCommentary";
+import SectionTabs, { LEARN_TABS } from "@/components/layout/SectionTabs";
 
 export const metadata = {
   title: "トリオンの玄人解説｜そこまで言う⁉ 忖度なしの本音｜100倍Wカップ",
@@ -34,6 +35,8 @@ export default function GenPage() {
           <p className="text-sm leading-relaxed">{gen.intro}</p>
         </div>
       </header>
+
+      <SectionTabs items={LEARN_TABS} title="学ぶ" />
 
       {/* 三行まとめ */}
       <section className="mb-10">

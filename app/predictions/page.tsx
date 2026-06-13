@@ -3,6 +3,7 @@ import { getTeam } from "@/data/teams";
 import PredictionsSummary, {
   type PredMatch,
 } from "@/components/PredictionsSummary";
+import SectionTabs, { PREDICT_TABS } from "@/components/layout/SectionTabs";
 
 
 export const metadata = {
@@ -41,6 +42,8 @@ export default async function PredictionsPage() {
           </span>
         </p>
       </header>
+
+      <SectionTabs items={PREDICT_TABS} title="予想" />
 
       <PredictionsSummary matches={list} />
     </div>

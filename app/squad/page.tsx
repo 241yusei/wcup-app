@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { squad, manager, staff, posMeta, posOrder, type SquadPlayer } from "@/data/squad";
+import SectionTabs, { JAPAN_TABS } from "@/components/layout/SectionTabs";
 
 export const metadata = {
   title: "日本代表メンバー名簿｜サムライブルー26人図鑑｜100倍Wカップ",
@@ -118,6 +119,8 @@ export default function SquadPage() {
           </p>
         </div>
       </header>
+
+      <SectionTabs items={JAPAN_TABS} title="日本代表" />
 
       {/* ポジション別 */}
       {grouped.map(({ pos, players }) => {

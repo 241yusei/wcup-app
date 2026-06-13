@@ -4,6 +4,7 @@ import { getMatches } from "@/lib/football";
 import { jstDateKey } from "@/lib/datetime";
 import { Match } from "@/lib/types";
 import ScheduleFavoriteFilter from "@/components/schedule/ScheduleFavoriteFilter";
+import SectionTabs, { MATCH_TABS } from "@/components/layout/SectionTabs";
 
 export default async function SchedulePage() {
   const { matches, live } = await getMatches();
@@ -51,6 +52,8 @@ export default async function SchedulePage() {
           className="hidden sm:block shrink-0 drop-shadow-lg"
         />
       </header>
+
+      <SectionTabs items={MATCH_TABS} title="試合" />
 
       {/* 推し国フィルター付きの日程ビュー（クライアントコンポーネント） */}
       <ScheduleFavoriteFilter groups={groups} live={live} />
