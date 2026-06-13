@@ -84,7 +84,7 @@ export default async function GroupsPage() {
           3位＝成績上位8チームなら突破
         </span>
         <span className="ml-auto text-[11px]">
-          {live ? "🟢 ライブ" : "📋 サンプル"}
+          {live ? "🟢 ライブ" : started ? "🟡 結果反映中" : "📋 サンプル"}
         </span>
       </div>
 
