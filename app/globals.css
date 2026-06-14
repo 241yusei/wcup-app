@@ -46,13 +46,63 @@
   --color-jpred: var(--jp-red);
   --color-jpnavy: var(--jp-navy);
   --color-line: var(--line);
-  --font-sans: var(--font-geist-sans);
+  /* Latinはサンセリフ(Geist)、和文はNoto Sans JPへ自動フォールバック */
+  --font-sans: var(--font-geist-sans), var(--font-noto-jp);
 }
 
+/* ── タイポグラフィ基盤 ──
+   和文アプリの可読性を底上げするコア設定。
+   ・Latinは Geist、和文は Noto Sans JP（グリフ単位で自動フォールバック）。
+   ・行間は和文向けにゆったり、約物は palt で詰めて字面を整える。 */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-geist-sans), var(--font-noto-jp), system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+  font-feature-settings: "palt" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media (min-width: 640px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+/* 見出しは行間を締めてカーニングを効かせ、本文との対比を作る */
+h1,
+h2,
+h3 {
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+/* 数字（スコア・時刻・カウントダウン）は等幅で桁を揃える */
+.tnum,
+.font-mono {
+  font-variant-numeric: tabular-nums;
+}
+
+/* セクションの小ラベル（eyebrow）。情報の入口を一点に絞る */
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  color: var(--muted);
+}
+
+::selection {
+  background: rgba(215, 40, 47, 0.18);
+}
+
+/* キーボード操作時のフォーカスリング（装飾は抑えつつアクセシブルに） */
+:focus-visible {
+  outline: 2px solid var(--jp-navy);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 /* 横スクロールナビのスクロールバーを隠す */

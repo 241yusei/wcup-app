@@ -62,7 +62,7 @@ export default function VenuesPage() {
     <div className="max-w-4xl mx-auto px-4 py-10">
       <header className="mb-6">
         <div className="colors-stripe-thin w-16 rounded-full mb-3" />
-        <h1 className="text-3xl font-bold mb-1">🏟 スタジアム・開催都市</h1>
+        <h1 className="text-3xl font-bold mb-1">スタジアム・開催都市</h1>
         <p className="text-muted text-sm leading-relaxed">
           史上初の3カ国共催。
           <strong className="text-jpnavy">16都市・16会場</strong>

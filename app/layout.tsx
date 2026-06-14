@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/layout/Nav";
 import OnboardingQuiz from "@/components/OnboardingQuiz";
@@ -9,6 +9,15 @@ import PWARegister from "@/components/PWARegister";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+});
+
+// 和文の本命フォント。CJKは巨大なので preload せず、display:swap で体感速度を確保。
+const notoSansJP = Noto_Sans_JP({
+  variable: "--font-noto-jp",
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+  preload: false,
+  display: "swap",
 });
 
 const siteTitle = "100倍Wカップ｜日本代表を100倍楽しむ";
@@ -63,7 +72,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className={`${geistSans.variable} h-full antialiased`} suppressHydrationWarning>
+    <html
+      lang="ja"
+      className={`${geistSans.variable} ${notoSansJP.variable} h-full antialiased`}
+      suppressHydrationWarning
+    >
       <head>
         {/* 深夜観戦モードの初期適用（FOUC防止）。保存設定 > OSのダーク設定の順で判定 */}
         <script
@@ -79,11 +92,14 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <PeekCat />
         <PWARegister />
-        <footer className="mt-16 border-t border-line bg-surface">
-          <div className="colors-stripe-thin w-full" />
-          <div className="max-w-6xl mx-auto px-4 py-6 text-sm text-muted flex items-center justify-between">
-            <span>100倍Wカップ © 2026</span>
-            <span className="text-xs">
+        <footer className="mt-20 border-t border-line bg-surface">
+          <div className="max-w-6xl mx-auto px-4 py-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <span className="font-bold tracking-tight">
+              <span className="text-jpred">100倍</span>
+              <span className="text-jpnavy">Wカップ</span>
+              <span className="text-muted font-normal text-sm ml-2">© 2026</span>
+            </span>
+            <span className="text-xs text-muted leading-relaxed">
               データは各公式ソースを参照・要約。映像/画像の無断転載はしません。
             </span>
           </div>

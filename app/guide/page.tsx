@@ -16,7 +16,7 @@ export default function LearnPage() {
       <header className="mb-6 flex items-end justify-between gap-4">
         <div>
           <div className="colors-stripe-thin w-16 rounded-full mb-3" />
-          <h1 className="text-3xl font-bold mb-1">🧭 学ぶ</h1>
+          <h1 className="text-3xl font-bold mb-1">学ぶ</h1>
           <p className="text-muted text-sm leading-relaxed">
             入門 → 深掘り → 玄人解説。自分のペースでサッカーの解像度を上げよう。
           </p>

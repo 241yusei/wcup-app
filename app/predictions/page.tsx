@@ -33,7 +33,7 @@ export default async function PredictionsPage() {
     <div className="max-w-3xl mx-auto px-4 py-10">
       <header className="mb-6">
         <div className="colors-stripe-thin w-16 rounded-full mb-3" />
-        <h1 className="text-3xl font-bold mb-1">🔮 予想</h1>
+        <h1 className="text-3xl font-bold mb-1">予想</h1>
         <p className="text-muted text-sm leading-relaxed">
           自分の勝敗予想の的中率と、世界の識者の優勝予想。どちらもここで。
           <span className="block text-[11px] mt-1">
