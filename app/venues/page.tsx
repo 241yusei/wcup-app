@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SectionTabs, { MATCH_TABS } from "@/components/layout/SectionTabs";
+import PageHeader from "@/components/PageHeader";
 import { venues, type Venue } from "@/data/venues";
 
 export const metadata = {
@@ -60,15 +61,17 @@ export default function VenuesPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
-      <header className="mb-6">
-        <div className="colors-stripe-thin w-16 rounded-full mb-3" />
-        <h1 className="text-3xl font-bold mb-1">🏟 スタジアム・開催都市</h1>
-        <p className="text-muted text-sm leading-relaxed">
-          史上初の3カ国共催。
-          <strong className="text-jpnavy">16都市・16会場</strong>
-          を予習して、観戦の臨場感を100倍に。
-        </p>
-      </header>
+      <PageHeader
+        eyebrow="試合"
+        title="スタジアム・開催都市"
+        description={
+          <>
+            史上初の3カ国共催。
+            <strong className="text-jpnavy">16都市・16会場</strong>
+            を予習して、観戦の臨場感を100倍に。
+          </>
+        }
+      />
 
       <SectionTabs items={MATCH_TABS} title="試合" />
 

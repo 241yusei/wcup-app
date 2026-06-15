@@ -10,6 +10,7 @@ import HomeQuizBadge from "@/components/HomeQuizBadge";
 import NextMatchCountdown from "@/components/NextMatchCountdown";
 import { japanBroadcast } from "@/data/broadcast";
 import LiveBadge from "@/components/LiveBadge";
+import SectionHeader from "@/components/SectionHeader";
 
 const teamMap: Record<string, { name: string; flag: string }> = Object.fromEntries(
   teams.map((t) => [t.code, { name: t.name, flag: t.flag }])
@@ -123,30 +124,33 @@ export default async function Home() {
     <div>
       {/* ヒーロー */}
       <section className="relative overflow-hidden border-b border-line">
-        <div className="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-2 gap-8 items-center">
+        <div className="max-w-6xl mx-auto px-4 py-12 sm:py-16 grid md:grid-cols-2 gap-8 items-center">
           <div>
-            <div className="colors-stripe-thin w-24 rounded-full mb-4" />
-            <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-4">
+            <div className="flex items-center gap-2.5 mb-5">
+              <span className="colors-stripe-thin w-10 rounded-full" />
+              <span className="eyebrow">2026 FIFA ワールドカップ ｜ 6.11 – 7.19</span>
+            </div>
+            <h1 className="text-[2.5rem] sm:text-6xl font-extrabold leading-[1.08] tracking-tight mb-5">
               <span className="text-jpred">100倍</span>、
               <br />
               ワールドカップを
               <br />
               <span className="text-jpnavy">楽しもう。</span>
             </h1>
-            <p className="text-muted text-base mb-6 leading-relaxed">
+            <p className="text-muted text-base sm:text-lg mb-7 leading-relaxed max-w-md">
               サッカーをよく知らなくても大丈夫。
               日程・順位・各国の見どころ・視聴ガイドまで、ぜんぶここで。
             </p>
             <div className="flex gap-3 flex-wrap">
               <Link
                 href="/japan"
-                className="px-5 py-2.5 rounded-full bg-jpnavy text-white font-medium hover:opacity-90 transition-opacity"
+                className="px-6 py-3 rounded-full bg-jpnavy text-white font-bold hover:opacity-90 transition-opacity"
               >
-                🇯🇵 日本代表を100倍楽しむ
+                日本代表を100倍楽しむ
               </Link>
               <Link
                 href="/schedule"
-                className="px-5 py-2.5 rounded-full border border-jpnavy text-jpnavy font-medium hover:bg-jpnavy hover:text-white transition-colors"
+                className="px-6 py-3 rounded-full border border-line text-foreground font-bold hover:border-jpnavy hover:text-jpnavy transition-colors"
               >
                 試合日程を見る
               </Link>
@@ -158,7 +162,7 @@ export default async function Home() {
               alt="ワールドカップ人間くん"
               width={400}
               height={400}
-              className="h-56 w-auto drop-shadow-xl"
+              className="h-56 sm:h-72 w-auto drop-shadow-xl"
               priority
             />
           </div>
@@ -169,25 +173,24 @@ export default async function Home() {
 
       {/* 次の日本戦カウントダウン */}
       {nextJapan && (
-        <section className="max-w-6xl mx-auto px-4 pt-6">
+        <section className="max-w-6xl mx-auto px-4 pt-10">
           <Link
             href={`/matches/${nextJapan.id}`}
-            className="block rounded-2xl bg-jpred text-white p-5 hover:opacity-95 transition-opacity"
+            className="block rounded-3xl bg-jpred text-white p-6 hover:opacity-95 transition-opacity"
           >
             <div className="flex items-center justify-between gap-4 flex-wrap">
               <div>
-                <div className="text-[11px] text-white/70 tracking-widest mb-1">
-                  🇯🇵 次の日本戦
-                </div>
-                <p className="font-bold text-lg leading-snug">
-                  日本 vs {nextJapanOpp?.name ?? "—"} {nextJapanOpp?.flag}
+                <div className="eyebrow text-white/70 mb-2">次の日本戦</div>
+                <p className="font-bold text-xl sm:text-2xl leading-snug tracking-tight">
+                  日本 <span className="text-white/60 font-medium text-lg">vs</span>{" "}
+                  {nextJapanOpp?.name ?? "—"} {nextJapanOpp?.flag}
                 </p>
-                <p className="text-xs text-white/80 mt-1">
+                <p className="text-sm text-white/85 mt-1.5">
                   {jstDateLabel(nextJapan.utcDate)} {jstTimeLabel(nextJapan.utcDate)} JST
                   {nextJapan.city && `・${nextJapan.city}`}
                 </p>
                 {nextJapanTv && (
-                  <p className="text-xs text-white/90 mt-1.5 font-medium">
+                  <p className="text-sm text-white mt-2 font-medium">
                     📺 {nextJapanTv.tv}（{nextJapanTv.free}）
                   </p>
                 )}
@@ -204,15 +207,20 @@ export default async function Home() {
       )}
 
       {/* 直近・注目の試合 */}
-      <section className="max-w-6xl mx-auto px-4 pt-8">
-        <div className="flex items-end justify-between gap-3 mb-4">
-          <h2 className="text-2xl font-bold flex items-center gap-2">
-            ⚡ 直近の試合
-          </h2>
-          <Link href="/schedule" className="text-sm font-bold text-jpnavy hover:underline">
-            全日程 →
-          </Link>
-        </div>
+      <section className="max-w-6xl mx-auto px-4 pt-12">
+        <SectionHeader
+          eyebrow="ピックアップ"
+          title="直近の試合"
+          accent="red"
+          action={
+            <Link
+              href="/schedule"
+              className="text-sm font-bold text-jpnavy hover:underline"
+            >
+              全日程 →
+            </Link>
+          }
+        />
         <div className="grid sm:grid-cols-2 gap-3">
           {pickup.map((m) => (
             <MatchRow key={m.id} m={m} />
@@ -224,22 +232,24 @@ export default async function Home() {
       <MyFavorites teamMap={teamMap} matches={favMatches} />
 
       {/* 日本代表の全試合 */}
-      <section className="max-w-6xl mx-auto px-4 py-10">
-        <div className="flex items-center gap-3 mb-5">
-          <Image
-            src="/mascot-ball.png"
-            alt=""
-            width={52}
-            height={126}
-            className="shrink-0 drop-shadow-md"
-          />
-          <div>
-            <h2 className="text-2xl font-bold">🇯🇵 日本代表の試合</h2>
-            <span className="text-sm text-muted">
-              グループF・全試合を日本時間で。🔔でカレンダー登録。
-            </span>
-          </div>
-        </div>
+      <section className="max-w-6xl mx-auto px-4 py-12">
+        <SectionHeader
+          eyebrow="SAMURAI BLUE"
+          accent="red"
+          title="日本代表の試合"
+          action={
+            <Image
+              src="/mascot-ball.png"
+              alt=""
+              width={36}
+              height={87}
+              className="hidden sm:block shrink-0 drop-shadow-md"
+            />
+          }
+        />
+        <p className="text-sm text-muted -mt-2 mb-5">
+          グループF・全試合を日本時間で。🔔でカレンダー登録できます。
+        </p>
         {japanMatches.length === 0 ? (
           <p className="text-sm text-muted">日程は確定後に表示されます。</p>
         ) : (
@@ -313,10 +323,10 @@ export default async function Home() {
       </section>
 
       {/* 因縁バナー */}
-      <section className="max-w-6xl mx-auto px-4">
+      <section className="max-w-6xl mx-auto px-4 pt-2">
         <Link
           href="/story"
-          className="block rounded-2xl bg-jpnavy text-white p-5 relative overflow-hidden hover:opacity-95 transition-opacity"
+          className="block rounded-3xl bg-jpnavy text-white p-6 relative overflow-hidden hover:opacity-95 transition-opacity"
         >
           <div
             className="absolute inset-0 opacity-25"
@@ -328,13 +338,13 @@ export default async function Home() {
           />
           <div className="relative flex items-center justify-between gap-4">
             <div>
-              <div className="text-[11px] text-white/60 tracking-widest mb-1">🌙 因縁</div>
-              <p className="font-bold leading-snug">
+              <div className="eyebrow text-white/60 mb-2">因縁ストーリー</div>
+              <p className="font-bold text-lg sm:text-xl leading-snug tracking-tight">
                 試合は、物語として読むと100倍になる。
               </p>
-              <p className="text-xs text-white/70 mt-1">因縁・登場人物・伏線</p>
+              <p className="text-sm text-white/70 mt-1.5">因縁・登場人物・伏線</p>
             </div>
-            <span className="shrink-0 text-sm font-bold bg-white text-jpnavy rounded-full px-4 py-2">
+            <span className="shrink-0 text-sm font-bold bg-white text-jpnavy rounded-full px-5 py-2.5">
               読む →
             </span>
           </div>
@@ -342,22 +352,22 @@ export default async function Home() {
       </section>
 
       {/* クイックリンク（厳選） */}
-      <section className="max-w-6xl mx-auto px-4 py-10">
-        <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">🧭 メニュー</h2>
+      <section className="max-w-6xl mx-auto px-4 py-12">
+        <SectionHeader eyebrow="すべての機能" title="メニュー" accent="navy" />
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {quickLinks.map((f) => (
             <Link
               key={f.href}
               href={f.href}
-              className="group bg-surface border border-line rounded-2xl p-4 transition-all hover:-translate-y-0.5 hover:border-jpnavy/50 hover:shadow-sm active:scale-[0.98]"
+              className="group bg-surface border border-line rounded-2xl p-5 transition-all hover:-translate-y-0.5 hover:border-jpnavy/50 hover:shadow-sm active:scale-[0.98]"
             >
-              <div className="text-2xl mb-1.5">{f.icon}</div>
-              <h3 className="font-bold">{f.title}</h3>
-              <p className="text-xs text-muted leading-relaxed mt-0.5">{f.desc}</p>
+              <div className="text-2xl mb-2">{f.icon}</div>
+              <h3 className="font-bold tracking-tight">{f.title}</h3>
+              <p className="text-xs text-muted leading-relaxed mt-1">{f.desc}</p>
             </Link>
           ))}
         </div>
-        <p className="text-xs text-muted mt-4">
+        <p className="text-xs text-muted mt-5 leading-relaxed">
           ほかの機能（予想・ニュース・アルバム・学ぶ・トリオン解説）は、右上／下の
           <strong className="text-jpnavy">「もっと」</strong>から。
         </p>

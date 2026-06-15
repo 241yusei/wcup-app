@@ -474,4 +474,52 @@ export const news: NewsItem[] = [
     date: "2026-06-11",
     tag: "面白ネタ",
   },
+
+  // ─── 大会3日目（6/12〜13）最新試合結果 ───
+  {
+    id: "20260613-1",
+    category: "serious",
+    title: "バログン2発でUSAがパラグアイを4-1撃破 地元W杯最高のスタート",
+    summary:
+      "6/12（現地）、ロサンゼルスのSoFiスタジアムでグループD第1節。アメリカのFWフォラリン・バログン（アーセナル）が開始7分から2得点のブレイスで試合を決定づけ、終盤ジオ・レイナも加点し4-1の快勝。パラグアイはマウリシオの1点のみ。32年ぶりに自国開催となるW杯でUSAが最高のスタートを切った。バログンは得点ランキング単独トップへ。",
+    sourceName: "CBS Sports",
+    sourceUrl: "https://www.cbssports.com/soccer/news/usa-paraguay-live-updates-world-cup-2026-score-result/live/",
+    date: "2026-06-12",
+    tag: "試合結果",
+  },
+  {
+    id: "20260613-2",
+    category: "serious",
+    title: "カナダがカナダの地でW杯初ポイント トロントでボスニアと1-1",
+    summary:
+      "6/12、BMOフィールド（トロント）でグループB第1節。ボスニアのルキッチが代表初ゴールで先制するも、カナダはラリンが78分に同点弾。共催国カナダが自国開催のW杯でついに勝ち点1を獲得した。試合はカナダのホームゲームとして歴史的な1戦に。次節カナダはカタールと、ボスニアはスイスとそれぞれ対戦する。",
+    sourceName: "CBC",
+    sourceUrl: "https://www.cbc.ca/sports/livestory/fifa-world-cup-2026-canada-vs-bosnia-and-herzegovina-june-12-live-updates-9.7222390",
+    date: "2026-06-12",
+    tag: "試合結果",
+  },
+
+  // ─── 日本代表 初戦（ファクトチェック済み 2026-06-15）───
+  {
+    id: "20260615-jpn",
+    category: "serious",
+    title: "日本、強豪オランダと2-2ドロー 2度追いつき価値ある勝点1 鎌田が土壇場同点弾",
+    summary:
+      "6/15（日本時間）、ダラスのAT&TスタジアムでグループF初戦。日本はFIFAランク8位のオランダと2-2で引き分けた。後半50分にファン・ダイクに先制を許すも、57分に久保建英のパスから中村敬斗が日本の大会1号ゴールで同点。64分にサマービルへ勝ち越されたが、88分に伊東純也のCKを小川航基が頭で合わせ、鎌田大地に当たったボールがネットを揺らし土壇場で再び追いついた。2度のビハインドを跳ね返す粘りで勝点1を獲得。久保は負傷交代と気がかりも残った。",
+    sourceName: "スポーツ報知",
+    sourceUrl: "https://news.yahoo.co.jp/articles/7a5a3f1099b1829ec9ae3b17194d38eceb68275e",
+    date: "2026-06-15",
+    tag: "試合結果",
+  },
+  {
+    id: "20260615-grpf",
+    category: "serious",
+    title: "グループF混戦へ スウェーデンがチュニジアに4-1快勝 首位発進",
+    summary:
+      "日本と同じグループFのもう1試合では、スウェーデンがチュニジアを4-1で撃破。アレクサンデル・イサクが2得点、ヨケレス、スバンベリも続いた。第1節を終えてグループFはスウェーデンが勝点3で首位、日本とオランダが勝点1、チュニジアが0。日本は第2戦でそのチュニジア（6/21・モンテレイ）と対戦する。ここで勝点3を取れば突破が大きく近づく。",
+    sourceName: "The Blazing Musket",
+    sourceUrl: "https://www.theblazingmusket.com/2026-fifa-world-cup-group-f-recaps-sweden-tunisia-japan-netherlands-goal-highlights/",
+    date: "2026-06-15",
+    tag: "試合結果",
+  },
 ];

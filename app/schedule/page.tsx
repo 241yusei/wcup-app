@@ -5,6 +5,7 @@ import { jstDateKey } from "@/lib/datetime";
 import { Match } from "@/lib/types";
 import ScheduleFavoriteFilter from "@/components/schedule/ScheduleFavoriteFilter";
 import SectionTabs, { MATCH_TABS } from "@/components/layout/SectionTabs";
+import PageHeader from "@/components/PageHeader";
 
 export default async function SchedulePage() {
   const { matches, live } = await getMatches();
@@ -27,32 +28,36 @@ export default async function SchedulePage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
-      <header className="mb-8 flex items-end justify-between gap-4">
-        <div>
-          <div className="colors-stripe-thin w-16 rounded-full mb-3" />
-          <h1 className="text-3xl font-bold mb-1">試合日程</h1>
-          <p className="text-muted">
-            すべて<strong className="text-jpnavy">日本時間</strong>で表示。各試合に
-            <strong className="text-jpnavy">📺 どこで観れるか</strong>も表示。
-            🔔でカレンダー登録できます。
-          </p>
-          <p className="text-xs text-muted mt-2">
-            ⭐ 推し国を登録すると「推し国フィルター」が使えます。
-          </p>
-          <p className="text-xs mt-2">
-            <Link href="/watch" className="font-bold text-jpnavy hover:underline">
-              📺 どこで観れる？ 放送・配信ガイド →
-            </Link>
-          </p>
-        </div>
-        <Image
-          src="/mascot-ball-side.png"
-          alt=""
-          width={101}
-          height={204}
-          className="hidden sm:block shrink-0 drop-shadow-lg"
-        />
-      </header>
+      <PageHeader
+        eyebrow="試合"
+        title="試合日程"
+        description={
+          <>
+            <p>
+              すべて<strong className="text-jpnavy">日本時間</strong>で表示。各試合に
+              <strong className="text-jpnavy">📺 どこで観れるか</strong>も表示。
+              🔔でカレンダー登録できます。
+            </p>
+            <p className="text-xs mt-2">
+              ⭐ 推し国を登録すると「推し国フィルター」が使えます。
+            </p>
+            <p className="text-xs mt-2">
+              <Link href="/watch" className="font-bold text-jpnavy hover:underline">
+                📺 どこで観れる？ 放送・配信ガイド →
+              </Link>
+            </p>
+          </>
+        }
+        action={
+          <Image
+            src="/mascot-ball-side.png"
+            alt=""
+            width={101}
+            height={204}
+            className="hidden sm:block shrink-0 drop-shadow-lg"
+          />
+        }
+      />
 
       <SectionTabs items={MATCH_TABS} title="試合" />
 

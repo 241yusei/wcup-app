@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SectionTabs, { MATCH_TABS } from "@/components/layout/SectionTabs";
+import PageHeader from "@/components/PageHeader";
 import { getTeam } from "@/data/teams";
 import { getScorers } from "@/lib/football";
 import {
@@ -39,16 +40,18 @@ export default async function StatsPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
-      <header className="mb-6">
-        <div className="colors-stripe-thin w-16 rounded-full mb-3" />
-        <h1 className="text-3xl font-bold mb-1">👟 得点ランキング</h1>
-        <p className="text-muted text-sm leading-relaxed">
-          得点王（ゴールデンブーツ）レースを追いかけよう。
-          <span className="block text-[11px] mt-1">
-            ※ {live ? "公式スタッツを反映中（自動更新）" : scorerMeta.asOf}
-          </span>
-        </p>
-      </header>
+      <PageHeader
+        eyebrow="試合"
+        title="得点ランキング"
+        description={
+          <>
+            得点王（ゴールデンブーツ）レースを追いかけよう。
+            <span className="block text-[11px] mt-1">
+              ※ {live ? "公式スタッツを反映中（自動更新）" : scorerMeta.asOf}
+            </span>
+          </>
+        }
+      />
 
       <SectionTabs items={MATCH_TABS} title="試合" />
 
