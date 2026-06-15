@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { japanInfo } from "@/data/japanHub";
 import SectionTabs, { MATCH_TABS } from "@/components/layout/SectionTabs";
+import PageHeader from "@/components/PageHeader";
 
 export const metadata = {
   title: "決勝トーナメント早見｜ラウンド32〜決勝の流れ｜100倍Wカップ",
@@ -71,14 +72,11 @@ const rounds: Round[] = [
 export default function BracketPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
-      <header className="mb-6">
-        <div className="colors-stripe-thin w-16 rounded-full mb-3" />
-        <h1 className="text-3xl font-bold mb-1">決勝トーナメント早見</h1>
-        <p className="text-muted text-sm leading-relaxed">
-          グループステージを勝ち抜いた32チームによる一発勝負。
-          ラウンド32から決勝までの流れを早見でチェック。
-        </p>
-      </header>
+      <PageHeader
+        eyebrow="試合"
+        title="決勝トーナメント早見"
+        description="グループステージを勝ち抜いた32チームによる一発勝負。ラウンド32から決勝までの流れを早見でチェック。"
+      />
 
       <SectionTabs items={MATCH_TABS} title="試合" />
 

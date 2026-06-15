@@ -5,6 +5,7 @@ import PredictionsSummary, {
   type PredMatch,
 } from "@/components/PredictionsSummary";
 import ExpertsBody from "@/components/predict/ExpertsBody";
+import PageHeader from "@/components/PageHeader";
 
 export const metadata = {
   title: "予想｜自分の勝敗予想と識者の優勝予想｜100倍Wカップ",
@@ -31,16 +32,18 @@ export default async function PredictionsPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
-      <header className="mb-6">
-        <div className="colors-stripe-thin w-16 rounded-full mb-3" />
-        <h1 className="text-3xl font-bold mb-1">予想</h1>
-        <p className="text-muted text-sm leading-relaxed">
-          自分の勝敗予想の的中率と、世界の識者の優勝予想。どちらもここで。
-          <span className="block text-[11px] mt-1">
-            ※ 自分の予想はこの端末内（ブラウザ）にのみ保存されます。
-          </span>
-        </p>
-      </header>
+      <PageHeader
+        eyebrow="楽しむ"
+        title="予想"
+        description={
+          <>
+            自分の勝敗予想の的中率と、世界の識者の優勝予想。どちらもここで。
+            <span className="block text-[11px] mt-1">
+              ※ 自分の予想はこの端末内（ブラウザ）にのみ保存されます。
+            </span>
+          </>
+        }
+      />
 
       <Tabs
         tabs={[

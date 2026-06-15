@@ -8,6 +8,7 @@ import {
   watchCaveats,
   broadcastAsOf,
 } from "@/data/broadcast";
+import PageHeader from "@/components/PageHeader";
 
 export const metadata = {
   title: "W杯はどこで見る？｜日本の放送・配信ガイド｜100倍Wカップ",
@@ -27,14 +28,16 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 export default function WatchPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
-      <header className="mb-6">
-        <div className="colors-stripe-thin w-16 rounded-full mb-3" />
-        <h1 className="text-3xl font-bold mb-1">W杯はどこで見る？</h1>
-        <p className="text-muted text-sm leading-relaxed">
-          2026ワールドカップを日本で見る方法をまとめました。
-          <span className="block text-[11px] mt-1">※ {broadcastAsOf}</span>
-        </p>
-      </header>
+      <PageHeader
+        eyebrow="観戦ガイド"
+        title="W杯はどこで見る？"
+        description={
+          <>
+            2026ワールドカップを日本で見る方法をまとめました。
+            <span className="block text-[11px] mt-1">※ {broadcastAsOf}</span>
+          </>
+        }
+      />
 
       {/* かんたん結論 */}
       <section className="mb-10">

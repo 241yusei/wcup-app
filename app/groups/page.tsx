@@ -3,6 +3,7 @@ import { getMatches } from "@/lib/football";
 import { computeStandings, hasResults, type Row } from "@/lib/standings";
 import { getTeam } from "@/data/teams";
 import SectionTabs, { MATCH_TABS } from "@/components/layout/SectionTabs";
+import PageHeader from "@/components/PageHeader";
 
 
 export const metadata = {
@@ -58,18 +59,18 @@ export default async function GroupsPage() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
-      <header className="mb-6 flex items-end justify-between gap-4">
-        <div>
-          <div className="colors-stripe-thin w-16 rounded-full mb-3" />
-          <h1 className="text-3xl font-bold mb-1">グループ順位表</h1>
-          <p className="text-muted text-sm leading-relaxed">
+      <PageHeader
+        eyebrow="試合"
+        title="グループ順位表"
+        description={
+          <>
             全12組（A〜L）の組み合わせと勝点。
             {started
               ? "結果をリアルタイム反映中。"
               : "開幕までは組み合わせ表として表示します。"}
-          </p>
-        </div>
-      </header>
+          </>
+        }
+      />
 
       <SectionTabs items={MATCH_TABS} title="試合" />
 

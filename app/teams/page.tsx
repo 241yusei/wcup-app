@@ -2,26 +2,25 @@ import Link from "next/link";
 import Image from "next/image";
 import { teams } from "@/data/teams";
 import FavoriteStar from "@/components/FavoriteStar";
+import PageHeader from "@/components/PageHeader";
 
 export default function TeamsPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
-      <header className="mb-8 flex items-end justify-between gap-4">
-        <div>
-          <div className="colors-stripe-thin w-16 rounded-full mb-3" />
-          <h1 className="text-3xl font-bold mb-1">各国図鑑</h1>
-          <p className="text-muted">
-            戦術の特徴・注目選手・直近の状況・サッカー外の小ネタまで。気になる国をタップ。
-          </p>
-        </div>
-        <Image
-          src="/mascot-ball.png"
-          alt=""
-          width={84}
-          height={204}
-          className="hidden sm:block shrink-0 drop-shadow-lg"
-        />
-      </header>
+      <PageHeader
+        eyebrow="図鑑"
+        title="各国図鑑"
+        description="戦術の特徴・注目選手・直近の状況・サッカー外の小ネタまで。気になる国をタップ。"
+        action={
+          <Image
+            src="/mascot-ball.png"
+            alt=""
+            width={84}
+            height={204}
+            className="hidden sm:block shrink-0 drop-shadow-lg"
+          />
+        }
+      />
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {teams.map((t) => (

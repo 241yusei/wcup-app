@@ -18,7 +18,9 @@ function TeamSide({ code, align }: { code: string; align: "l" | "r" }) {
       }`}
     >
       <span className="text-2xl">{t?.flag ?? "🏳️"}</span>
-      <span className="font-bold leading-tight">{t?.name ?? code}</span>
+      <span className="font-bold leading-tight text-[15px] sm:text-base">
+        {t?.name ?? code}
+      </span>
     </Link>
   );
 }
@@ -44,11 +46,11 @@ export default function MatchCard({ match }: { match: Match }) {
             </span>
           )}
           {match.group && (
-            <span className="text-[10px] font-bold rounded px-1.5 py-0.5 bg-jpnavy/10 text-jpnavy">
+            <span className="text-[10px] font-bold rounded-full px-1.5 py-0.5 bg-jpnavy/10 text-jpnavy">
               組{match.group}
             </span>
           )}
-          <span className="font-medium">{match.stage}</span>
+          <span className="font-medium tracking-wide">{match.stage}</span>
         </div>
         <div className="flex items-center gap-2">
           <LiveBadge utcDate={match.utcDate} status={match.status} />
@@ -63,8 +65,8 @@ export default function MatchCard({ match }: { match: Match }) {
         <TeamSide code={match.homeCode} align="l" />
         <div className="px-2 text-center min-w-14">
           {finished ? (
-            <div className="text-xl font-bold">
-              {match.homeScore} - {match.awayScore}
+            <div className="text-2xl font-extrabold tnum tracking-tight">
+              {match.homeScore}<span className="text-muted font-bold mx-0.5">-</span>{match.awayScore}
             </div>
           ) : (
             <div className="text-sm text-muted font-medium">vs</div>
