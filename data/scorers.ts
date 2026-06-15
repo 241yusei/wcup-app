@@ -10,9 +10,9 @@ export interface ScorerNote {
 }
 
 export const scorerMeta: ScorerNote = {
-  asOf: "2026年6月13日時点（第1節終了分を反映）",
+  asOf: "2026年6月15日時点（日本のグループF初戦まで反映）",
   caveat:
-    "開幕から2日分の実際の得点をまとめています。公式APIへの接続前のため手動更新です。本命ウォッチリストは大会前評価にもとづく編集部の見立てです。",
+    "各国の初戦を中心に実際の得点をまとめています。公式APIへの接続前のため手動更新です。本命ウォッチリストは大会前評価にもとづく編集部の見立てです。",
 };
 
 // 現時点で確定している大会得点（フォールバック日程で FINISHED の試合から）。
@@ -29,6 +29,27 @@ export const currentScorers: CurrentScorer[] = [
     teamCode: "USA",
     goals: 2,
     note: "USA×パラグアイ戦で2得点（ブレイス）",
+  },
+  // SWE 4-1 TUN（6/15）：イサクが2得点
+  {
+    player: "アレクサンデル・イサク",
+    teamCode: "SWE",
+    goals: 2,
+    note: "スウェーデン×チュニジア戦で2得点（ブレイス）",
+  },
+  // NED 2-2 JPN（6/15）：中村敬斗が日本の1号ゴール（久保のアシスト）
+  {
+    player: "中村 敬斗",
+    teamCode: "JPN",
+    goals: 1,
+    note: "オランダ戦 日本の大会1号ゴール（久保のアシスト）",
+  },
+  // NED 2-2 JPN（6/15）：鎌田大地が土壇場の同点弾
+  {
+    player: "鎌田 大地",
+    teamCode: "JPN",
+    goals: 1,
+    note: "オランダ戦 88分の劇的同点弾",
   },
   // 開幕戦 MEX 2-0 RSA（6/11）：J・キニョネスが第1号ゴール
   {
@@ -92,6 +113,41 @@ export const currentScorers: CurrentScorer[] = [
     teamCode: "PAR",
     goals: 1,
     note: "USA×パラグアイ戦 1点返す",
+  },
+  // NED 2-2 JPN（6/15）：ファン・ダイクが先制
+  {
+    player: "フィルジル・ファン・ダイク",
+    teamCode: "NED",
+    goals: 1,
+    note: "日本戦 後半50分の先制点",
+  },
+  // NED 2-2 JPN（6/15）：サマービルが勝ち越し
+  {
+    player: "クリセンシオ・サマービル",
+    teamCode: "NED",
+    goals: 1,
+    note: "日本戦 後半64分の勝ち越し点",
+  },
+  // SWE 4-1 TUN（6/15）：ヨケレス
+  {
+    player: "ヴィクトル・ヨケレス",
+    teamCode: "SWE",
+    goals: 1,
+    note: "チュニジア戦 得点",
+  },
+  // SWE 4-1 TUN（6/15）：スバンベリ
+  {
+    player: "マッティアス・スバンベリ",
+    teamCode: "SWE",
+    goals: 1,
+    note: "チュニジア戦 得点",
+  },
+  // SWE 4-1 TUN（6/15）：チュニジアの一矢
+  {
+    player: "オマル・レキク",
+    teamCode: "TUN",
+    goals: 1,
+    note: "スウェーデン戦 チュニジアの1点",
   },
 ];
 

@@ -218,6 +218,7 @@ function expandGroups(): Match[] {
 // グループF（日本）— 裏取り済みデータを保持。
 const groupF: Match[] = [
   // 第1節 日本×オランダ 現地6/14 15:00 CDT → JST 6/15 05:00
+  // 結果: オランダ 2-2 日本（日本が2度追いつき勝点1）
   {
     id: "m-f1a",
     utcDate: "2026-06-14T20:00:00Z",
@@ -228,9 +229,12 @@ const groupF: Match[] = [
     venue: "アーリントン（ダラス）",
     city: "アーリントン（ダラス都市圏）",
     stadium: "AT&Tスタジアム",
-    status: "SCHEDULED",
+    status: "FINISHED",
+    homeScore: 2,
+    awayScore: 2,
   },
   // 第1節 スウェーデン×チュニジア 現地6/14 20:00 CST → JST 6/15 11:00
+  // 結果: スウェーデン 4-1 チュニジア（イサク2発）
   {
     id: "m-f1b",
     utcDate: "2026-06-15T02:00:00Z",
@@ -241,7 +245,9 @@ const groupF: Match[] = [
     venue: "モンテレイ",
     city: "モンテレイ（メキシコ）",
     stadium: "エスタディオBBVA",
-    status: "SCHEDULED",
+    status: "FINISHED",
+    homeScore: 4,
+    awayScore: 1,
   },
   // 第2節 日本×チュニジア 現地6/20 22:00 CST → JST 6/21 13:00
   {
