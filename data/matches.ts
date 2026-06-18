@@ -181,10 +181,10 @@ const OVERRIDE: Record<string, Partial<Match>> = {
   "B-1-a": { status: "FINISHED", homeScore: 1, awayScore: 1 },
   // グループD 第1節 アメリカ×パラグアイ（ロサンゼルス）→ USA 4-1 PAR
   "D-1-a": { status: "FINISHED", homeScore: 4, awayScore: 1 },
-  // グループC 注目カード ブラジル×モロッコ（2022準決勝級の好カード）
-  "C-1-a": { id: "m-c1" },
-  // グループL 注目カード イングランド×クロアチア（2018準決勝の再戦）
-  "L-1-a": { id: "m-l1" },
+  // グループC 注目カード ブラジル×モロッコ（2022準決勝級の好カード）→ BRA 1-1 MAR
+  "C-1-a": { id: "m-c1", status: "FINISHED", homeScore: 1, awayScore: 1 },
+  // グループL 注目カード イングランド×クロアチア（2018準決勝の再戦）→ ENG 4-2 CRO（ケイン2発）
+  "L-1-a": { id: "m-l1", status: "FINISHED", homeScore: 4, awayScore: 2 },
 };
 
 function expandGroups(): Match[] {
@@ -234,7 +234,7 @@ const groupF: Match[] = [
     awayScore: 2,
   },
   // 第1節 スウェーデン×チュニジア 現地6/14 20:00 CST → JST 6/15 11:00
-  // 結果: スウェーデン 4-1 チュニジア（イサク2発）
+  // 結果: スウェーデン 5-1 チュニジア（5発快勝で首位発進）
   {
     id: "m-f1b",
     utcDate: "2026-06-15T02:00:00Z",
@@ -246,7 +246,7 @@ const groupF: Match[] = [
     city: "モンテレイ（メキシコ）",
     stadium: "エスタディオBBVA",
     status: "FINISHED",
-    homeScore: 4,
+    homeScore: 5,
     awayScore: 1,
   },
   // 第2節 日本×チュニジア 現地6/20 22:00 CST → JST 6/21 13:00
