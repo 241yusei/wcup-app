@@ -89,7 +89,7 @@ const GROUP_PLANS: GroupPlan[] = [
   },
   {
     g: "C",
-    order: ["BRA", "MAR", "SCO", "HAI"],
+    order: ["BRA", "MAR", "HAI", "SCO"],
     days: [
       { date: "2026-06-13", v: ["NYNJ", "PHL"], t: ["22:00", "19:00"] },
       { date: "2026-06-19", v: ["NYNJ", "BOS"], t: ["22:00", "19:00"] },
@@ -98,7 +98,7 @@ const GROUP_PLANS: GroupPlan[] = [
   },
   {
     g: "D",
-    order: ["USA", "PAR", "TUR", "AUS"],
+    order: ["USA", "PAR", "AUS", "TUR"],
     days: [
       { date: "2026-06-13", v: ["LA", "SF"], t: ["01:00", "03:00"] },
       { date: "2026-06-19", v: ["SF", "SEA"], t: ["01:00", "22:00"] },
@@ -107,7 +107,7 @@ const GROUP_PLANS: GroupPlan[] = [
   },
   {
     g: "E",
-    order: ["GER", "ECU", "CIV", "CUW"],
+    order: ["GER", "CUW", "CIV", "ECU"],
     days: [
       { date: "2026-06-13", v: ["ATL", "MIA"], t: ["16:00", "19:00"] },
       { date: "2026-06-19", v: ["HOU", "ATL"], t: ["16:00", "23:00"] },
@@ -126,7 +126,7 @@ const GROUP_PLANS: GroupPlan[] = [
   },
   {
     g: "H",
-    order: ["ESP", "URU", "KSA", "CPV"],
+    order: ["ESP", "CPV", "KSA", "URU"],
     days: [
       { date: "2026-06-15", v: ["SF", "LA"], t: ["16:00", "19:00"] },
       { date: "2026-06-21", v: ["VAN", "SF"], t: ["20:00", "23:00"] },
@@ -135,7 +135,7 @@ const GROUP_PLANS: GroupPlan[] = [
   },
   {
     g: "I",
-    order: ["FRA", "SEN", "NOR", "IRQ"],
+    order: ["FRA", "SEN", "IRQ", "NOR"],
     days: [
       { date: "2026-06-16", v: ["PHL", "BOS"], t: ["16:00", "19:00"] },
       { date: "2026-06-22", v: ["NYNJ", "PHL"], t: ["16:00", "23:00"] },
@@ -144,7 +144,7 @@ const GROUP_PLANS: GroupPlan[] = [
   },
   {
     g: "J",
-    order: ["ARG", "AUT", "ALG", "JOR"],
+    order: ["ARG", "ALG", "AUT", "JOR"],
     days: [
       { date: "2026-06-16", v: ["MIA", "ATL"], t: ["22:00", "19:00"] },
       { date: "2026-06-22", v: ["HOU", "MIA"], t: ["19:00", "23:00"] },
@@ -153,7 +153,7 @@ const GROUP_PLANS: GroupPlan[] = [
   },
   {
     g: "K",
-    order: ["POR", "COL", "COD", "UZB"],
+    order: ["POR", "COD", "UZB", "COL"],
     days: [
       { date: "2026-06-17", v: ["HOU", "GDL"], t: ["16:00", "19:00"] },
       { date: "2026-06-23", v: ["AZT", "HOU"], t: ["02:00", "23:00"] },
@@ -172,19 +172,90 @@ const GROUP_PLANS: GroupPlan[] = [
 ];
 
 // 既存IDや結果を保持するための上書き（キー: `${組}-${節}-${a|b}`）。
+// スコアは2026-06-20時点（全12組の第1節＋A〜D組の第2節が消化済み）。
+// home/away は order 配列の並び（home=先に来るチーム）に対応。
 const OVERRIDE: Record<string, Partial<Match>> = {
-  // 開幕戦（メキシコシティ・アステカ）現地6/11 13:00 CT → JST 6/12 04:00、結果 2-0
+  // ── グループA（第1〜2節 消化）──
+  // 開幕戦（アステカ）メキシコ 2-0 南アフリカ
   "A-1-a": { id: "m-open", status: "FINISHED", homeScore: 2, awayScore: 0 },
-  // グループA 第2試合 韓国×チェコ（グアダラハラ）→ KOR 2-1 CZE
+  // 韓国 2-1 チェコ
   "A-1-b": { status: "FINISHED", homeScore: 2, awayScore: 1 },
-  // グループB 第1節 カナダ×ボスニア（トロント）→ CAN 1-1 BIH
+  // メキシコ 1-0 韓国（メキシコが最速で決勝T進出）
+  "A-2-a": { status: "FINISHED", homeScore: 1, awayScore: 0 },
+  // チェコ 1-1 南アフリカ
+  "A-2-b": { status: "FINISHED", homeScore: 1, awayScore: 1 },
+
+  // ── グループB（第1〜2節 消化）──
+  // カナダ 1-1 ボスニア
   "B-1-a": { status: "FINISHED", homeScore: 1, awayScore: 1 },
-  // グループD 第1節 アメリカ×パラグアイ（ロサンゼルス）→ USA 4-1 PAR
+  // カタール 1-1 スイス
+  "B-1-b": { status: "FINISHED", homeScore: 1, awayScore: 1 },
+  // カナダ 6-0 カタール（J・デイビッドがハット・自国開催初勝利）
+  "B-2-a": { status: "FINISHED", homeScore: 6, awayScore: 0 },
+  // スイス 4-1 ボスニア
+  "B-2-b": { status: "FINISHED", homeScore: 4, awayScore: 1 },
+
+  // ── グループC（第1〜2節 消化）──
+  // 注目カード ブラジル 1-1 モロッコ
+  "C-1-a": { id: "m-c1", status: "FINISHED", homeScore: 1, awayScore: 1 },
+  // ハイチ 0-1 スコットランド
+  "C-1-b": { status: "FINISHED", homeScore: 0, awayScore: 1 },
+  // ブラジル 3-0 ハイチ
+  "C-2-a": { status: "FINISHED", homeScore: 3, awayScore: 0 },
+  // スコットランド 0-1 モロッコ
+  "C-2-b": { status: "FINISHED", homeScore: 0, awayScore: 1 },
+
+  // ── グループD（第1〜2節 消化）──
+  // アメリカ 4-1 パラグアイ
   "D-1-a": { status: "FINISHED", homeScore: 4, awayScore: 1 },
-  // グループC 注目カード ブラジル×モロッコ（2022準決勝級の好カード）
-  "C-1-a": { id: "m-c1" },
-  // グループL 注目カード イングランド×クロアチア（2018準決勝の再戦）
-  "L-1-a": { id: "m-l1" },
+  // オーストラリア 2-0 トルコ
+  "D-1-b": { status: "FINISHED", homeScore: 2, awayScore: 0 },
+  // アメリカ 2-0 オーストラリア（最速で決勝T進出）
+  "D-2-a": { status: "FINISHED", homeScore: 2, awayScore: 0 },
+  // トルコ 0-1 パラグアイ
+  "D-2-b": { status: "FINISHED", homeScore: 0, awayScore: 1 },
+
+  // ── グループE（第1節のみ）──
+  // ドイツ 7-1 キュラソー
+  "E-1-a": { status: "FINISHED", homeScore: 7, awayScore: 1 },
+  // コートジボワール 1-0 エクアドル
+  "E-1-b": { status: "FINISHED", homeScore: 1, awayScore: 0 },
+
+  // ── グループG（第1節のみ）──
+  // ベルギー 1-1 エジプト
+  "G-1-a": { status: "FINISHED", homeScore: 1, awayScore: 1 },
+  // イラン 2-2 ニュージーランド
+  "G-1-b": { status: "FINISHED", homeScore: 2, awayScore: 2 },
+
+  // ── グループH（第1節のみ）──
+  // スペイン 0-0 カーボベルデ（大波乱）
+  "H-1-a": { status: "FINISHED", homeScore: 0, awayScore: 0 },
+  // サウジアラビア 1-1 ウルグアイ
+  "H-1-b": { status: "FINISHED", homeScore: 1, awayScore: 1 },
+
+  // ── グループI（第1節のみ）──
+  // フランス 3-1 セネガル（ムバッペ2発）
+  "I-1-a": { status: "FINISHED", homeScore: 3, awayScore: 1 },
+  // イラク 1-4 ノルウェー（ハーランド2発）
+  "I-1-b": { status: "FINISHED", homeScore: 1, awayScore: 4 },
+
+  // ── グループJ（第1節のみ）──
+  // アルゼンチン 3-0 アルジェリア（メッシがW杯初ハット）
+  "J-1-a": { status: "FINISHED", homeScore: 3, awayScore: 0 },
+  // オーストリア 3-1 ヨルダン（後半AT12分のPKで決着）
+  "J-1-b": { status: "FINISHED", homeScore: 3, awayScore: 1 },
+
+  // ── グループK（第1節のみ）──
+  // ポルトガル 1-1 DRコンゴ（コンゴがW杯初勝点）
+  "K-1-a": { status: "FINISHED", homeScore: 1, awayScore: 1 },
+  // ウズベキスタン 1-3 コロンビア
+  "K-1-b": { status: "FINISHED", homeScore: 1, awayScore: 3 },
+
+  // ── グループL（第1節のみ）──
+  // 注目カード イングランド 4-2 クロアチア
+  "L-1-a": { id: "m-l1", status: "FINISHED", homeScore: 4, awayScore: 2 },
+  // ガーナ 1-0 パナマ
+  "L-1-b": { status: "FINISHED", homeScore: 1, awayScore: 0 },
 };
 
 function expandGroups(): Match[] {
@@ -234,7 +305,7 @@ const groupF: Match[] = [
     awayScore: 2,
   },
   // 第1節 スウェーデン×チュニジア 現地6/14 20:00 CST → JST 6/15 11:00
-  // 結果: スウェーデン 4-1 チュニジア（イサク2発）
+  // 結果: スウェーデン 5-1 チュニジア（アヤリ2発、イサク・ヨケレスら）
   {
     id: "m-f1b",
     utcDate: "2026-06-15T02:00:00Z",
@@ -246,7 +317,7 @@ const groupF: Match[] = [
     city: "モンテレイ（メキシコ）",
     stadium: "エスタディオBBVA",
     status: "FINISHED",
-    homeScore: 4,
+    homeScore: 5,
     awayScore: 1,
   },
   // 第2節 日本×チュニジア 現地6/20 22:00 CST → JST 6/21 13:00

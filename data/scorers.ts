@@ -1,7 +1,5 @@
 // 得点ランキング（ゴールデンブーツ・レース）。
-// ※本アプリはフォールバック日程ベースのため、ライブの得点データは未連携。
-//   下記は「大会前評価による得点王の本命ウォッチリスト（編集部）」＋
-//   「現時点で確定している得点（開幕戦など）」を示す。公式の最新スタッツは
+// ※実際の得点を手動集計したフォールバック表示。公式の最新スタッツは
 //   DAZN／FIFA公式で確認のこと。実APIが繋がれば現在順位が自動で埋まる設計。
 
 export interface ScorerNote {
@@ -10,12 +8,12 @@ export interface ScorerNote {
 }
 
 export const scorerMeta: ScorerNote = {
-  asOf: "2026年6月15日時点（日本のグループF初戦まで反映）",
+  asOf: "2026年6月20日時点（全12組の第1節＋A〜D組の第2節を反映）",
   caveat:
-    "各国の初戦を中心に実際の得点をまとめています。公式APIへの接続前のため手動更新です。本命ウォッチリストは大会前評価にもとづく編集部の見立てです。",
+    "実際の得点を手動集計したゴールデンブーツ・レースの暫定ランキングです（2得点以上の選手を掲載。1得点の選手は多数のため割愛）。本命ウォッチリストは大会前評価にもとづく編集部の見立てです。",
 };
 
-// 現時点で確定している大会得点（フォールバック日程で FINISHED の試合から）。
+// 現時点の得点ランキング（2得点以上）。FINISHED の試合から集計。
 export interface CurrentScorer {
   player: string;
   teamCode: string;
@@ -23,131 +21,89 @@ export interface CurrentScorer {
   note?: string;
 }
 export const currentScorers: CurrentScorer[] = [
-  // USA 4-1 PAR（6/12）：バログンが2得点
+  {
+    player: "リオネル・メッシ",
+    teamCode: "ARG",
+    goals: 3,
+    note: "アルジェリア戦でW杯初ハットトリック（通算16点でクローゼに並ぶ）",
+  },
+  {
+    player: "ジョナサン・デイビッド",
+    teamCode: "CAN",
+    goals: 3,
+    note: "カタール戦でハットトリック（カナダ自国開催初勝利）",
+  },
+  {
+    player: "サイル・ラリン",
+    teamCode: "CAN",
+    goals: 2,
+    note: "ボスニア戦・カタール戦で連続得点",
+  },
+  {
+    player: "イスマエル・サイバリ",
+    teamCode: "MAR",
+    goals: 2,
+    note: "ブラジル戦・スコットランド戦で得点",
+  },
+  {
+    player: "ヴィニシウス・ジュニオール",
+    teamCode: "BRA",
+    goals: 2,
+    note: "モロッコ戦・ハイチ戦で得点",
+  },
+  {
+    player: "マテウス・クーニャ",
+    teamCode: "BRA",
+    goals: 2,
+    note: "ハイチ戦で2得点（ブレイス）",
+  },
   {
     player: "フォラリン・バログン",
     teamCode: "USA",
     goals: 2,
-    note: "USA×パラグアイ戦で2得点（ブレイス）",
+    note: "パラグアイ戦で2得点（ブレイス）",
   },
-  // SWE 4-1 TUN（6/15）：イサクが2得点
   {
-    player: "アレクサンデル・イサク",
+    player: "カイ・ハフェルツ",
+    teamCode: "GER",
+    goals: 2,
+    note: "キュラソー戦で2得点（7-1の大勝）",
+  },
+  {
+    player: "ヤシン・アヤリ",
     teamCode: "SWE",
     goals: 2,
-    note: "スウェーデン×チュニジア戦で2得点（ブレイス）",
+    note: "チュニジア戦で2得点（ブレイス）",
   },
-  // NED 2-2 JPN（6/15）：中村敬斗が日本の1号ゴール（久保のアシスト）
   {
-    player: "中村 敬斗",
-    teamCode: "JPN",
-    goals: 1,
-    note: "オランダ戦 日本の大会1号ゴール（久保のアシスト）",
+    player: "キリアン・ムバッペ",
+    teamCode: "FRA",
+    goals: 2,
+    note: "セネガル戦で2得点。仏代表歴代最多得点者に",
   },
-  // NED 2-2 JPN（6/15）：鎌田大地が土壇場の同点弾
   {
-    player: "鎌田 大地",
-    teamCode: "JPN",
-    goals: 1,
-    note: "オランダ戦 88分の劇的同点弾",
+    player: "アーリング・ハーランド",
+    teamCode: "NOR",
+    goals: 2,
+    note: "W杯デビューのイラク戦で2得点",
   },
-  // 開幕戦 MEX 2-0 RSA（6/11）：J・キニョネスが第1号ゴール
   {
-    player: "フリアン・キニョネス",
-    teamCode: "MEX",
-    goals: 1,
-    note: "開幕戦 大会第1号ゴール",
+    player: "ハリー・ケイン",
+    teamCode: "ENG",
+    goals: 2,
+    note: "クロアチア戦で2得点（うち1点はPK）",
   },
-  // 開幕戦 MEX 2-0 RSA（6/11）：R・ヒメネスが追加点
   {
-    player: "ラウル・ヒメネス",
-    teamCode: "MEX",
-    goals: 1,
-    note: "開幕戦 追加点（頭蓋骨骨折から復活）",
+    player: "ヨハン・マンザンビ",
+    teamCode: "SUI",
+    goals: 2,
+    note: "ボスニア戦で2得点（4-1の勝利）",
   },
-  // KOR 2-1 CZE（6/11）：ファン・インボムが同点弾＋1アシスト
   {
-    player: "ファン・インボム",
-    teamCode: "KOR",
-    goals: 1,
-    note: "韓国×チェコ 同点弾（1G1A）",
-  },
-  // KOR 2-1 CZE（6/11）：オ・ヒョンギュが途中出場から決勝ゴール
-  {
-    player: "オ・ヒョンギュ",
-    teamCode: "KOR",
-    goals: 1,
-    note: "韓国×チェコ 途中出場から決勝ゴール",
-  },
-  // KOR 2-1 CZE（6/11）：クレイチーが先制点
-  {
-    player: "ラディスラフ・クレイチー",
-    teamCode: "CZE",
-    goals: 1,
-    note: "韓国×チェコ 先制点（ヘディング）",
-  },
-  // CAN 1-1 BIH（6/12）：ルキッチが先制
-  {
-    player: "ジョヴォ・ルキッチ",
-    teamCode: "BIH",
-    goals: 1,
-    note: "カナダ×ボスニア 先制点（代表初ゴール）",
-  },
-  // CAN 1-1 BIH（6/12）：ラリンが後半同点弾
-  {
-    player: "サイル・ラリン",
-    teamCode: "CAN",
-    goals: 1,
-    note: "カナダ×ボスニア 後半78分同点弾",
-  },
-  // USA 4-1 PAR（6/12）：レイナがダメ押し
-  {
-    player: "ジオ・レイナ",
-    teamCode: "USA",
-    goals: 1,
-    note: "USA×パラグアイ戦 ダメ押しゴール",
-  },
-  // USA 4-1 PAR（6/12）：マウリシオが1点返す
-  {
-    player: "マウリシオ",
-    teamCode: "PAR",
-    goals: 1,
-    note: "USA×パラグアイ戦 1点返す",
-  },
-  // NED 2-2 JPN（6/15）：ファン・ダイクが先制
-  {
-    player: "フィルジル・ファン・ダイク",
-    teamCode: "NED",
-    goals: 1,
-    note: "日本戦 後半50分の先制点",
-  },
-  // NED 2-2 JPN（6/15）：サマービルが勝ち越し
-  {
-    player: "クリセンシオ・サマービル",
-    teamCode: "NED",
-    goals: 1,
-    note: "日本戦 後半64分の勝ち越し点",
-  },
-  // SWE 4-1 TUN（6/15）：ヨケレス
-  {
-    player: "ヴィクトル・ヨケレス",
-    teamCode: "SWE",
-    goals: 1,
-    note: "チュニジア戦 得点",
-  },
-  // SWE 4-1 TUN（6/15）：スバンベリ
-  {
-    player: "マッティアス・スバンベリ",
-    teamCode: "SWE",
-    goals: 1,
-    note: "チュニジア戦 得点",
-  },
-  // SWE 4-1 TUN（6/15）：チュニジアの一矢
-  {
-    player: "オマル・レキク",
-    teamCode: "TUN",
-    goals: 1,
-    note: "スウェーデン戦 チュニジアの1点",
+    player: "イライジャ・ジャスト",
+    teamCode: "NZL",
+    goals: 2,
+    note: "イラン戦で2得点（2-2のドロー）",
   },
 ];
 

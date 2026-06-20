@@ -514,12 +514,69 @@ export const news: NewsItem[] = [
   {
     id: "20260615-grpf",
     category: "serious",
-    title: "グループF混戦へ スウェーデンがチュニジアに4-1快勝 首位発進",
+    title: "グループF混戦へ スウェーデンがチュニジアに5-1快勝 首位発進",
     summary:
-      "日本と同じグループFのもう1試合では、スウェーデンがチュニジアを4-1で撃破。アレクサンデル・イサクが2得点、ヨケレス、スバンベリも続いた。第1節を終えてグループFはスウェーデンが勝点3で首位、日本とオランダが勝点1、チュニジアが0。日本は第2戦でそのチュニジア（6/21・モンテレイ）と対戦する。ここで勝点3を取れば突破が大きく近づく。",
-    sourceName: "The Blazing Musket",
-    sourceUrl: "https://www.theblazingmusket.com/2026-fifa-world-cup-group-f-recaps-sweden-tunisia-japan-netherlands-goal-highlights/",
+      "日本と同じグループFのもう1試合では、スウェーデンがチュニジアを5-1で撃破。ヤシン・アヤリが2得点、イサク、ヨケレス、スバンベリも続いた。第1節を終えてグループFはスウェーデンが勝点3で首位、日本とオランダが勝点1、チュニジアが0。日本は第2戦でそのチュニジア（6/21・モンテレイ）と対戦する。ここで勝点3を取れば突破が大きく近づく。",
+    sourceName: "ESPN",
+    sourceUrl: "https://www.espn.com/soccer/story/_/id/49064457/sweden-tunisia-live-world-cup-2026",
     date: "2026-06-15",
+    tag: "試合結果",
+  },
+
+  // ─── 第2節〜各組第1節 総まとめ（ファクトチェック済み 2026-06-20）───
+  {
+    id: "20260620-qualified",
+    category: "serious",
+    title: "メキシコとアメリカが最速で決勝T進出 ともに2連勝で各組首位",
+    summary:
+      "開催国の2チームが一足先に突破を決めた。メキシコは韓国を1-0、アメリカはオーストラリアを2-0で下し、ともに2連勝・勝点6でグループ首位に。48チーム・新フォーマット最初の大会で、上位2位＋成績上位の3位8チームがラウンド32へ進む。一方トルコ・ハイチはすでに敗退濃厚と明暗が分かれた。",
+    sourceName: "NPR",
+    sourceUrl: "https://www.npr.org/2026/06/19/g-s1-129056/mexico-becomes-first-country-to-reach-knockout-stage-of-world-cup",
+    date: "2026-06-20",
+    tag: "試合結果",
+  },
+  {
+    id: "20260620-messi",
+    category: "serious",
+    title: "メッシがW杯初ハットトリック アルゼンチンがアルジェリアを3-0",
+    summary:
+      "前回王者アルゼンチンのリオネル・メッシが、アルジェリア戦で自身W杯史上初となるハットトリックを達成し3-0で快勝。通算W杯得点を16に伸ばし、歴代最多記録を持つミロスラフ・クローゼに並んだ。38歳にして衰え知らずのレジェンドが、連覇へ向け最高の発進を切った。",
+    sourceName: "Sky Sports",
+    sourceUrl: "https://www.skysports.com/football/argentina-vs-algeria/report/549784",
+    date: "2026-06-20",
+    tag: "試合結果",
+  },
+  {
+    id: "20260620-capeverde",
+    category: "serious",
+    title: "大波乱 W杯初出場カーボベルデがスペインと0-0 優勝候補を完封",
+    summary:
+      "人口約50万人、W杯初出場のカーボベルデが、優勝候補で欧州王者のスペインを相手に0-0のドローを演じる大金星。40歳の守護神ヴォジーニャが再三の好守でゴールを死守した。新フォーマットで増えた“小国”が、さっそく大会に旋風を巻き起こしている。",
+    sourceName: "Sky Sports",
+    sourceUrl: "https://www.skysports.com/football/spain-vs-cape-verde/report/549780",
+    date: "2026-06-20",
+    tag: "試合結果",
+  },
+  {
+    id: "20260620-stars",
+    category: "serious",
+    title: "ムバッペは仏代表歴代最多得点者に ハーランドもW杯デビューで2発",
+    summary:
+      "スター候補も順調だ。フランスのキリアン・ムバッペはセネガル戦で2得点し、ジルーを抜いて代表歴代最多得点者に。28年ぶり出場ノルウェーのアーリング・ハーランドもイラク戦（4-1）でW杯デビュー2得点。カナダのジョナサン・デイビッドはカタール戦でハットトリックを記録し、得点ランキングでメッシと並んでトップに立った。",
+    sourceName: "Al Jazeera",
+    sourceUrl: "https://www.aljazeera.com/sports/2026/6/16/mbappe-brace-fires-france-to-3-1-win-over-senegal-in-world-cup-2026-opener",
+    date: "2026-06-20",
+    tag: "試合結果",
+  },
+  {
+    id: "20260620-upsets",
+    category: "fun",
+    title: "波乱と劇的弾の連続 オーストリアは後半AT12分のPKで36年ぶり白星",
+    summary:
+      "第1節は番狂わせとドラマの宝庫に。オーストリアはヨルダン戦の後半アディショナルタイム12分、VAR判定のPKをアルナウトビッチが沈めて36年ぶりのW杯勝利。コートジボワールは終了間際のアマド・ディアロ弾でエクアドルの19戦無敗を止めた。DRコンゴはポルトガルと1-1で初の勝点をもぎ取り、ガーナもパナマを土壇場の一撃で下した。",
+    sourceName: "Al Jazeera",
+    sourceUrl: "https://www.aljazeera.com/sports/2026/6/17/austria-vs-jordan-fifa-world-cup-2026-marko-arnautovic-goal-penalty-football",
+    date: "2026-06-20",
     tag: "試合結果",
   },
 ];
