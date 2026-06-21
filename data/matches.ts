@@ -215,11 +215,15 @@ const OVERRIDE: Record<string, Partial<Match>> = {
   // トルコ 0-1 パラグアイ
   "D-2-b": { status: "FINISHED", homeScore: 0, awayScore: 1 },
 
-  // ── グループE（第1節のみ）──
+  // ── グループE（第1〜2節 消化）──
   // ドイツ 7-1 キュラソー
   "E-1-a": { status: "FINISHED", homeScore: 7, awayScore: 1 },
   // コートジボワール 1-0 エクアドル
   "E-1-b": { status: "FINISHED", homeScore: 1, awayScore: 0 },
+  // ドイツ 2-1 コートジボワール（ウンダフが94分弾で決勝T進出）
+  "E-2-a": { status: "FINISHED", homeScore: 2, awayScore: 1 },
+  // エクアドル 0-0 キュラソー
+  "E-2-b": { status: "FINISHED", homeScore: 0, awayScore: 0 },
 
   // ── グループG（第1節のみ）──
   // ベルギー 1-1 エジプト
@@ -321,6 +325,7 @@ const groupF: Match[] = [
     awayScore: 1,
   },
   // 第2節 日本×チュニジア 現地6/20 22:00 CST → JST 6/21 13:00
+  // 結果: 日本 4-0 チュニジア（上田2発・鎌田・伊東。日本W杯初の1試合4得点）
   {
     id: "m-f2a",
     utcDate: "2026-06-21T04:00:00Z",
@@ -331,9 +336,12 @@ const groupF: Match[] = [
     venue: "モンテレイ",
     city: "モンテレイ（メキシコ）",
     stadium: "エスタディオBBVA",
-    status: "SCHEDULED",
+    status: "FINISHED",
+    homeScore: 4,
+    awayScore: 0,
   },
   // 第2節 オランダ×スウェーデン 現地6/20 12:00 CDT → JST 6/21 02:00
+  // 結果: オランダ 5-1 スウェーデン（ブロビー・ハクポが各2得点）
   {
     id: "m-f2b",
     utcDate: "2026-06-20T17:00:00Z",
@@ -344,7 +352,9 @@ const groupF: Match[] = [
     venue: "ヒューストン",
     city: "ヒューストン（テキサス州）",
     stadium: "NRGスタジアム",
-    status: "SCHEDULED",
+    status: "FINISHED",
+    homeScore: 5,
+    awayScore: 1,
   },
   // 第3節 日本×スウェーデン 現地6/25 18:00 CDT → JST 6/26 08:00
   {
