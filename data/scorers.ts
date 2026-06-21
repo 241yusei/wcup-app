@@ -8,7 +8,7 @@ export interface ScorerNote {
 }
 
 export const scorerMeta: ScorerNote = {
-  asOf: "2026年6月20日時点（全12組の第1節＋A〜D組の第2節を反映）",
+  asOf: "2026年6月21日時点（全12組の第1節＋A〜F組の第2節を反映）",
   caveat:
     "実際の得点を手動集計したゴールデンブーツ・レースの暫定ランキングです（2得点以上の選手を掲載。1得点の選手は多数のため割愛）。本命ウォッチリストは大会前評価にもとづく編集部の見立てです。",
 };
@@ -32,6 +32,12 @@ export const currentScorers: CurrentScorer[] = [
     teamCode: "CAN",
     goals: 3,
     note: "カタール戦でハットトリック（カナダ自国開催初勝利）",
+  },
+  {
+    player: "デニス・ウンダフ",
+    teamCode: "GER",
+    goals: 3,
+    note: "途中出場でコートジボワール戦に2発（94分の決勝弾）",
   },
   {
     player: "サイル・ラリン",
@@ -104,6 +110,36 @@ export const currentScorers: CurrentScorer[] = [
     teamCode: "NZL",
     goals: 2,
     note: "イラン戦で2得点（2-2のドロー）",
+  },
+  {
+    player: "上田 綺世",
+    teamCode: "JPN",
+    goals: 2,
+    note: "チュニジア戦で2得点（4-0の快勝）",
+  },
+  {
+    player: "鎌田 大地",
+    teamCode: "JPN",
+    goals: 2,
+    note: "オランダ戦の同点弾＋チュニジア戦の先制弾",
+  },
+  {
+    player: "クリセンシオ・サマービル",
+    teamCode: "NED",
+    goals: 2,
+    note: "日本戦・スウェーデン戦で得点",
+  },
+  {
+    player: "ブライアン・ブロビー",
+    teamCode: "NED",
+    goals: 2,
+    note: "スウェーデン戦で2得点（ブレイス）",
+  },
+  {
+    player: "コディ・ハクポ",
+    teamCode: "NED",
+    goals: 2,
+    note: "スウェーデン戦で2得点（ブレイス）",
   },
 ];
 
