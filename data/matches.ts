@@ -255,11 +255,99 @@ const OVERRIDE: Record<string, Partial<Match>> = {
   // ウズベキスタン 1-3 コロンビア
   "K-1-b": { status: "FINISHED", homeScore: 1, awayScore: 3 },
 
-  // ── グループL（第1節のみ）──
+  // ── グループL（第1〜3節 消化）──
   // 注目カード イングランド 4-2 クロアチア
   "L-1-a": { id: "m-l1", status: "FINISHED", homeScore: 4, awayScore: 2 },
   // ガーナ 1-0 パナマ
   "L-1-b": { status: "FINISHED", homeScore: 1, awayScore: 0 },
+  // イングランド 0-0 ガーナ
+  "L-2-a": { status: "FINISHED", homeScore: 0, awayScore: 0 },
+  // パナマ 0-1 クロアチア
+  "L-2-b": { status: "FINISHED", homeScore: 0, awayScore: 1 },
+  // パナマ 0-2 イングランド
+  "L-3-a": { status: "FINISHED", homeScore: 0, awayScore: 2 },
+  // クロアチア 2-1 ガーナ
+  "L-3-b": { status: "FINISHED", homeScore: 2, awayScore: 1 },
+
+  // ── グループA（第3節 消化）──
+  // チェコ 0-3 メキシコ
+  "A-3-a": { status: "FINISHED", homeScore: 0, awayScore: 3 },
+  // 南アフリカ 1-0 韓国
+  "A-3-b": { status: "FINISHED", homeScore: 1, awayScore: 0 },
+
+  // ── グループB（第3節 消化）──
+  // スイス 2-1 カナダ
+  "B-3-a": { status: "FINISHED", homeScore: 2, awayScore: 1 },
+  // ボスニア 3-1 カタール
+  "B-3-b": { status: "FINISHED", homeScore: 3, awayScore: 1 },
+
+  // ── グループC（第3節 消化）──
+  // スコットランド 0-3 ブラジル（ヴィニシウス2発）
+  "C-3-a": { status: "FINISHED", homeScore: 0, awayScore: 3 },
+  // モロッコ 4-2 ハイチ
+  "C-3-b": { status: "FINISHED", homeScore: 4, awayScore: 2 },
+
+  // ── グループD（第3節 消化）──
+  // トルコ 3-2 アメリカ
+  "D-3-a": { status: "FINISHED", homeScore: 3, awayScore: 2 },
+  // パラグアイ 0-0 オーストラリア
+  "D-3-b": { status: "FINISHED", homeScore: 0, awayScore: 0 },
+
+  // ── グループE（第3節 消化）──
+  // エクアドル 2-1 ドイツ
+  "E-3-a": { status: "FINISHED", homeScore: 2, awayScore: 1 },
+  // キュラソー 0-2 コートジボワール（ペペ2発）
+  "E-3-b": { status: "FINISHED", homeScore: 0, awayScore: 2 },
+
+  // ── グループG（第2〜3節 消化）──
+  // ベルギー 0-0 イラン
+  "G-2-a": { status: "FINISHED", homeScore: 0, awayScore: 0 },
+  // ニュージーランド 1-3 エジプト
+  "G-2-b": { status: "FINISHED", homeScore: 1, awayScore: 3 },
+  // ニュージーランド 1-5 ベルギー（トロッサール2発）
+  "G-3-a": { status: "FINISHED", homeScore: 1, awayScore: 5 },
+  // エジプト 1-1 イラン
+  "G-3-b": { status: "FINISHED", homeScore: 1, awayScore: 1 },
+
+  // ── グループH（第2〜3節 消化）──
+  // スペイン 4-0 サウジアラビア
+  "H-2-a": { status: "FINISHED", homeScore: 4, awayScore: 0 },
+  // ウルグアイ 2-2 カーボベルデ
+  "H-2-b": { status: "FINISHED", homeScore: 2, awayScore: 2 },
+  // ウルグアイ 0-1 スペイン（バエナ42分）
+  "H-3-a": { status: "FINISHED", homeScore: 0, awayScore: 1 },
+  // カーボベルデ 0-0 サウジアラビア
+  "H-3-b": { status: "FINISHED", homeScore: 0, awayScore: 0 },
+
+  // ── グループI（第2〜3節 消化）──
+  // フランス 3-0 イラク（ムバッペ2発）
+  "I-2-a": { status: "FINISHED", homeScore: 3, awayScore: 0 },
+  // ノルウェー 3-2 セネガル（ハーランド2発）
+  "I-2-b": { status: "FINISHED", homeScore: 3, awayScore: 2 },
+  // ノルウェー 1-4 フランス（デンベレ・ハットトリック）
+  "I-3-a": { status: "FINISHED", homeScore: 1, awayScore: 4 },
+  // セネガル 5-0 イラク（ゲイェ2発）
+  "I-3-b": { status: "FINISHED", homeScore: 5, awayScore: 0 },
+
+  // ── グループJ（第2〜3節 消化）──
+  // アルゼンチン 2-0 オーストリア（メッシ2発）
+  "J-2-a": { status: "FINISHED", homeScore: 2, awayScore: 0 },
+  // ヨルダン 1-2 アルジェリア
+  "J-2-b": { status: "FINISHED", homeScore: 1, awayScore: 2 },
+  // ヨルダン 1-3 アルゼンチン（メッシ、ロ・セルソ、マルティネス）
+  "J-3-a": { status: "FINISHED", homeScore: 1, awayScore: 3 },
+  // アルジェリア 3-3 オーストリア（マフレズ2発の劇的引き分け）
+  "J-3-b": { status: "FINISHED", homeScore: 3, awayScore: 3 },
+
+  // ── グループK（第2〜3節 消化）──
+  // ポルトガル 5-0 ウズベキスタン（ロナウド2発）
+  "K-2-a": { status: "FINISHED", homeScore: 5, awayScore: 0 },
+  // コロンビア 1-0 DRコンゴ
+  "K-2-b": { status: "FINISHED", homeScore: 1, awayScore: 0 },
+  // コロンビア 0-0 ポルトガル
+  "K-3-a": { status: "FINISHED", homeScore: 0, awayScore: 0 },
+  // DRコンゴ 3-1 ウズベキスタン（ウィサ2発）
+  "K-3-b": { status: "FINISHED", homeScore: 3, awayScore: 1 },
 };
 
 function expandGroups(): Match[] {
@@ -357,6 +445,7 @@ const groupF: Match[] = [
     awayScore: 1,
   },
   // 第3節 日本×スウェーデン 現地6/25 18:00 CDT → JST 6/26 08:00
+  // 結果: 日本 1-1 スウェーデン（前田大然56分・エランガ62分。両チーム2位・3位で突破）
   {
     id: "m-f3a",
     utcDate: "2026-06-25T23:00:00Z",
@@ -367,9 +456,12 @@ const groupF: Match[] = [
     venue: "アーリントン（ダラス）",
     city: "アーリントン（ダラス都市圏）",
     stadium: "AT&Tスタジアム",
-    status: "SCHEDULED",
+    status: "FINISHED",
+    homeScore: 1,
+    awayScore: 1,
   },
   // 第3節 チュニジア×オランダ 現地6/25 18:00 CDT → JST 6/26 08:00
+  // 結果: チュニジア 1-3 オランダ（スヒリOG3分・ブロビー7分・マストゥーリ54分・ファン・ヘッケ62分）
   {
     id: "m-f3b",
     utcDate: "2026-06-25T23:00:00Z",
@@ -380,7 +472,9 @@ const groupF: Match[] = [
     venue: "カンザスシティ",
     city: "カンザスシティ（ミズーリ州）",
     stadium: "アローヘッド・スタジアム",
-    status: "SCHEDULED",
+    status: "FINISHED",
+    homeScore: 1,
+    awayScore: 3,
   },
 ];
 
@@ -392,7 +486,8 @@ function ko(
   date: string,
   time: string,
   hostKey: HostKey,
-  teams?: { home: string; away: string }
+  teams?: { home: string; away: string },
+  result?: { homeScore: number; awayScore: number }
 ): Match {
   const host = HOST[hostKey];
   return {
@@ -404,17 +499,19 @@ function ko(
     venue: host.city,
     city: host.city,
     stadium: host.stadium,
-    status: "SCHEDULED",
+    status: result ? "FINISHED" : "SCHEDULED",
+    ...(result ? { homeScore: result.homeScore, awayScore: result.awayScore } : {}),
   };
 }
 
 const knockout: Match[] = [
   // ── ラウンド32（6/28〜7/3）48チーム中32チームが進出。W杯史上初の追加ラウンド ──
-  ko("m-r32", "ラウンド32", "2026-06-28", "23:00", "NYNJ"),
+  ko("m-r32", "ラウンド32", "2026-06-28", "23:00", "NYNJ", { home: "NED", away: "MAR" }),
   ko("m-r32-2", "ラウンド32", "2026-06-28", "19:00", "DAL"),
-  ko("m-r32-3", "ラウンド32", "2026-06-29", "16:00", "LA"),
-  ko("m-r32-4", "ラウンド32", "2026-06-29", "19:00", "HOU"),
-  ko("m-r32-5", "ラウンド32", "2026-06-29", "22:00", "ATL"),
+  // カナダ 1-0 南アフリカ（エウスタキオ 90+2'）6/28現地 → JST 6/29 朝
+  ko("m-r32-3", "ラウンド32", "2026-06-28", "23:00", "LA", { home: "CAN", away: "RSA" }, { homeScore: 1, awayScore: 0 }),
+  ko("m-r32-4", "ラウンド32", "2026-06-29", "17:00", "HOU", { home: "BRA", away: "JPN" }),
+  ko("m-r32-5", "ラウンド32", "2026-06-29", "20:30", "ATL", { home: "GER", away: "PAR" }),
   ko("m-r32-6", "ラウンド32", "2026-06-30", "18:00", "SEA"),
   ko("m-r32-7", "ラウンド32", "2026-06-30", "21:00", "PHL"),
   ko("m-r32-8", "ラウンド32", "2026-06-30", "23:00", "KAN"),

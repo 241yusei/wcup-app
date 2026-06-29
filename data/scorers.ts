@@ -8,7 +8,7 @@ export interface ScorerNote {
 }
 
 export const scorerMeta: ScorerNote = {
-  asOf: "2026年6月21日時点（全12組の第1節＋A〜F組の第2節を反映）",
+  asOf: "2026年6月29日時点（全グループステージ48試合＋ラウンド32第1戦を反映）",
   caveat:
     "実際の得点を手動集計したゴールデンブーツ・レースの暫定ランキングです（2得点以上の選手を掲載。1得点の選手は多数のため割愛）。本命ウォッチリストは大会前評価にもとづく編集部の見立てです。",
 };
@@ -24,8 +24,32 @@ export const currentScorers: CurrentScorer[] = [
   {
     player: "リオネル・メッシ",
     teamCode: "ARG",
-    goals: 3,
-    note: "アルジェリア戦でW杯初ハットトリック（通算16点でクローゼに並ぶ）",
+    goals: 6,
+    note: "アルジェリア戦ハットトリック→オーストリア戦2発→ヨルダン戦1発（グループJ全3節で計6得点）",
+  },
+  {
+    player: "ウスマン・デンベレ",
+    teamCode: "FRA",
+    goals: 4,
+    note: "イラク戦1発→ノルウェー戦でハットトリック（3節計4得点。フランスが3戦全勝の原動力）",
+  },
+  {
+    player: "ヴィニシウス・ジュニオール",
+    teamCode: "BRA",
+    goals: 4,
+    note: "モロッコ戦・ハイチ戦各1発→スコットランド戦で2発（グループC計4得点）",
+  },
+  {
+    player: "キリアン・ムバッペ",
+    teamCode: "FRA",
+    goals: 4,
+    note: "セネガル戦2発→イラク戦2発（仏代表歴代最多得点記録を更新中）",
+  },
+  {
+    player: "アーリング・ハーランド",
+    teamCode: "NOR",
+    goals: 4,
+    note: "W杯デビューのイラク戦2発→セネガル戦でも2発（グループI計4得点）",
   },
   {
     player: "ジョナサン・デイビッド",
@@ -37,31 +61,43 @@ export const currentScorers: CurrentScorer[] = [
     player: "デニス・ウンダフ",
     teamCode: "GER",
     goals: 3,
-    note: "途中出場でコートジボワール戦に2発（94分の決勝弾）",
+    note: "途中出場でキュラソー戦1発・コートジボワール戦94分決勝弾など計3得点",
+  },
+  {
+    player: "マテウス・クーニャ",
+    teamCode: "BRA",
+    goals: 3,
+    note: "ハイチ戦ブレイス→スコットランド戦でも1発（計3得点）",
+  },
+  {
+    player: "ブライアン・ブロビー",
+    teamCode: "NED",
+    goals: 3,
+    note: "スウェーデン戦ブレイス→チュニジア戦1発（計3得点）",
+  },
+  {
+    player: "イライジャ・ジャスト",
+    teamCode: "NZL",
+    goals: 3,
+    note: "イラン戦2発→ベルギー戦でも1発（計3得点）",
+  },
+  {
+    player: "イスマエル・サイバリ",
+    teamCode: "MAR",
+    goals: 3,
+    note: "ブラジル戦・スコットランド戦・ハイチ戦で各1点（計3得点）",
+  },
+  {
+    player: "ハリー・ケイン",
+    teamCode: "ENG",
+    goals: 3,
+    note: "クロアチア戦2発→パナマ戦1発（計3得点）",
   },
   {
     player: "サイル・ラリン",
     teamCode: "CAN",
     goals: 2,
     note: "ボスニア戦・カタール戦で連続得点",
-  },
-  {
-    player: "イスマエル・サイバリ",
-    teamCode: "MAR",
-    goals: 2,
-    note: "ブラジル戦・スコットランド戦で得点",
-  },
-  {
-    player: "ヴィニシウス・ジュニオール",
-    teamCode: "BRA",
-    goals: 2,
-    note: "モロッコ戦・ハイチ戦で得点",
-  },
-  {
-    player: "マテウス・クーニャ",
-    teamCode: "BRA",
-    goals: 2,
-    note: "ハイチ戦で2得点（ブレイス）",
   },
   {
     player: "フォラリン・バログン",
@@ -82,34 +118,10 @@ export const currentScorers: CurrentScorer[] = [
     note: "チュニジア戦で2得点（ブレイス）",
   },
   {
-    player: "キリアン・ムバッペ",
-    teamCode: "FRA",
+    player: "鎌田 大地",
+    teamCode: "JPN",
     goals: 2,
-    note: "セネガル戦で2得点。仏代表歴代最多得点者に",
-  },
-  {
-    player: "アーリング・ハーランド",
-    teamCode: "NOR",
-    goals: 2,
-    note: "W杯デビューのイラク戦で2得点",
-  },
-  {
-    player: "ハリー・ケイン",
-    teamCode: "ENG",
-    goals: 2,
-    note: "クロアチア戦で2得点（うち1点はPK）",
-  },
-  {
-    player: "ヨハン・マンザンビ",
-    teamCode: "SUI",
-    goals: 2,
-    note: "ボスニア戦で2得点（4-1の勝利）",
-  },
-  {
-    player: "イライジャ・ジャスト",
-    teamCode: "NZL",
-    goals: 2,
-    note: "イラン戦で2得点（2-2のドロー）",
+    note: "オランダ戦の同点弾＋チュニジア戦の先制弾",
   },
   {
     player: "上田 綺世",
@@ -118,28 +130,64 @@ export const currentScorers: CurrentScorer[] = [
     note: "チュニジア戦で2得点（4-0の快勝）",
   },
   {
-    player: "鎌田 大地",
-    teamCode: "JPN",
-    goals: 2,
-    note: "オランダ戦の同点弾＋チュニジア戦の先制弾",
-  },
-  {
     player: "クリセンシオ・サマービル",
     teamCode: "NED",
     goals: 2,
     note: "日本戦・スウェーデン戦で得点",
   },
   {
-    player: "ブライアン・ブロビー",
+    player: "コディ・ハクポ",
     teamCode: "NED",
     goals: 2,
     note: "スウェーデン戦で2得点（ブレイス）",
   },
   {
-    player: "コディ・ハクポ",
-    teamCode: "NED",
+    player: "ヨハン・マンザンビ",
+    teamCode: "SUI",
     goals: 2,
-    note: "スウェーデン戦で2得点（ブレイス）",
+    note: "ボスニア戦で2得点（4-1の勝利）",
+  },
+  {
+    player: "レアンドロ・トロッサール",
+    teamCode: "BEL",
+    goals: 2,
+    note: "ニュージーランド戦で2得点（5-1の大勝）",
+  },
+  {
+    player: "マルコ・オヤルサバル",
+    teamCode: "ESP",
+    goals: 2,
+    note: "サウジアラビア戦で2得点（4-0の快勝）",
+  },
+  {
+    player: "クリスティアーノ・ロナウド",
+    teamCode: "POR",
+    goals: 2,
+    note: "ウズベキスタン戦で2得点（5-0の大勝）",
+  },
+  {
+    player: "パペ・マタル・ゲイェ",
+    teamCode: "SEN",
+    goals: 2,
+    note: "イラク戦で2得点（5-0の快勝）",
+  },
+  {
+    player: "イスマイラ・サール",
+    teamCode: "SEN",
+    goals: 2,
+    note: "ノルウェー戦・イラク戦で各1点",
+  },
+  {
+    player: "リヤド・マフレズ",
+    teamCode: "ALG",
+    goals: 2,
+    note: "オーストリア戦で2発（3-3の劇的引き分け）",
+  },
+  {
+    player: "ヨアネ・ウィサ",
+    teamCode: "COD",
+    goals: 2,
+    note: "ウズベキスタン戦で2得点（3-1の勝利）",
   },
 ];
 
