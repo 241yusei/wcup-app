@@ -45,6 +45,9 @@ export interface Match {
   status: "SCHEDULED" | "LIVE" | "FINISHED";
   homeScore?: number;
   awayScore?: number;
+  extraTime?: boolean; // 延長戦にもつれた試合
+  pkHome?: number; // PK戦（あれば）
+  pkAway?: number;
 }
 
 export interface NewsItem {

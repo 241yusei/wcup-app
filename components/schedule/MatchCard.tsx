@@ -65,9 +65,17 @@ export default function MatchCard({ match }: { match: Match }) {
         <TeamSide code={match.homeCode} align="l" />
         <div className="px-2 text-center min-w-14">
           {finished ? (
-            <div className="text-2xl font-extrabold tnum tracking-tight">
-              {match.homeScore}<span className="text-muted font-bold mx-0.5">-</span>{match.awayScore}
-            </div>
+            <>
+              <div className="text-2xl font-extrabold tnum tracking-tight">
+                {match.homeScore}<span className="text-muted font-bold mx-0.5">-</span>{match.awayScore}
+              </div>
+              {(match.extraTime || match.pkHome != null) && (
+                <div className="text-[10px] text-muted mt-0.5">
+                  {match.extraTime && "延長"}
+                  {match.pkHome != null && ` PK${match.pkHome}-${match.pkAway}`}
+                </div>
+              )}
+            </>
           ) : (
             <div className="text-sm text-muted font-medium">vs</div>
           )}
