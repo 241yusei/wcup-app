@@ -181,9 +181,17 @@ export default async function MatchDetail({
             </Link>
             <div className="text-center shrink-0">
               {finished ? (
-                <div className="text-2xl font-extrabold">
-                  {match.homeScore} - {match.awayScore}
-                </div>
+                <>
+                  <div className="text-2xl font-extrabold">
+                    {match.homeScore} - {match.awayScore}
+                  </div>
+                  {(match.extraTime || match.pkHome != null) && (
+                    <div className="text-xs text-muted mt-1">
+                      {match.extraTime && "延長 "}
+                      {match.pkHome != null && `PK ${match.pkHome}-${match.pkAway}`}
+                    </div>
+                  )}
+                </>
               ) : (
                 <div className="text-sm text-muted font-bold">vs</div>
               )}

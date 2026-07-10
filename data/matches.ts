@@ -255,11 +255,99 @@ const OVERRIDE: Record<string, Partial<Match>> = {
   // ウズベキスタン 1-3 コロンビア
   "K-1-b": { status: "FINISHED", homeScore: 1, awayScore: 3 },
 
-  // ── グループL（第1節のみ）──
+  // ── グループL（第1〜3節 消化）──
   // 注目カード イングランド 4-2 クロアチア
   "L-1-a": { id: "m-l1", status: "FINISHED", homeScore: 4, awayScore: 2 },
   // ガーナ 1-0 パナマ
   "L-1-b": { status: "FINISHED", homeScore: 1, awayScore: 0 },
+  // イングランド 0-0 ガーナ
+  "L-2-a": { status: "FINISHED", homeScore: 0, awayScore: 0 },
+  // パナマ 0-1 クロアチア
+  "L-2-b": { status: "FINISHED", homeScore: 0, awayScore: 1 },
+  // パナマ 0-2 イングランド
+  "L-3-a": { status: "FINISHED", homeScore: 0, awayScore: 2 },
+  // クロアチア 2-1 ガーナ
+  "L-3-b": { status: "FINISHED", homeScore: 2, awayScore: 1 },
+
+  // ── グループA（第3節 消化）──
+  // チェコ 0-3 メキシコ
+  "A-3-a": { status: "FINISHED", homeScore: 0, awayScore: 3 },
+  // 南アフリカ 1-0 韓国
+  "A-3-b": { status: "FINISHED", homeScore: 1, awayScore: 0 },
+
+  // ── グループB（第3節 消化）──
+  // スイス 2-1 カナダ
+  "B-3-a": { status: "FINISHED", homeScore: 2, awayScore: 1 },
+  // ボスニア 3-1 カタール
+  "B-3-b": { status: "FINISHED", homeScore: 3, awayScore: 1 },
+
+  // ── グループC（第3節 消化）──
+  // スコットランド 0-3 ブラジル（ヴィニシウス2発）
+  "C-3-a": { status: "FINISHED", homeScore: 0, awayScore: 3 },
+  // モロッコ 4-2 ハイチ
+  "C-3-b": { status: "FINISHED", homeScore: 4, awayScore: 2 },
+
+  // ── グループD（第3節 消化）──
+  // トルコ 3-2 アメリカ
+  "D-3-a": { status: "FINISHED", homeScore: 3, awayScore: 2 },
+  // パラグアイ 0-0 オーストラリア
+  "D-3-b": { status: "FINISHED", homeScore: 0, awayScore: 0 },
+
+  // ── グループE（第3節 消化）──
+  // エクアドル 2-1 ドイツ
+  "E-3-a": { status: "FINISHED", homeScore: 2, awayScore: 1 },
+  // キュラソー 0-2 コートジボワール（ペペ2発）
+  "E-3-b": { status: "FINISHED", homeScore: 0, awayScore: 2 },
+
+  // ── グループG（第2〜3節 消化）──
+  // ベルギー 0-0 イラン
+  "G-2-a": { status: "FINISHED", homeScore: 0, awayScore: 0 },
+  // ニュージーランド 1-3 エジプト
+  "G-2-b": { status: "FINISHED", homeScore: 1, awayScore: 3 },
+  // ニュージーランド 1-5 ベルギー（トロッサール2発）
+  "G-3-a": { status: "FINISHED", homeScore: 1, awayScore: 5 },
+  // エジプト 1-1 イラン
+  "G-3-b": { status: "FINISHED", homeScore: 1, awayScore: 1 },
+
+  // ── グループH（第2〜3節 消化）──
+  // スペイン 4-0 サウジアラビア
+  "H-2-a": { status: "FINISHED", homeScore: 4, awayScore: 0 },
+  // ウルグアイ 2-2 カーボベルデ
+  "H-2-b": { status: "FINISHED", homeScore: 2, awayScore: 2 },
+  // ウルグアイ 0-1 スペイン（バエナ42分）
+  "H-3-a": { status: "FINISHED", homeScore: 0, awayScore: 1 },
+  // カーボベルデ 0-0 サウジアラビア
+  "H-3-b": { status: "FINISHED", homeScore: 0, awayScore: 0 },
+
+  // ── グループI（第2〜3節 消化）──
+  // フランス 3-0 イラク（ムバッペ2発）
+  "I-2-a": { status: "FINISHED", homeScore: 3, awayScore: 0 },
+  // ノルウェー 3-2 セネガル（ハーランド2発）
+  "I-2-b": { status: "FINISHED", homeScore: 3, awayScore: 2 },
+  // ノルウェー 1-4 フランス（デンベレ・ハットトリック）
+  "I-3-a": { status: "FINISHED", homeScore: 1, awayScore: 4 },
+  // セネガル 5-0 イラク（ゲイェ2発）
+  "I-3-b": { status: "FINISHED", homeScore: 5, awayScore: 0 },
+
+  // ── グループJ（第2〜3節 消化）──
+  // アルゼンチン 2-0 オーストリア（メッシ2発）
+  "J-2-a": { status: "FINISHED", homeScore: 2, awayScore: 0 },
+  // ヨルダン 1-2 アルジェリア
+  "J-2-b": { status: "FINISHED", homeScore: 1, awayScore: 2 },
+  // ヨルダン 1-3 アルゼンチン（メッシ、ロ・セルソ、マルティネス）
+  "J-3-a": { status: "FINISHED", homeScore: 1, awayScore: 3 },
+  // アルジェリア 3-3 オーストリア（マフレズ2発の劇的引き分け）
+  "J-3-b": { status: "FINISHED", homeScore: 3, awayScore: 3 },
+
+  // ── グループK（第2〜3節 消化）──
+  // ポルトガル 5-0 ウズベキスタン（ロナウド2発）
+  "K-2-a": { status: "FINISHED", homeScore: 5, awayScore: 0 },
+  // コロンビア 1-0 DRコンゴ
+  "K-2-b": { status: "FINISHED", homeScore: 1, awayScore: 0 },
+  // コロンビア 0-0 ポルトガル
+  "K-3-a": { status: "FINISHED", homeScore: 0, awayScore: 0 },
+  // DRコンゴ 3-1 ウズベキスタン（ウィサ2発）
+  "K-3-b": { status: "FINISHED", homeScore: 3, awayScore: 1 },
 };
 
 function expandGroups(): Match[] {
@@ -357,6 +445,7 @@ const groupF: Match[] = [
     awayScore: 1,
   },
   // 第3節 日本×スウェーデン 現地6/25 18:00 CDT → JST 6/26 08:00
+  // 結果: 日本 1-1 スウェーデン（前田大然56分・エランガ62分。両チーム2位・3位で突破）
   {
     id: "m-f3a",
     utcDate: "2026-06-25T23:00:00Z",
@@ -367,9 +456,12 @@ const groupF: Match[] = [
     venue: "アーリントン（ダラス）",
     city: "アーリントン（ダラス都市圏）",
     stadium: "AT&Tスタジアム",
-    status: "SCHEDULED",
+    status: "FINISHED",
+    homeScore: 1,
+    awayScore: 1,
   },
   // 第3節 チュニジア×オランダ 現地6/25 18:00 CDT → JST 6/26 08:00
+  // 結果: チュニジア 1-3 オランダ（スヒリOG3分・ブロビー7分・マストゥーリ54分・ファン・ヘッケ62分）
   {
     id: "m-f3b",
     utcDate: "2026-06-25T23:00:00Z",
@@ -380,7 +472,9 @@ const groupF: Match[] = [
     venue: "カンザスシティ",
     city: "カンザスシティ（ミズーリ州）",
     stadium: "アローヘッド・スタジアム",
-    status: "SCHEDULED",
+    status: "FINISHED",
+    homeScore: 1,
+    awayScore: 3,
   },
 ];
 
@@ -392,7 +486,13 @@ function ko(
   date: string,
   time: string,
   hostKey: HostKey,
-  teams?: { home: string; away: string }
+  teams?: { home: string; away: string },
+  result?: {
+    homeScore: number;
+    awayScore: number;
+    extraTime?: boolean;
+    pk?: { home: number; away: number };
+  }
 ): Match {
   const host = HOST[hostKey];
   return {
@@ -404,44 +504,82 @@ function ko(
     venue: host.city,
     city: host.city,
     stadium: host.stadium,
-    status: "SCHEDULED",
+    status: result ? "FINISHED" : "SCHEDULED",
+    ...(result
+      ? {
+          homeScore: result.homeScore,
+          awayScore: result.awayScore,
+          ...(result.extraTime ? { extraTime: true } : {}),
+          ...(result.pk ? { pkHome: result.pk.home, pkAway: result.pk.away } : {}),
+        }
+      : {}),
   };
 }
 
+// ============================================================================
+// ノックアウト結果（2026-07-09時点でファクトチェック済み）。
+// ラウンド32・ラウンド16は全16＋8試合が終了。準々決勝は7/9のFRA×MARのみ終了、
+// 残り3試合（ESP×BEL／NOR×ENG／ARG×SUI）は7/10〜7/11開催予定。
+// ============================================================================
 const knockout: Match[] = [
   // ── ラウンド32（6/28〜7/3）48チーム中32チームが進出。W杯史上初の追加ラウンド ──
-  ko("m-r32", "ラウンド32", "2026-06-28", "23:00", "NYNJ"),
-  ko("m-r32-2", "ラウンド32", "2026-06-28", "19:00", "DAL"),
-  ko("m-r32-3", "ラウンド32", "2026-06-29", "16:00", "LA"),
-  ko("m-r32-4", "ラウンド32", "2026-06-29", "19:00", "HOU"),
-  ko("m-r32-5", "ラウンド32", "2026-06-29", "22:00", "ATL"),
-  ko("m-r32-6", "ラウンド32", "2026-06-30", "18:00", "SEA"),
-  ko("m-r32-7", "ラウンド32", "2026-06-30", "21:00", "PHL"),
-  ko("m-r32-8", "ラウンド32", "2026-06-30", "23:00", "KAN"),
-  ko("m-r32-9", "ラウンド32", "2026-07-01", "16:00", "SF"),
-  ko("m-r32-10", "ラウンド32", "2026-07-01", "19:00", "MIA"),
-  ko("m-r32-11", "ラウンド32", "2026-07-01", "23:00", "BOS"),
-  ko("m-r32-12", "ラウンド32", "2026-07-02", "19:00", "GDL"),
-  ko("m-r32-13", "ラウンド32", "2026-07-02", "02:00", "MTY"),
-  ko("m-r32-14", "ラウンド32", "2026-07-03", "00:00", "VAN"),
-  ko("m-r32-15", "ラウンド32", "2026-07-03", "19:00", "TOR"),
-  ko("m-r32-16", "ラウンド32", "2026-07-03", "02:00", "AZT"),
+  // 南アフリカ 0-1 カナダ（エウスタキオ 90+2'）
+  ko("m-r32-3", "ラウンド32", "2026-06-28", "23:00", "LA", { home: "CAN", away: "RSA" }, { homeScore: 1, awayScore: 0 }),
+  // ブラジル 2-1 日本（佐野海舟29'先制→カゼミロ56'同点→マルティネッリ90+5'決勝弾。日本はラウンド32で敗退）
+  ko("m-r32-4", "ラウンド32", "2026-06-29", "17:00", "HOU", { home: "BRA", away: "JPN" }, { homeScore: 2, awayScore: 1 }),
+  // ドイツ 1-1 パラグアイ（延長でも決着つかずPK4-3でパラグアイが金星。ドイツ史上初のPK戦敗退）
+  ko("m-r32-5", "ラウンド32", "2026-06-29", "22:00", "BOS", { home: "GER", away: "PAR" }, { homeScore: 1, awayScore: 1, extraTime: true, pk: { home: 3, away: 4 } }),
+  // オランダ 1-1 モロッコ（延長でも決着つかずPK3-2でモロッコが金星。ブヌーがセーブ、サイバリが決勝弾）
+  ko("m-r32", "ラウンド32", "2026-06-30", "02:00", "MTY", { home: "NED", away: "MAR" }, { homeScore: 1, awayScore: 1, extraTime: true, pk: { home: 2, away: 3 } }),
+  // フランス 3-0 スウェーデン（ムバッペ2発・バルコラ）
+  ko("m-r32-2", "ラウンド32", "2026-06-30", "19:00", "NYNJ", { home: "FRA", away: "SWE" }, { homeScore: 3, awayScore: 0 }),
+  // コートジボワール 1-2 ノルウェー（ハーランド86'決勝弾）
+  ko("m-r32-6", "ラウンド32", "2026-06-30", "23:00", "DAL", { home: "CIV", away: "NOR" }, { homeScore: 1, awayScore: 2 }),
+  // メキシコ 2-0 エクアドル（キニョネス・ヒメネス）
+  ko("m-r32-7", "ラウンド32", "2026-07-01", "02:00", "AZT", { home: "MEX", away: "ECU" }, { homeScore: 2, awayScore: 0 }),
+  // イングランド 2-1 DRコンゴ（ケイン2発）
+  ko("m-r32-8", "ラウンド32", "2026-07-01", "19:00", "ATL", { home: "ENG", away: "COD" }, { homeScore: 2, awayScore: 1 }),
+  // アメリカ 2-0 ボスニア（バログン先制も64分に退場、10人で守り切る）
+  ko("m-r32-11", "ラウンド32", "2026-07-01", "20:00", "SF", { home: "USA", away: "BIH" }, { homeScore: 2, awayScore: 0 }),
+  // ベルギー 3-2 セネガル（延長125分、ティーレマンスのPKがW杯史上最も遅い決勝弾に）
+  ko("m-r32-12", "ラウンド32", "2026-07-01", "23:00", "SEA", { home: "BEL", away: "SEN" }, { homeScore: 3, awayScore: 2, extraTime: true }),
+  // ポルトガル 2-1 クロアチア（ロナウドPK・ラモス90+4'）
+  ko("m-r32-9", "ラウンド32", "2026-07-02", "19:00", "TOR", { home: "POR", away: "CRO" }, { homeScore: 2, awayScore: 1 }),
+  // スペイン 3-0 オーストリア（オヤルサバル2発）
+  ko("m-r32-10", "ラウンド32", "2026-07-02", "23:00", "LA", { home: "ESP", away: "AUT" }, { homeScore: 3, awayScore: 0 }),
+  // スイス 2-0 アルジェリア（エンボロ・ンドイエ）
+  ko("m-r32-16", "ラウンド32", "2026-07-02", "19:00", "VAN", { home: "SUI", away: "ALG" }, { homeScore: 2, awayScore: 0 }),
+  // オーストラリア 1-1 エジプト（延長でも決着つかずPK4-2でエジプトが金星。エジプト史上初の決勝T勝利）
+  ko("m-r32-14", "ラウンド32", "2026-07-03", "17:00", "DAL", { home: "AUS", away: "EGY" }, { homeScore: 1, awayScore: 1, extraTime: true, pk: { home: 2, away: 4 } }),
+  // アルゼンチン 3-2 カーボベルデ（延長、メッシ先制・マルティネス決勝弾）
+  ko("m-r32-13", "ラウンド32", "2026-07-03", "19:00", "MIA", { home: "ARG", away: "CPV" }, { homeScore: 3, awayScore: 2, extraTime: true }),
+  // コロンビア 1-0 ガーナ（アリアス14'、スアレスのアシスト）
+  ko("m-r32-15", "ラウンド32", "2026-07-03", "23:00", "KAN", { home: "COL", away: "GHA" }, { homeScore: 1, awayScore: 0 }),
 
   // ── ラウンド16（7/4〜7/7）──
-  ko("m-r16-1", "ラウンド16", "2026-07-04", "19:00", "PHL"),
-  ko("m-r16-2", "ラウンド16", "2026-07-04", "23:00", "DAL"),
-  ko("m-r16-3", "ラウンド16", "2026-07-05", "18:00", "SEA"),
-  ko("m-r16-4", "ラウンド16", "2026-07-05", "22:00", "ATL"),
-  ko("m-r16-5", "ラウンド16", "2026-07-06", "19:00", "NYNJ"),
-  ko("m-r16-6", "ラウンド16", "2026-07-06", "23:00", "LA"),
-  ko("m-r16-7", "ラウンド16", "2026-07-07", "23:00", "KAN"),
-  ko("m-r16-8", "ラウンド16", "2026-07-07", "19:00", "MIA"),
+  // カナダ 0-3 モロッコ（ウナヒ2発・ラヒミ）
+  ko("m-r16-1", "ラウンド16", "2026-07-04", "17:00", "HOU", { home: "CAN", away: "MAR" }, { homeScore: 0, awayScore: 3 }),
+  // フランス 1-0 パラグアイ（ムバッペPK70'）
+  ko("m-r16-2", "ラウンド16", "2026-07-04", "22:00", "PHL", { home: "FRA", away: "PAR" }, { homeScore: 1, awayScore: 0 }),
+  // ブラジル 1-2 ノルウェー（ハーランド2発でブラジル撃破。試合後ネイマールが代表引退表明）
+  ko("m-r16-3", "ラウンド16", "2026-07-05", "19:00", "NYNJ", { home: "BRA", away: "NOR" }, { homeScore: 1, awayScore: 2 }),
+  // メキシコ 2-3 イングランド（ベリンガム2発・ケインPK。メキシコは10人のイングランドに逆転負け）
+  ko("m-r16-4", "ラウンド16", "2026-07-06", "02:00", "AZT", { home: "MEX", away: "ENG" }, { homeScore: 2, awayScore: 3 }),
+  // ポルトガル 0-1 スペイン（メリノ90+1'決勝弾。ロナウド代表最後の一戦か）
+  ko("m-r16-5", "ラウンド16", "2026-07-06", "19:00", "DAL", { home: "POR", away: "ESP" }, { homeScore: 0, awayScore: 1 }),
+  // アメリカ 1-4 ベルギー（デ・ケテラーレ2発でアメリカ大敗）
+  ko("m-r16-6", "ラウンド16", "2026-07-06", "22:00", "SEA", { home: "USA", away: "BEL" }, { homeScore: 1, awayScore: 4 }),
+  // アルゼンチン 3-2 エジプト（0-2から後半終盤3発の大逆転。メッシがW杯通算21点目）
+  ko("m-r16-7", "ラウンド16", "2026-07-07", "19:00", "ATL", { home: "ARG", away: "EGY" }, { homeScore: 3, awayScore: 2 }),
+  // コロンビア 0-0 スイス（延長でも決着つかずPK4-3でスイスが勝利）
+  ko("m-r16-8", "ラウンド16", "2026-07-07", "22:00", "VAN", { home: "COL", away: "SUI" }, { homeScore: 0, awayScore: 0, extraTime: true, pk: { home: 3, away: 4 } }),
 
   // ── 準々決勝（7/9〜7/11）──
-  ko("m-qf-1", "準々決勝", "2026-07-09", "23:00", "BOS"),
-  ko("m-qf-2", "準々決勝", "2026-07-10", "23:00", "LA"),
-  ko("m-qf-3", "準々決勝", "2026-07-11", "16:00", "MIA"),
-  ko("m-qf-4", "準々決勝", "2026-07-11", "23:00", "KAN"),
+  // フランス 2-0 モロッコ（7/9終了。ムバッペが得点ランキング単独トップ視野に）
+  ko("m-qf-1", "準々決勝", "2026-07-09", "23:00", "BOS", { home: "FRA", away: "MAR" }, { homeScore: 2, awayScore: 0 }),
+  ko("m-qf-2", "準々決勝", "2026-07-10", "23:00", "LA", { home: "ESP", away: "BEL" }),
+  ko("m-qf-3", "準々決勝", "2026-07-11", "16:00", "MIA", { home: "NOR", away: "ENG" }),
+  ko("m-qf-4", "準々決勝", "2026-07-11", "23:00", "KAN", { home: "ARG", away: "SUI" }),
 
   // ── 準決勝（7/14ダラス・7/15アトランタ）──
   ko("m-sf-1", "準決勝", "2026-07-14", "23:00", "DAL"),
