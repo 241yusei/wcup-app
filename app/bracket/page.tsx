@@ -7,9 +7,9 @@ import SectionTabs, { MATCH_TABS } from "@/components/layout/SectionTabs";
 import PageHeader from "@/components/PageHeader";
 
 export const metadata = {
-  title: "決勝トーナメント組み合わせ｜準々決勝進行中・日本の軌跡｜100倍Wカップ",
+  title: "決勝トーナメント組み合わせ｜決勝はスペイン×アルゼンチン・日本の軌跡｜100倍Wカップ",
   description:
-    "2026ワールドカップ決勝トーナメント。ラウンド32・ラウンド16の全結果と準々決勝の最新経過、日本代表のブラジル戦（ラウンド32）までの軌跡を掲載。",
+    "2026ワールドカップ決勝トーナメント。ラウンド32から準決勝までの全結果と、7/19の決勝（スペイン×アルゼンチン）・7/18の3位決定戦（フランス×イングランド）の展望、日本代表のブラジル戦（ラウンド32）までの軌跡を掲載。",
 };
 
 // 日本の軌跡（ラウンド32でブラジルに敗退）
@@ -24,8 +24,10 @@ const JAPAN_MATCH_ID = "m-r32-4";
 // R32 [SF:USA-BIH / SEA:BEL-SEN] → R16-6 [USA vs BEL]
 // R32 [MIA:ARG-CPV / DAL:AUS-EGY] → R16-7 [ARG vs EGY]
 // R32 [KAN:COL-GHA / VAN:SUI-ALG] → R16-8 [COL vs SUI]
-// R16-1+R16-2 → QF-1（FRA 2-0 MAR・7/9終了）／R16-5+R16-6 → QF-2（ESP vs BEL・7/10）
-// R16-3+R16-4 → QF-3（NOR vs ENG・7/11）／R16-7+R16-8 → QF-4（ARG vs SUI・7/11）
+// R16-1+R16-2 → QF-1（FRA 2-0 MAR・7/9）／R16-5+R16-6 → QF-2（ESP 2-1 BEL・7/10）
+// R16-3+R16-4 → QF-3（NOR 1-2 ENG・延長・7/11）／R16-7+R16-8 → QF-4（ARG 3-1 SUI・延長・7/11）
+// QF-1+QF-2 → SF-1（FRA 0-2 ESP・7/14）／QF-3+QF-4 → SF-2（ENG 1-2 ARG・7/15）
+// 決勝（7/19 NYNJ）: ESP vs ARG／3位決定戦（7/18 MIA）: FRA vs ENG
 
 const R32_IDS = [
   "m-r32-3", "m-r32", "m-r32-2", "m-r32-5", "m-r32-4", "m-r32-6",
@@ -190,6 +192,7 @@ export default async function BracketPage() {
   const r32Finished = R32_IDS.filter((id) => byId.get(id)?.status === "FINISHED").length;
   const r16Finished = R16_IDS.filter((id) => byId.get(id)?.status === "FINISHED").length;
   const qfFinished = QF_IDS.filter((id) => byId.get(id)?.status === "FINISHED").length;
+  const sfFinished = SF_IDS.filter((id) => byId.get(id)?.status === "FINISHED").length;
 
   // R32 を日付順にまとめる
   const r32Sorted = R32_IDS
@@ -212,17 +215,18 @@ export default async function BracketPage() {
       <PageHeader
         eyebrow="試合"
         title="決勝トーナメント"
-        description="グループステージを勝ち抜いた32チームによる一発勝負。ラウンド32・ラウンド16は全結果確定、準々決勝が進行中。"
+        description="グループステージを勝ち抜いた32チームによる一発勝負。準決勝までの全結果が確定し、決勝はスペイン×アルゼンチンに決定。"
       />
 
       <SectionTabs items={MATCH_TABS} title="試合" />
 
       {/* 進捗バー */}
       <div className="mb-6 rounded-xl border border-line bg-surface p-3 space-y-2 text-sm">
-        <div className="flex items-center justify-between">
-          <span className="font-bold text-jpnavy">ラウンド32：{r32Finished}/16 完了</span>
-          <span className="font-bold text-jpnavy">ラウンド16：{r16Finished}/8 完了</span>
-          <span className="font-bold text-jpred">準々決勝：{qfFinished}/4 完了</span>
+        <div className="flex items-center justify-between flex-wrap gap-y-1">
+          <span className="font-bold text-jpnavy">R32：{r32Finished}/16</span>
+          <span className="font-bold text-jpnavy">R16：{r16Finished}/8</span>
+          <span className="font-bold text-jpnavy">準々決勝：{qfFinished}/4</span>
+          <span className="font-bold text-jpred">準決勝：{sfFinished}/2 完了・決勝カード決定</span>
         </div>
       </div>
 
@@ -327,7 +331,7 @@ export default async function BracketPage() {
       <section className="mb-8">
         <h2 className="text-base font-bold mb-3 flex items-center gap-2">
           🔥 準々決勝
-          <span className="text-xs font-normal text-muted">7/9〜7/11（現地）・進行中</span>
+          <span className="text-xs font-normal text-muted">7/9〜7/11（現地）・全結果確定</span>
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {QF_IDS.map((id) => (
@@ -340,7 +344,7 @@ export default async function BracketPage() {
       <section className="mb-8">
         <h2 className="text-base font-bold mb-3 flex items-center gap-2">
           🏟️ 準決勝
-          <span className="text-xs font-normal text-muted">7/14〜7/15（現地）</span>
+          <span className="text-xs font-normal text-muted">7/14〜7/15（現地）・全結果確定</span>
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {SF_IDS.map((id) => (
@@ -353,12 +357,16 @@ export default async function BracketPage() {
       <section className="mb-10">
         <h2 className="text-base font-bold mb-3 flex items-center gap-2">
           🏆 3位決定戦・決勝
-          <span className="text-xs font-normal text-muted">7/18〜7/19（現地）</span>
+          <span className="text-xs font-normal text-muted">7/18〜7/19（現地）・カード決定</span>
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <BracketCard match={byId.get("m-3rd")} />
-          <BracketCard match={byId.get("m-final")} />
+          <BracketCard match={byId.get("m-final")} highlight />
         </div>
+        <p className="mt-3 text-xs leading-relaxed text-foreground/80">
+          決勝は39歳メッシ擁するアルゼンチンと18歳ラミン・ヤマルのスペインによる初対決。スペインは無敗記録37試合でイタリアの歴代記録に並び、
+          アルゼンチンはメッシがW杯通算得点を歴代最多21点に伸ばして勢いに乗る。前日7/18の3位決定戦は敗れた両準決勝チーム、フランス対イングランド。
+        </p>
         <p className="text-[11px] text-muted mt-2">
           決勝は 7/19（現地）/ 日本時間 7/20 04:00 ニューヨーク・ニュージャージー メットライフスタジアム。
         </p>
@@ -370,7 +378,7 @@ export default async function BracketPage() {
           <p className="font-bold text-foreground mb-1.5">📐 ブラケット構造について</p>
           <p>16ブロックのR32試合が8つのR16へ → 4つの準々決勝 → 2つの準決勝 → 決勝へと続くトーナメント方式。</p>
           <p className="mt-1">日本はブラジルとのラウンド32で敗退。ブラジルもラウンド16でノルウェーに敗れている。</p>
-          <p className="mt-1">準々決勝以降の対戦カードは、各ラウンドの試合が終わるごとに確定します。</p>
+          <p className="mt-1">残る試合は3位決定戦（7/18）と決勝（7/19）の2試合のみ。</p>
         </div>
       </section>
 
