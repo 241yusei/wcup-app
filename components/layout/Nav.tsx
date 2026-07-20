@@ -31,6 +31,7 @@ const PRIMARY: NavItem[] = [
 
 // 「もっと」シートに入れる副次セクション。
 const SECONDARY: NavItem[] = [
+  { href: "/hansei", label: "100倍反省会", icon: "📝" },
   { href: "/story", label: "因縁ストーリー", icon: "🌙" },
   { href: "/predictions", label: "予想", icon: "🔮" },
   { href: "/news", label: "ニュース", icon: "📰" },

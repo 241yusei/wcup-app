@@ -7,9 +7,9 @@ import SectionTabs, { MATCH_TABS } from "@/components/layout/SectionTabs";
 import PageHeader from "@/components/PageHeader";
 
 export const metadata = {
-  title: "決勝トーナメント組み合わせ｜決勝はスペイン×アルゼンチン・日本の軌跡｜100倍Wカップ",
+  title: "決勝トーナメント全結果｜スペイン優勝・日本の軌跡｜100倍Wカップ",
   description:
-    "2026ワールドカップ決勝トーナメント。ラウンド32から準決勝までの全結果と、7/19の決勝（スペイン×アルゼンチン）・7/18の3位決定戦（フランス×イングランド）の展望、日本代表のブラジル戦（ラウンド32）までの軌跡を掲載。",
+    "2026ワールドカップ決勝トーナメントの全結果。スペインが延長でアルゼンチンを1-0で下し16年ぶり2度目の優勝。ラウンド32から決勝までの全試合結果と、日本代表のブラジル戦（ラウンド32）までの軌跡を掲載。",
 };
 
 // 日本の軌跡（ラウンド32でブラジルに敗退）
@@ -27,7 +27,7 @@ const JAPAN_MATCH_ID = "m-r32-4";
 // R16-1+R16-2 → QF-1（FRA 2-0 MAR・7/9）／R16-5+R16-6 → QF-2（ESP 2-1 BEL・7/10）
 // R16-3+R16-4 → QF-3（NOR 1-2 ENG・延長・7/11）／R16-7+R16-8 → QF-4（ARG 3-1 SUI・延長・7/11）
 // QF-1+QF-2 → SF-1（FRA 0-2 ESP・7/14）／QF-3+QF-4 → SF-2（ENG 1-2 ARG・7/15）
-// 決勝（7/19 NYNJ）: ESP vs ARG／3位決定戦（7/18 MIA）: FRA vs ENG
+// 3位決定戦（7/18 MIA）: FRA 4-6 ENG／決勝（7/19 NYNJ）: ESP 1-0 ARG（延長）→ スペイン優勝
 
 const R32_IDS = [
   "m-r32-3", "m-r32", "m-r32-2", "m-r32-5", "m-r32-4", "m-r32-6",
@@ -215,18 +215,24 @@ export default async function BracketPage() {
       <PageHeader
         eyebrow="試合"
         title="決勝トーナメント"
-        description="グループステージを勝ち抜いた32チームによる一発勝負。準決勝までの全結果が確定し、決勝はスペイン×アルゼンチンに決定。"
+        description="グループステージを勝ち抜いた32チームによる一発勝負の全記録。スペインが延長の末アルゼンチンを1-0で下し、16年ぶり2度目の世界一に輝いた。"
       />
 
       <SectionTabs items={MATCH_TABS} title="試合" />
 
-      {/* 進捗バー */}
-      <div className="mb-6 rounded-xl border border-line bg-surface p-3 space-y-2 text-sm">
-        <div className="flex items-center justify-between flex-wrap gap-y-1">
-          <span className="font-bold text-jpnavy">R32：{r32Finished}/16</span>
-          <span className="font-bold text-jpnavy">R16：{r16Finished}/8</span>
-          <span className="font-bold text-jpnavy">準々決勝：{qfFinished}/4</span>
-          <span className="font-bold text-jpred">準決勝：{sfFinished}/2 完了・決勝カード決定</span>
+      {/* 🏆 優勝バナー */}
+      <div className="mb-6 rounded-2xl border-2 border-amber-400 bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-950/30 dark:to-yellow-950/30 p-4">
+        <div className="flex items-center gap-3">
+          <span className="text-4xl">🏆</span>
+          <div>
+            <p className="font-bold text-lg leading-tight">
+              {getTeam("ESP")?.flag} スペインが優勝！
+            </p>
+            <p className="text-xs text-muted mt-0.5">
+              決勝でアルゼンチンを延長1-0で撃破（2010年以来2度目）。大会は全104試合を終えて閉幕。
+              R32：{r32Finished}/16／R16：{r16Finished}/8／準々決勝：{qfFinished}/4／準決勝：{sfFinished}/2 すべて終了。
+            </p>
+          </div>
         </div>
       </div>
 
@@ -357,18 +363,19 @@ export default async function BracketPage() {
       <section className="mb-10">
         <h2 className="text-base font-bold mb-3 flex items-center gap-2">
           🏆 3位決定戦・決勝
-          <span className="text-xs font-normal text-muted">7/18〜7/19（現地）・カード決定</span>
+          <span className="text-xs font-normal text-muted">7/18〜7/19（現地）・全結果確定</span>
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <BracketCard match={byId.get("m-3rd")} />
           <BracketCard match={byId.get("m-final")} highlight />
         </div>
         <p className="mt-3 text-xs leading-relaxed text-foreground/80">
-          決勝は39歳メッシ擁するアルゼンチンと18歳ラミン・ヤマルのスペインによる初対決。スペインは無敗記録37試合でイタリアの歴代記録に並び、
-          アルゼンチンはメッシがW杯通算得点を歴代最多21点に伸ばして勢いに乗る。前日7/18の3位決定戦は敗れた両準決勝チーム、フランス対イングランド。
+          決勝は延長106分、途中出場のフェラン・トレスが決勝点を挙げスペインが1-0で勝利。ボール支配で圧倒し、アルゼンチンを120分間シュート2本に封じた。
+          メッシは史上初の3度目の決勝先発（39歳・フィールドプレーヤー最年長）も無得点で、2連覇の夢は届かなかった。
+          前日の3位決定戦はイングランドが6-4でフランスを下す10ゴールの乱打戦（1982年以来のW杯最多タイ）。サカがハットトリック、ムバッペは2発でW杯歴代最多の通算22得点に到達し、大会得点王（10得点）にも輝いた。
         </p>
         <p className="text-[11px] text-muted mt-2">
-          決勝は 7/19（現地）/ 日本時間 7/20 04:00 ニューヨーク・ニュージャージー メットライフスタジアム。
+          個人賞：MVP（ゴールデンボール）ロドリ／得点王ムバッペ／最優秀GKウナイ・シモン／最優秀ヤングプレーヤーはパウ・クバルシ。
         </p>
       </section>
 
@@ -378,11 +385,14 @@ export default async function BracketPage() {
           <p className="font-bold text-foreground mb-1.5">📐 ブラケット構造について</p>
           <p>16ブロックのR32試合が8つのR16へ → 4つの準々決勝 → 2つの準決勝 → 決勝へと続くトーナメント方式。</p>
           <p className="mt-1">日本はブラジルとのラウンド32で敗退。ブラジルもラウンド16でノルウェーに敗れている。</p>
-          <p className="mt-1">残る試合は3位決定戦（7/18）と決勝（7/19）の2試合のみ。</p>
+          <p className="mt-1">全104試合が終了。優勝スペイン、準優勝アルゼンチン、3位イングランド、4位フランス。</p>
         </div>
       </section>
 
       <div className="flex flex-wrap gap-4">
+        <Link href="/hansei" className="text-sm font-bold text-jpred hover:underline">
+          📝 100倍反省会 — 大会を総括する →
+        </Link>
         <Link href="/groups" className="text-sm font-bold text-jpnavy hover:underline">
           📊 グループ最終順位 →
         </Link>
