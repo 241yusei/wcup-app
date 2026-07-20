@@ -390,6 +390,9 @@ export default async function BracketPage() {
       </section>
 
       <div className="flex flex-wrap gap-4">
+        <Link href="/hansei" className="text-sm font-bold text-jpred hover:underline">
+          📝 100倍反省会 — 大会を総括する →
+        </Link>
         <Link href="/groups" className="text-sm font-bold text-jpnavy hover:underline">
           📊 グループ最終順位 →
         </Link>
